@@ -1,53 +1,53 @@
-<<<<<<< HEAD
-<div class="col-md-2 col-md-offset-5" ng-app="">
-  <%= form_for @live do |f| %>
-    姓名: <%= f.text_field :name, class: "form-control", required: "required", data: {'ng-model' => 'name'} %><br />
-    Gmail : <%= f.text_field :gmail, class: "form-control", type: "email", required: "required", data: {'ng-model' => 'gmail'} %><br />
-    Facebook 網址 : <%= f.text_field :fb_url, class: "form-control", required: "required", data: {'ng-model' => 'fb_url'} %><br />
-    聯絡電話 : <%= f.text_field :phone, class: "form-control", type: "tel", required: "required", data: {'ng-model' => 'phone'} %><br />
-    直播地點 : <%= f.text_field :location, class: "form-control", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
-    <!--Modal open -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-      送出
-    </button>
-    <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">請再次確認您的資料無誤</h4>
-        </div>
-        <div class="modal-body">
-            <p><text class="gray">姓名：</text>
-               <text class="blue">{{name}}</text>
-            </p>
-            <p>
-              <text class="gray">Gmail: </text>
-              <text class="blue">{{gmail}}</text>
-            </p>
-            <p>
-              <text class="gray">Facebook 網址：</text>
-              <text class="blue">{{fb_url}}</text>
-            </p>
-            <p>
-              <text class="gray">聯絡電話：</text>
-              <text class="blue">{{phone}}</text>
-            </p>
-            <p><text class="gray">直播地點：</text>
-               <text class="blue">{{location}}</text>
-            </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">修改資料</button>
-          <%= f.submit "確認無誤", class: "btn btn-primary", id: "submit" %>
+<section class="live_new">
+  <div class="col-md-12" ng-app="">
+    <div class="live_form">
+      <%= form_for @live do |f| %>
+        姓名: <%= f.text_field :name, class: "form-control", required: "required", data: {'ng-model' => 'name'} %><br />
+        Gmail : <%= f.text_field :gmail, class: "form-control", type: "email", required: "required", data: {'ng-model' => 'gmail'} %><br />
+        Facebook 網址 : <%= f.text_field :fb_url, class: "form-control", required: "required", data: {'ng-model' => 'fb_url'} %><br />
+        聯絡電話 : <%= f.text_field :phone, class: "form-control", type: "tel", required: "required", data: {'ng-model' => 'phone'} %><br />
+        直播地點 : <%= f.text_field :location, class: "form-control", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
+        <!--Modal open -->
+        <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">
+          送出
+        </button>
+        <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">請再次確認您的資料無誤</h4>
+            </div>
+            <div class="modal-body">
+                <p><text class="gray">姓名：</text>
+                   <text class="blue">{{name}}</text>
+                </p>
+                <p>
+                  <text class="gray">Gmail: </text>
+                  <text class="blue">{{gmail}}</text>
+                </p>
+                <p>
+                  <text class="gray">Facebook 網址：</text>
+                  <text class="blue">{{fb_url}}</text>
+                </p>
+                <p>
+                  <text class="gray">聯絡電話：</text>
+                  <text class="blue">{{phone}}</text>
+                </p>
+                <p><text class="gray">直播地點：</text>
+                   <text class="blue">{{location}}</text>
+                </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">修改資料</button>
+              <%= f.submit "確認無誤", class: "btn btn-primary", id: "submit" %>
+              <p><%= flash[:notice] %></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <% end %>
   </div>
-</div>
-<% end %>
-=======
-<p><%= flash[:notice] %></p>
-<h1>haha</h1>
->>>>>>> cd42b6d66b3a8ebc9d3f12301fd7f40ad88a9d3e
+</section>

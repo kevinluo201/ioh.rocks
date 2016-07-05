@@ -1,5 +1,4 @@
 class LivesController < ApplicationController
-	protect_from_forgery with: :null_session
 	layout "form"
 
 	def new
@@ -12,8 +11,8 @@ class LivesController < ApplicationController
 		if @live.save
       redirect_to lives_success_path
     else
-			flash[:notice] = "建立失敗"
-      render 'new'
+			flash[:notice] = @live.errors
+      render :new
     end
 	end
 
@@ -25,6 +24,7 @@ class LivesController < ApplicationController
 
 	private
 	def live_params
-		params.require(:live).permit(:name, :gmail, :fb_url, :phone, :stream_201602, :location)
+		params.require(:live).permit(:name, :gmail, :fb_url, 
+																 :phone, :stream_201602, :location)
 	end
 end

@@ -1,20 +1,91 @@
-<section class="live-new" ng-app="">
+<section>
+  <div>
+    <%= image_tag("live-banner.png", class: "img-responsive") %>
+  </div>
   <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h2 class="title">HOW to JOIN?</h2>
-        <h3>如何參與？輕鬆回答以下問題！</h3>
-        <%= form_for @live do |f| %>
-          姓名: <%= f.text_field :name, class: "form-control form-live-reg", required: "required", data: {'ng-model' => 'name'} %><br />
-          Gmail : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", data: {'ng-model' => 'gmail'} %><br />
-          Facebook 網址 : <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", data: {'ng-model' => 'fb_url'} %><br />
-          聯絡電話 : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", data: {'ng-model' => 'phone'} %><br />
-          直播地點 : <%= f.text_field :location, class: "form-control form-live-reg", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
-          <!--Modal open -->
-          <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">送出</button>
+    <h2 class="title">WHY should you JOIN?</h2>
+    <p>你的 1 小時,改變 13 萬 6 千人的命運。</p>
+    <p>
+      IOH 開放個人經驗平台用 600 支以上的各大學求學經驗講座,讓沒有資源、沒有人脈的學生,可以透過這些影片來了解未來的選項,並且找到自己的熱情所在。然而許
+      多學生在看完影片後,還有不懂的地方或是有進一步的問題目前無法直接對講者發問,而這些問題往往是做決定的關鍵。只有當所有台灣的青年學子都能找到自己的熱
+      情與能發揮的場域所在,台灣的未來才會有希望,因此 IOH 想要邀請 200 位以上的講者一起來參與 2016 年學測學長姐線上直播諮詢會,每個人花 1 個小時來回答這些
+      關乎學生人生抉擇的問題。
+    </p>
+    <br>
+    <p>
+      200 位 IOH 講者在網路上直播所花的 1 個小時,可以讓全台灣不論是身處偏鄉或是都市,不論是學校、家庭有無資源的 136,000 位高三學測考生,找到能發揮自己熱情
+      的學校與科系。這些學子將會創造 10 年、20 年後我們所生存的台灣未來,藉由 1 個小時的經驗傳承讓這些學生的能力與熱情得以發揮,這也是我們可以一起改變未來
+      讓台灣更好的一種方式, IOH 邀請您一起參與,成為自己想要看見的改變,用 200 位夥伴,一起替 136,000 位孩子找到人生方向。
+      IOH學長姐線上直播讓你問
+    </p>
+  </div>
+  <div class="container text-center">
+    <div class="col-md-4 col-xs-12">
+      <h2 class="title">WHO can JOIN?</h2>
+      <div class="circle">
+        <p>講者</p>
+        <p>
+          100 至 200 位 IOH 台灣各大學科
+          系的講者(已經有錄製講座影片在
+          IOH 網站上),每一位講者進行至
+          少兩次,每次 30 分鐘的網路直播
+          問與答,即時回答高中生線上問題
+          。直播期間,講者不需準備演講,
+          僅需就觀眾文字發問之問題提出個
+          人見解回答。
+        </p>
       </div>
+    </div>
+    <div class="col-md-4 col-xs-12">
+      <h2 class="title">for WHO?</h2>
+      <div class="circle">
+        <p>觀眾</p>
+        <p>
+          針對 136,000 位高三指考考生,直
+          播將以翻轉演講的方式進行,希望
+          學生能事先看完有興趣大學與科系
+          的求學講座影片,記下自己有疑問
+          或是有興趣想要多瞭解的部分,之
+          後在線上直播諮詢會時,直接用文
+          字針對講者分享的內容,做更深入
+          的討論或是個人化的問題,不論是
+          針對學校、科系了解,或是備審面
+          試準備都可以發問。
+        </p>
+      </div>
+    </div>
+    <div class="col-md-4 col-xs-12">
+      <h2 class="title">WHEN?</h2>
+      <div class="circle">
+        <p>直播時間</p>
+        <p>
+          7/18 週一至 7/20 週三每日舉辦,時
+          間分為兩個大時段,每次直播問答時
+          段為 30 分鐘,每段問答時間將會有
+          8 至 10 位講者提供選擇:
+        </p>
+        <br>
+        <h4>時段 1:14:00 - 16:30</h4>
+        <h4>時段 2:20:00 - 22:30</h4>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <!-- Modal -->
+<section class="live_new">
+  <div class="col-md-12" ng-app="">
+    <div class="live_form">
+      <%= form_for @live do |f| %>
+        姓名: <%= f.text_field :name, class: "form-control", required: "required", data: {'ng-model' => 'name'} %><br />
+        Gmail : <%= f.text_field :gmail, class: "form-control", type: "email", required: "required", data: {'ng-model' => 'gmail'} %><br />
+        Facebook 網址 : <%= f.text_field :fb_url, class: "form-control", required: "required", data: {'ng-model' => 'fb_url'} %><br />
+        聯絡電話 : <%= f.text_field :phone, class: "form-control", type: "tel", required: "required", data: {'ng-model' => 'phone'} %><br />
+        直播地點 : <%= f.text_field :location, class: "form-control", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
+        <!--Modal open -->
+        <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">
+          送出
+        </button>
+        <!-- Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">

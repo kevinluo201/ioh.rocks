@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160705152513) do
+ActiveRecord::Schema.define(version: 20160705172612) do
 
   create_table "live_departments", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -95,6 +95,17 @@ ActiveRecord::Schema.define(version: 20160705152513) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "talks", force: :cascade do |t|
+    t.integer "ioh_id",             limit: 4
+    t.string  "title",              limit: 255
+    t.string  "post_name",          limit: 255
+    t.integer "live_school_id",     limit: 4
+    t.integer "live_department_id", limit: 4
+  end
+
+  add_index "talks", ["live_department_id"], name: "index_talks_on_live_department_id", using: :btree
+  add_index "talks", ["live_school_id"], name: "index_talks_on_live_school_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "account_name",           limit: 255
     t.datetime "created_at",                                      null: false
@@ -120,5 +131,7 @@ ActiveRecord::Schema.define(version: 20160705152513) do
   add_foreign_key "lives", "live_schools"
   add_foreign_key "posters", "users"
   add_foreign_key "posters", "users", column: "last_edit_id"
+  add_foreign_key "talks", "live_departments"
+  add_foreign_key "talks", "live_schools"
   add_foreign_key "users", "roles"
 end

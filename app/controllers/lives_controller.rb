@@ -37,7 +37,7 @@ class LivesController < ApplicationController
 
 	private
 	def live_params
-		params.require(:live).permit(:name, :gmail, :fb_url, 
+		params.require(:live).permit(:name, :gmail, :fb_url, :feedback,
 																 :phone, :stream_201602, :location, { live_time_ids: [] })
 	end
 end

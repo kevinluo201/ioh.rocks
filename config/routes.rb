@@ -41,4 +41,6 @@ Rails.application.routes.draw do
   	get "/live" => "live#index"
   end
 
+  resource :live
+
 end

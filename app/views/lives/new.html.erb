@@ -1,3 +1,6 @@
+<% flash.each do |name, msg| %>
+<%= content_tag :div, msg, id: "flash_#{name}" %>
+<% end %>
 <section>
    <div>
       <%= image_tag("live-banner.png", class: "img-responsive") %>

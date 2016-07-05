@@ -8,6 +8,11 @@ class Live < ActiveRecord::Base
 										format: { with: VALID_EMAIL_REGEX },
 										uniqueness: { case_sensitive: false }
 
+	validates :name, presence: true, uniqueness: { case_sensitive: false }
+	validates :fb_url, presence: true
+	validates :phone, presence: true
+	validates :location, presence: true
+
 	before_save do
 		self.title = self.name
 		self.onair = "yet"

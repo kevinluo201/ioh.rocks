@@ -79,18 +79,41 @@
    <div class="container">
       <div class="row">
          <div class="col-md-6 col-xs-12">
-           <h2 class="title">HOW to JOIN?</h2>
+           <h2 class="title"><i>HOW to JOIN?</i></h2>
            <h3>如何參與？輕鬆回答以下問題！</h3>
             <div class="form-live-reg">
                <%= form_for @live do |f| %>
-               姓名 (您在 IOH 講座頁面的中文姓名): <%= f.text_field :name, class: "form-control form-live-reg", required: "required", data: {'ng-model' => 'name'}, placeholder: "Name" %><br />
-               G-mail 帳號 (必須是 Gmail 帳號才能直播) : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", data: {'ng-model' => 'gmail'}, placeholder: "G-mail Account" %><br />
-               臉書帳號連結 (方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此)： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", data: {'ng-model' => 'fb_url'}, placeholder: "Your Mobile Number" %><br />
-               電話 (方便我們聯絡您,協調直播事宜) : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", data: {'ng-model' => 'phone'}, placeholder: "Your Facebook URL" %><br />
-               直播地點 : <%= f.text_field :location, class: "form-control form-live-reg", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
+               姓名 (您在 IOH 講座頁面的中文姓名): <%= f.text_field :name, class: "form-control form-live-reg", required: "required", data: {'ng-model' => 'name'} %><br />
+               G-mail 帳號 (必須是 Gmail 帳號才能直播) : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", data: {'ng-model' => 'gmail'} %><br />
+               臉書帳號連結 (方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此)： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", data: {'ng-model' => 'fb_url'} %><br />
+               電話 (方便我們聯絡您,協調直播事宜) : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", data: {'ng-model' => 'phone'} %><br />
+               <div class="field">
+                  是否參與過 2016 年 2 月學測直播線上諮詢會?
+                  <p></p>
+                  <%= f.label :location, "是", :value => "1"  %>
+                  <%= f.radio_button :location, 1 %>
+                  <%= f.label :location, "否", :value => "0" %>
+                  <%= f.radio_button :location, 0, :checked => 1 %>
+                </div>
+                直播地點 :<br />
+                <%= f.radio_button :location, 0, :checked => 1 %>
+                <%= f.label :location, "台灣", :value => "1" %>
+                <%= f.label :location, "其他：", :value => "2" %>
+                <%= f.text_field :location, class: "form-control form-live-reg pull-right", id: "gotohell", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
                <!--Modal open -->
-               <button type="button" class="btn btn-gray col-md-6 col-xs-12" data-toggle="modal" data-target="#myModal">Submit</button>
             </div>
+            <br /><br />
+            <div class="row">
+              <%= f.collection_check_boxes(:live_time_ids, LiveTime.all, :id, :start )do |b| %>
+                <button type="button" class="btn btn-gray" data-toggle="button" aria-pressed="false" autocomplete="off">
+                  <%= b.label  do%>
+                  <%=b.check_box + ' ' + b.text %>
+                </button>
+                  <% end %>
+                  <% end %>
+                  <br /><br />
+                  <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">送出</button>
+
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                <div class="modal-dialog" role="document">
@@ -125,7 +148,6 @@
                         <button type="button" class="btn btn-danger" data-dismiss="modal">修改資料</button>
                         <%= f.submit "確認無誤", class: "btn btn-primary", id: "submit" %>
                      </div>
-                     <p><%= flash[:notice] %></p>
                      <% end %>
                   </div>
                </div>

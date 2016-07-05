@@ -111,6 +111,7 @@
                   <% end %>
                   <% end %>
                   <br /><br />
+                  有任何建議或是鼓勵,想要和我們說的嗎?: <%= f.text_field :feedback, class: "form-control form-live-reg", type: "text", required: "required", data: {'ng-model' => 'feedback'} %><br />
                   <button type="button" class="btn btn-gray btn-block" data-toggle="modal" data-target="#myModal">Submit</button>
 
             <!-- Modal -->
@@ -141,6 +142,10 @@
                         <p>
                            <text class="gray">直播地點：</text>
                            <text class="blue">{{location}}</text>
+                        </p>
+                        <p>
+                           <text class="gray">Feedback：</text>
+                           <text class="blue">{{feedback}}</text>
                         </p>
                      </div>
                      <div class="modal-footer">

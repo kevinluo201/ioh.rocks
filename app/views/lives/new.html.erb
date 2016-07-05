@@ -75,7 +75,7 @@
 <section class="live-new" ng-app="">
    <div class="container">
       <div class="row">
-         <div class="col-md-6">
+         <div class="col-md-6 col-xs-12">
            <h2 class="title">HOW to JOIN?</h2>
            <h3>如何參與？輕鬆回答以下問題！</h3>
             <div class="form-live-reg">
@@ -86,7 +86,7 @@
                電話 (方便我們聯絡您,協調直播事宜) : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", data: {'ng-model' => 'phone'} %><br />
                直播地點 : <%= f.text_field :location, class: "form-control form-live-reg", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
                <!--Modal open -->
-               <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">送出</button>
+               <button type="button" class="btn btn-gray col-md-6 col-xs-12" data-toggle="modal" data-target="#myModal">Submit</button>
             </div>
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -132,3 +132,7 @@
       </div>
    </div>
 </section>
+<script type="text/javascript">
+  $('.circle').css('height', $('.circle').width());
+  $('.circle').css('padding', '20% 15% 15% 15%');
+</script>

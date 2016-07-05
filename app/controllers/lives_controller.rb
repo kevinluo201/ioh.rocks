@@ -10,14 +10,21 @@ class LivesController < ApplicationController
 
 		talk = Talk.where("title like ? ", "%#{@live.name}%").first
 
-		@live.live_school_id = talk.live_school_id
-		@live.live_department_id = talk.live_department_id
-		@live.ioh_url = "https://ioh.tw/talks/#{talk.post_name}"
+		if talk
+			@live.live_school_id = talk.live_school_id
+			@live.live_department_id = talk.live_department_id
+			@live.ioh_url = "https://ioh.tw/talks/#{talk.post_name}"
+		end
 
-		if talk && @live.save
+		if @live.save && talk
       redirect_to lives_success_path
+    elsif talk.nil?
+    	flash.now[:alert] = "名字輸入錯誤"
+
+    	render :new
     else
-			flash[:notice] = @live.errors
+			flash.now[:alert] = @live.errors.full_messages.first
+
       render :new
     end
 	end
@@ -30,7 +37,7 @@ class LivesController < ApplicationController
 
 	private
 	def live_params
-		params.require(:live).permit(:name, :gmail, :fb_url, 
-																 :phone, :stream_201602, :location)
+		params.require(:live).permit(:name, :gmail, :fb_url, :feedback,
+																 :phone, :stream_201602, :location, { live_time_ids: [] })
 	end
 end

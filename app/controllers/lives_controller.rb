@@ -1,5 +1,4 @@
 class LivesController < ApplicationController
-	protect_from_forgery with: :null_session
 	layout "form"
 
 	def new
@@ -7,12 +6,12 @@ class LivesController < ApplicationController
 	end
 
 	def create
-		live = Live.new(live_params)
+		@live = Live.new(live_params)
 
-		if live.save
+		if @live.save
       redirect_to lives_success_path
     else
-			flash[:notice] = live.errors
+			flash[:notice] = @live.errors
       render :new
     end
 	end

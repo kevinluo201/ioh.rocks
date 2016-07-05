@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
   namespace :api do
   	get "/live" => "live#index"
+  	get "/test" => "live#test"
   end
 
   get "/lives/success" => "lives#success"

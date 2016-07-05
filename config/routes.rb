@@ -4,13 +4,13 @@ Rails.application.routes.draw do
   scope "/admin" do
     resources :users
   end
-  
+
   resources :roles
 
   authenticated :user do
     root 'posters#index', as: :authenticated_root
   end
- 
+
   # None user will be direct to log-in page
   root 'users#new'
 
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   # get "signup" => "users#signup", :as => "signup"
 
-  
+
   # @editor arfullight
   # @date   2016/2/15
   # @info   Add posters routes using resources
@@ -41,6 +41,10 @@ Rails.application.routes.draw do
   	get "/live" => "live#index"
   end
 
+  get "/lives/success" => "lives#success"
+
   resources :lives
+
+
 
 end

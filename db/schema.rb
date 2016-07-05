@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20160705152513) do
     t.string   "phone",              limit: 255
     t.boolean  "stream_201602"
     t.string   "location",           limit: 255
+    t.string   "ioh_url",            limit: 255
   end
 
   add_index "lives", ["live_department_id"], name: "index_lives_on_live_department_id", using: :btree

@@ -3,7 +3,7 @@
       <%= image_tag("live-banner.png", class: "img-responsive") %>
    </div>
    <div class="container">
-      <h2 class="title">WHY should you JOIN?</h2>
+      <h2 class="title"><i>WHY should you JOIN?</i></h2>
       <p>你的 1 小時,改變 13 萬 6 千人的命運。</p>
       <p>
          IOH 開放個人經驗平台用 600 支以上的各大學求學經驗講座,讓沒有資源、沒有人脈的學生,可以透過這些影片來了解未來的選項,並且找到自己的熱情所在。然而許
@@ -21,7 +21,7 @@
    </div>
    <div class="container text-center">
       <div class="col-md-4 col-xs-12">
-         <h2 class="title">WHO can JOIN?</h2>
+         <h2 class="title"><i>WHO can JOIN?</i></h2>
          <div class="circle">
             <p>講者</p>
             <p>
@@ -37,7 +37,7 @@
          </div>
       </div>
       <div class="col-md-4 col-xs-12">
-         <h2 class="title">for WHO?</h2>
+         <h2 class="title"><i>for WHO?</i></h2>
          <div class="circle">
             <p>觀眾</p>
             <p>
@@ -55,7 +55,7 @@
          </div>
       </div>
       <div class="col-md-4 col-xs-12">
-         <h2 class="title">WHEN?</h2>
+         <h2 class="title"><i>WHEN?</i></h2>
          <div class="circle">
             <p>直播時間</p>
             <p>
@@ -77,7 +77,7 @@
    <div class="container">
       <div class="row">
          <div class="col-md-6">
-           <h2 class="title">HOW to JOIN?</h2>
+           <h2 class="title"><i>HOW to JOIN?</i></h2>
            <h3>如何參與？輕鬆回答以下問題！</h3>
             <div class="form-live-reg">
                <%= form_for @live do |f| %>
@@ -99,7 +99,19 @@
                 <%= f.label :location, "其他：", :value => "2" %>
                 <%= f.text_field :location, class: "form-control form-live-reg pull-right", id: "gotohell", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
                <!--Modal open -->
-               <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">送出</button>
+            </div>
+            <br /><br />
+            <div class="row">
+              <%= f.collection_check_boxes(:live_time_ids, LiveTime.all, :id, :start )do |b| %>
+                <button type="button" class="btn btn-gray" data-toggle="button" aria-pressed="false" autocomplete="off">
+                  <%= b.label  do%>
+                  <%=b.check_box + ' ' + b.text %>
+                </button>
+                  <% end %>
+                  <% end %>
+                  <br /><br />
+                  <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">送出</button>
+
             </div>
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -140,8 +152,21 @@
                   </div>
                </div>
             </div>
-            <div class="col-md-4"></div>
          </div>
       </div>
    </div>
+</section>
+<sectoin class="footer">
+  <div class="container">
+    <h2 class="title">
+      <i>EQUIPMENTs?</i>
+    </h2>
+    <p>直播問題<br />講者需要用配有網路攝影機、麥克風的電腦來做直播,後續 IOH 團隊將會提供直播之技術支援教學,若是有高速網路需求,也可以至 IOH Studio 來做直播。</p>
+    <h2 class="title">
+      <i>QUESTIONs?</i>
+    </h2>
+    <p>聯絡方式<br />
+       Email : ioh@ioh.tw<br />
+       Office: 02-2931-8954</p>
+  </div>
 </section>

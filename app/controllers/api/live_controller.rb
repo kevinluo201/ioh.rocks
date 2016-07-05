@@ -46,4 +46,12 @@ class Api::LiveController < ApplicationController
 			format.json { render json: @lives.to_json }
 		end
 	end
+
+	def test
+		@lives = LiveSchool.all
+
+		respond_to do |format|
+			format.json { render json: @lives.to_json }
+		end
+	end
 end

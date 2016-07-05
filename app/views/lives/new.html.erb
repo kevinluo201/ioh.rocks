@@ -107,13 +107,13 @@
               <%= f.collection_check_boxes(:live_time_ids, LiveTime.all, :id, :start )do |b| %>
                 <button type="button" class="btn btn-gray" data-toggle="button" aria-pressed="false" autocomplete="off">
                   <%= b.label  do%>
-                  <%=b.check_box + ' ' + b.text %>
+                  <%= b.check_box + ' ' + b.text %>
                 </button>
                   <% end %>
                   <% end %>
                   <br /><br />
-                  <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">送出</button>
-
+                <button type="button" class="btn btn-gray col-md-6 col-xs-12" data-toggle="modal" data-target="#myModal">Submit</button>
+            </div>
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                <div class="modal-dialog" role="document">

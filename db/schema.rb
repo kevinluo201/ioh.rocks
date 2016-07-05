@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160705070310) do
+ActiveRecord::Schema.define(version: 20160705152513) do
 
   create_table "live_departments", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -49,6 +49,11 @@ ActiveRecord::Schema.define(version: 20160705070310) do
     t.integer  "live_department_id", limit: 4
     t.string   "title",              limit: 255
     t.string   "onair",              limit: 255
+    t.string   "gmail",              limit: 255
+    t.string   "fb_url",             limit: 255
+    t.string   "phone",              limit: 255
+    t.boolean  "stream_201602"
+    t.string   "location",           limit: 255
   end
 
   add_index "lives", ["live_department_id"], name: "index_lives_on_live_department_id", using: :btree

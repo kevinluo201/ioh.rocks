@@ -1,4 +1,5 @@
 class LivesController < ApplicationController
+	protect_from_forgery with: :null_session
 	layout "form"
 
 	def new
@@ -17,13 +18,11 @@ class LivesController < ApplicationController
 	end
 
 	def success
-
 	end
 
 	private
 	def live_params
-		params.require(:live).permit(:name, :title, :onair, :gmail,
-																:fb_url, :phone, :stream_201602,
+		params.require(:live).permit(:name, :gmail, :fb_url, :phone, :stream_201602,
 																:location, :ioh_url)
 	end
 end

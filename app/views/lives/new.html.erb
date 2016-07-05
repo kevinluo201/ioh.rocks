@@ -1,1 +1,79 @@
-<h1>haha</h1>
+<section>
+  <div>
+    <%= image_tag("live-banner.png", class: "img-responsive") %>
+  </div>
+  <div class="container">
+    <h2 class="title">WHY should you JOIN?</h2>
+    <p>你的 1 小時,改變 13 萬 6 千人的命運。</p>
+    <p>
+      IOH 開放個人經驗平台用 600 支以上的各大學求學經驗講座,讓沒有資源、沒有人脈的學生,可以透過這些影片來了解未來的選項,並且找到自己的熱情所在。然而許
+      多學生在看完影片後,還有不懂的地方或是有進一步的問題目前無法直接對講者發問,而這些問題往往是做決定的關鍵。只有當所有台灣的青年學子都能找到自己的熱
+      情與能發揮的場域所在,台灣的未來才會有希望,因此 IOH 想要邀請 200 位以上的講者一起來參與 2016 年學測學長姐線上直播諮詢會,每個人花 1 個小時來回答這些
+      關乎學生人生抉擇的問題。
+    </p>
+    <br>
+    <p>
+      200 位 IOH 講者在網路上直播所花的 1 個小時,可以讓全台灣不論是身處偏鄉或是都市,不論是學校、家庭有無資源的 136,000 位高三學測考生,找到能發揮自己熱情
+      的學校與科系。這些學子將會創造 10 年、20 年後我們所生存的台灣未來,藉由 1 個小時的經驗傳承讓這些學生的能力與熱情得以發揮,這也是我們可以一起改變未來
+      讓台灣更好的一種方式, IOH 邀請您一起參與,成為自己想要看見的改變,用 200 位夥伴,一起替 136,000 位孩子找到人生方向。
+      IOH學長姐線上直播讓你問
+    </p>
+  </div>
+  <div class="container">
+
+  </div>
+</section>
+
+<section class="live_new">
+  <div class="col-md-12" ng-app="">
+    <div class="live_form">
+      <%= form_for @live do |f| %>
+        姓名: <%= f.text_field :name, class: "form-control", required: "required", data: {'ng-model' => 'name'} %><br />
+        Gmail : <%= f.text_field :gmail, class: "form-control", type: "email", required: "required", data: {'ng-model' => 'gmail'} %><br />
+        Facebook 網址 : <%= f.text_field :fb_url, class: "form-control", required: "required", data: {'ng-model' => 'fb_url'} %><br />
+        聯絡電話 : <%= f.text_field :phone, class: "form-control", type: "tel", required: "required", data: {'ng-model' => 'phone'} %><br />
+        直播地點 : <%= f.text_field :location, class: "form-control", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
+        <!--Modal open -->
+        <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">
+          送出
+        </button>
+        <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">請再次確認您的資料無誤</h4>
+            </div>
+            <div class="modal-body">
+                <p><text class="gray">姓名：</text>
+                   <text class="blue">{{name}}</text>
+                </p>
+                <p>
+                  <text class="gray">Gmail: </text>
+                  <text class="blue">{{gmail}}</text>
+                </p>
+                <p>
+                  <text class="gray">Facebook 網址：</text>
+                  <text class="blue">{{fb_url}}</text>
+                </p>
+                <p>
+                  <text class="gray">聯絡電話：</text>
+                  <text class="blue">{{phone}}</text>
+                </p>
+                <p><text class="gray">直播地點：</text>
+                   <text class="blue">{{location}}</text>
+                </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">修改資料</button>
+              <%= f.submit "確認無誤", class: "btn btn-primary", id: "submit" %>
+              <p><%= flash[:notice] %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</section>

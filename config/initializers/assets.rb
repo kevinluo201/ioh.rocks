@@ -19,6 +19,10 @@ Rails.application.config.assets.precompile += %w( cover-maker.css )
 
 Rails.application.config.assets.precompile += %w( posterIndex.js.erb )
 
+Rails.application.config.assets.precompile += %w( moment.min.js )
+
+Rails.application.config.assets.precompile += %w( fullcalender.min.js )
+
 
 #images
 

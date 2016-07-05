@@ -1,5 +1,97 @@
-<%= stylesheet_link_tag    'fullcalender.min', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'moment.min.js', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'fullcalendar.min.js', 'data-turbolinks-track' => true %>
 
+<script>
+	$(document).ready(function() {
+
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev, next',
+				right: 'agendaWeek, agendaDay'
+			},
+			defaultView: 'agendaWeek',
+			defaultDate: '2016-07-18',
+			gotoDate: '2016-07-18',
+			hiddenDays: [ 4, 5],
+			minTime: '14:00',
+			maxTime: '22:30',
+			aspectRatio: 1,
+			weekends: false,
+			allDaySlot: false,
+			nowIndicator: true,
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			eventDurationEditable: false,
+			viewRender: function(currentView){
+				var minDate = new Date('2016-07-18');
+				maxDate = new Date('2016-07-21');
+				// Past
+				if (minDate >= currentView.start && minDate <= currentView.end) {
+					$(".fc-prev-button").prop('disabled', true);
+					$(".fc-prev-button").addClass('fc-state-disabled');
+				}
+				else {
+					$(".fc-prev-button").removeClass('fc-state-disabled');
+					$(".fc-prev-button").prop('disabled', false);
+				}
+				// Future
+				if (maxDate >= currentView.start && maxDate <= currentView.end) {
+					$(".fc-next-button").prop('disabled', true);
+					$(".fc-next-button").addClass('fc-state-disabled');
+				} else {
+					$(".fc-next-button").removeClass('fc-state-disabled');
+					$(".fc-next-button").prop('disabled', false);
+				}
+			},
+			events: [
+				{
+					title: 'AAAAAAA',
+					start: '2016-07-18 14:00:00',
+					end: '2016-07-18 14:30:00'
+				},
+				{
+					title: 'AAAAAAA',
+					start: '2016-07-19T15:00:00',
+					end: '2016-07-19T15:30:00'
+				},
+				{
+					title: 'AAAAAAA',
+					start: '2016-07-22T19:00:00',
+					end: '2016-07-22T19:30:00'
+				},
+				{
+					title: 'BBBB',
+					start: '2016-07-18T19:00:00',
+					end: '2016-07-18T19:30:00'
+				},
+				{
+					title: 'CCCCC',
+					start: '2016-07-18T20:00:00',
+					end: '2016-07-18T20:30:00'
+				},
+				{
+					title: 'CCCCCC',
+					start: '2016-07-18T22:00:00',
+					end: '2016-07-18T22:30:00'
+				},
+			]
+		});
+
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		margin: 0 auto;
+	}
+
+</style>
 <div id='calendar'></div>
-<%= javascript_include_tag 'moment.min', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'fullcalender.min', 'data-turbolinks-track' => true %>

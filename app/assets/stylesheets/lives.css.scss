@@ -10,3 +10,16 @@
   color: white;
   border-radius: 0px !important;
 }
+.form-live-reg {
+  border-radius: 0px !important;
+  border-color: #999999;
+}
+.form-live-reg:focus {
+  box-shadow: 0 1px 1px rgba(153, 153, 153, 0.075) inset, 0 0 8px rgba(0, 0, 0, 0.6) !important;
+  box-shadow: none !important;
+  border-color: #999999 !important;
+}
+.live-new {
+  background-color: black !important;
+  color: white;
+}

@@ -1,3 +1,6 @@
+<% flash.each do |name, msg| %>
+<%= content_tag :div, msg, id: "flash_#{name}" %>
+<% end %>
 <section>
    <div>
       <%= image_tag("live-banner.png", class: "img-responsive") %>
@@ -71,8 +74,7 @@
       </div>
    </div>
 </section>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<br><br><br>
 <section class="live-new" ng-app="">
    <div class="container">
       <div class="row">
@@ -112,6 +114,18 @@
                   <br /><br />
                   <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">送出</button>
 
+         <div class="col-md-6 col-xs-12">
+           <h2 class="title">HOW to JOIN?</h2>
+           <h3>如何參與？輕鬆回答以下問題！</h3>
+            <div class="form-live-reg">
+               <%= form_for @live do |f| %>
+               姓名 (您在 IOH 講座頁面的中文姓名): <%= f.text_field :name, class: "form-control form-live-reg", required: "required", data: {'ng-model' => 'name'}, placeholder: "Name" %><br />
+               G-mail 帳號 (必須是 Gmail 帳號才能直播) : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", data: {'ng-model' => 'gmail'}, placeholder: "G-mail Account" %><br />
+               臉書帳號連結 (方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此)： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", data: {'ng-model' => 'fb_url'}, placeholder: "Your Mobile Number" %><br />
+               電話 (方便我們聯絡您,協調直播事宜) : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", data: {'ng-model' => 'phone'}, placeholder: "Your Facebook URL" %><br />
+               直播地點 : <%= f.text_field :location, class: "form-control form-live-reg", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
+               <!--Modal open -->
+               <button type="button" class="btn btn-gray col-md-6 col-xs-12" data-toggle="modal" data-target="#myModal">Submit</button>
             </div>
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -170,3 +184,7 @@
        Office: 02-2931-8954</p>
   </div>
 </section>
+<script type="text/javascript">
+  $('.circle').css('height', $('.circle').width());
+  $('.circle').css('padding', '20% 15% 15% 15%');
+</script>

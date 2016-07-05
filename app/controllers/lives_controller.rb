@@ -17,7 +17,7 @@ class LivesController < ApplicationController
 		if talk && @live.save
       redirect_to lives_success_path
     else
-			flash[:notice] = @live.errors
+			flash[:alert] = @live.errors
       render :new
     end
 	end
@@ -31,6 +31,6 @@ class LivesController < ApplicationController
 	private
 	def live_params
 		params.require(:live).permit(:name, :gmail, :fb_url, 
-																 :phone, :stream_201602, :location)
+																 :phone, :stream_201602, :location, { live_time_ids: [] })
 	end
 end

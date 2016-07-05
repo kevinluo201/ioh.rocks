@@ -79,7 +79,7 @@
    <div class="container">
       <div class="row">
          <div class="col-md-12">
-           <h2 class="title"><i>HOW to JOIN?</i></h2>
+            <h2 class="title"><i>HOW to JOIN?</i></h2>
            <h3>如何參與？輕鬆回答以下問題！</h3>
             <div class="form-live-reg col-md-7">
                <%= form_for @live do |f| %>
@@ -112,6 +112,7 @@
                   <% end %>
                   <br /><br />
                   <button type="button" class="btn btn-gray btn-block" data-toggle="modal" data-target="#myModal">Submit</button>
+
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                <div class="modal-dialog" role="document">
@@ -146,7 +147,6 @@
                         <button type="button" class="btn btn-danger" data-dismiss="modal">修改資料</button>
                         <%= f.submit "確認無誤", class: "btn btn-primary", id: "submit" %>
                      </div>
-                     <p><%= flash[:notice] %></p>
                      <% end %>
                   </div>
                </div>

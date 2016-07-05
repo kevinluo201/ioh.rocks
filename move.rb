@@ -8,7 +8,7 @@ mysql_host = "localhost"
 mysql_user = "root"
 mysql_pw   = "root"
 ioh_db     = "ioh"
-new_db     = "ioh-cover-maker_development"
+new_db     = "ioh_rocks"
 
 result_data = []
 

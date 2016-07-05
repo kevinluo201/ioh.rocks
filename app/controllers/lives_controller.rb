@@ -8,7 +8,13 @@ class LivesController < ApplicationController
 	def create
 		@live = Live.new(live_params)
 
-		if @live.save
+		talk = Talk.where("title like ? ", "%#{@live.name}%").first
+
+		@live.live_school_id = talk.live_school_id
+		@live.live_department_id = talk.live_department_id
+		@live.ioh_url = "https://ioh.tw/talks/#{talk.post_name}"
+
+		if talk && @live.save
       redirect_to lives_success_path
     else
 			flash[:notice] = @live.errors

@@ -610,7 +610,6 @@ label.btn-primary {
     .modal:before {
         display: inline-block;
         vertical-align: middle;
-        content: " ";
         height: 100%;
     }
 }

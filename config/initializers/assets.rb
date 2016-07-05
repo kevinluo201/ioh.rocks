@@ -21,7 +21,9 @@ Rails.application.config.assets.precompile += %w( posterIndex.js.erb )
 
 Rails.application.config.assets.precompile += %w( moment.min.js )
 
-Rails.application.config.assets.precompile += %w( fullcalender.min.js )
+Rails.application.config.assets.precompile += %w( fullcalendar.min.js )
+
+Rails.application.config.assets.precompile += %w( fullcalendar.min.css )
 
 
 #images
@@ -35,3 +37,5 @@ Rails.application.config.assets.precompile += %w( logo.png )
 Rails.application.config.assets.precompile += %w( arrows.png )
 Rails.application.config.assets.precompile += %w( arrows_hover.png )
 Rails.application.config.assets.precompile += %w( processing.gif )
+Rails.application.config.assets.precompile += %w( live-banner.png )
+Rails.application.config.assets.precompile += %w( success-banner.png )

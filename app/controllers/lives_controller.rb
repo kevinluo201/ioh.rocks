@@ -18,8 +18,12 @@ class LivesController < ApplicationController
 
 		if @live.save && talk
       redirect_to lives_success_path
+    elsif talk.nil?
+    	flash.now[:alert] = "名字輸入錯誤"
+
+    	render :new
     else
-			flash[:alert] = @live.errors
+			flash.now[:alert] = @live.errors.full_messages.first
 
       render :new
     end

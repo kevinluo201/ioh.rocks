@@ -13,7 +13,12 @@ r1 = Role.create({name: "Regular", description: "Can read items"})
 r2 = Role.create({name: "Editor", description: "Can read and create items. Can update and destroy own items"})
 r3 = Role.create({name: "Admin", description: "Can perform any CRUD operation on any resource"})
 
-
+times = LiveTime.create([{start: DateTime.strptime("07/18/2016 14:00", "%m/%d/%Y %H:%M"), 
+												 end: DateTime.strptime("07/18/2016 14:30", "%m/%d/%Y %H:%M")},
+												{start: DateTime.strptime("07/18/2016 14:30", "%m/%d/%Y %H:%M"), 
+												 end: DateTime.strptime("07/18/2016 15:00", "%m/%d/%Y %H:%M")},
+												{start: DateTime.strptime("07/18/2016 15:00", "%m/%d/%Y %H:%M"), 
+												 end: DateTime.strptime("07/18/2016 15:30", "%m/%d/%Y %H:%M")}])
 
 =begin
 u1 = User.create({account_name: "Sally", email: "sally@example.com", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r1.id})

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   end
 
   get "/lives/success" => "lives#success"
+  get "/lives/agenda" => "lives#agenda"
 
   resources :lives
 

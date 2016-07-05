@@ -10,7 +10,7 @@ class LivesController < ApplicationController
 		@live = Live.new(live_params)
 
 		if @live.save
-      redirect_to 'success'
+      redirect_to lives_success_path
     else
 			flash[:notice] = "建立失敗"
       render 'new'
@@ -20,9 +20,11 @@ class LivesController < ApplicationController
 	def success
 	end
 
+	def agenda
+	end
+
 	private
 	def live_params
-		params.require(:live).permit(:name, :gmail, :fb_url, :phone, :stream_201602,
-																:location, :ioh_url)
+		params.require(:live).permit(:name, :gmail, :fb_url, :phone, :stream_201602, :location)
 	end
 end

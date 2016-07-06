@@ -120,50 +120,9 @@
               <input type="hidden" name="live[live_time_ids][]" value="">
                 <br /><br />
                 有任何建議或是鼓勵,想要和我們說的嗎?: <%= f.text_field :feedback, class: "form-control form-live-reg", type: "text", required: "required", id: "feedback_input", placeholder: 'thank you!' %><br />
-                <button type="button" id="button_pre" class="btn btn-gray col-md-6 col-xs-12" data-toggle="modal" data-target="#myModal">Submit</button>
+                <%= f.submit "Submit", class: "btn btn-gray col-md-6 col-xs-12", id: "submit" %>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-               <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">請再次確認您的資料無誤</h4>
-                     </div>
-                     <div class="modal-body">
-                        <p>
-                           <text class="gray">姓名：</text>
-                           <text class="blue" id="name_pre"></text>
-                        </p>
-                        <p>
-                           <text class="gray">Gmail: </text>
-                           <text class="blue" id="gmail_pre"></text>
-                        </p>
-                        <p>
-                           <text class="gray">Facebook 網址：</text>
-                           <text class="blue" id="fb_url_pre"></text>
-                        </p>
-                        <p>
-                           <text class="gray">聯絡電話：</text>
-                           <text class="blue" id="phone_pre"></text>
-                        </p>
-                        <p>
-                           <text class="gray">直播地點：</text>
-                           <text class="blue" id="location_pre"></text>
-                        </p>
-                        <p>
-                           <text class="gray">Feedback：</text>
-                           <text class="blue" id="feedback_pre"></text>
-                        </p>
-                     </div>
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">修改資料</button>
-                        <%= f.submit "確認無誤", class: "btn btn-primary", id: "submit" %>
-                     </div>
-                     <% end %>
-                  </div>
-               </div>
-            </div>
+            <% end %>
          </div>
       </div>
    </div>
@@ -185,24 +144,4 @@
 <script type="text/javascript">
   $('.circle').css('height', $('.circle').width());
   $('.circle').css('padding', '20% 15% 15% 15%');
-  // $('#live_location_other').change(function(){
-  //   $('#live_location_input').prop( "disabled", false );
-  // });
-  // $('#live_location_').change(function(){
-  //   $('#live_location_input').prop( "disabled", true );
-  // });
-  // $('#button_pre').click(function(){
-  //   $('#name_pre').text($('#name_input').val());
-  //   $('#gmail_pre').text($('#gmail_input').val());
-  //   $('#fb_url_pre').text($('#fb_url_input').val());
-  //   $('#phone_pre').text($('#phone_input').val());
-  //   if($('#live_location_other').is(':checked')) {
-  //     $('#location_pre').text($('#live_location_input').val());
-  //     $('#live_location_post').text($('#live_location_input').val());
-  //   }
-  //   else {
-  //     $('#location_pre').text('台灣');
-  //   }
-  //   $('#feedback_pre').text($('#feedback_input').val());
-  // });
 </script>

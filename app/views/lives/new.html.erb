@@ -87,6 +87,8 @@
                G-mail 帳號 (必須是 Gmail 帳號才能直播) : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", id: "gmail_input", placeholder: "G-mail Account" %><br />
                臉書帳號連結 (方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此)： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", id: "fb_url_input", placeholder: "Your Mobile Phone" %><br />
                電話 (方便我們聯絡您,協調直播事宜) : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", id: "phone_input", placeholder: "Your Facebook URL" %><br />
+               學校 : <%= f.text_field :school, class: "form-control form-live-reg", required: "required", placeholder: "School" %><br />
+               科系 : <%= f.text_field :department, class: "form-control form-live-reg", required: "required", placeholder: "Department" %><br />
                <div class="field">
                  是否參與過 2016 年 2 月學測直播線上諮詢會?
                  <p></p>
@@ -97,16 +99,8 @@
                  <%= f.label :stream_201602, "否" %>
                </div>
                <br>
-               直播地點 :<br />
-               <%= f.radio_button :location, "台灣" %>
-               <%= f.label :location, "台灣"%>
-               &nbsp;&nbsp;
-               <%= f.radio_button :location, "other"%>
-               <%= f.label :location, "其他："%>
-               <input type="text" id="live_location_input" name="post[title]" class="form-control form-live-reg pull-right" disabled="disabled" required="required" placeholder="others..."/>
-
-               <%= f.text_field :location, type: "text", id: "live_location_post"%>
-               <br><br><br>
+               直播地點 : <%= f.text_field :location, class: "form-control form-live-reg", required: "required", placeholder: "Lacation" %><br />
+               <br>
             </div>
             <div class="col-md-8" style="padding-left: 0px;">
               <span>請在下方選擇您所有「有空」做直播的時段(可複選,最多選擇 3 個時段):</span>
@@ -191,24 +185,24 @@
 <script type="text/javascript">
   $('.circle').css('height', $('.circle').width());
   $('.circle').css('padding', '20% 15% 15% 15%');
-  $('#live_location_other').change(function(){
-    $('#live_location_input').prop( "disabled", false );
-  });
-  $('#live_location_').change(function(){
-    $('#live_location_input').prop( "disabled", true );
-  });
-  $('#button_pre').click(function(){
-    $('#name_pre').text($('#name_input').val());
-    $('#gmail_pre').text($('#gmail_input').val());
-    $('#fb_url_pre').text($('#fb_url_input').val());
-    $('#phone_pre').text($('#phone_input').val());
-    if($('#live_location_other').is(':checked')) {
-      $('#location_pre').text($('#live_location_input').val());
-      $('#live_location_post').text($('#live_location_input').val());
-    }
-    else {
-      $('#location_pre').text('台灣');
-    }
-    $('#feedback_pre').text($('#feedback_input').val());
-  });
+  // $('#live_location_other').change(function(){
+  //   $('#live_location_input').prop( "disabled", false );
+  // });
+  // $('#live_location_').change(function(){
+  //   $('#live_location_input').prop( "disabled", true );
+  // });
+  // $('#button_pre').click(function(){
+  //   $('#name_pre').text($('#name_input').val());
+  //   $('#gmail_pre').text($('#gmail_input').val());
+  //   $('#fb_url_pre').text($('#fb_url_input').val());
+  //   $('#phone_pre').text($('#phone_input').val());
+  //   if($('#live_location_other').is(':checked')) {
+  //     $('#location_pre').text($('#live_location_input').val());
+  //     $('#live_location_post').text($('#live_location_input').val());
+  //   }
+  //   else {
+  //     $('#location_pre').text('台灣');
+  //   }
+  //   $('#feedback_pre').text($('#feedback_input').val());
+  // });
 </script>

@@ -12,6 +12,8 @@ class Live < ActiveRecord::Base
 	validates :fb_url, presence: true
 	validates :phone, presence: true
 	validates :location, presence: true
+	validates :school, presence: true
+	validates :department, presence: true
 
 	before_save do
 		self.title = self.name

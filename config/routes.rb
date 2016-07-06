@@ -47,7 +47,6 @@ Rails.application.routes.draw do
   get "/lives/agenda" => "lives#agenda"
 
   resources :lives
-
-
+  resources :live_times
 
 end

@@ -22,7 +22,6 @@
 .btn.btn-date {
     background-color: red;
     color: white;
-    width: 18%;
     margin-right: 9px;
     margin-bottom: 8px;
     border-radius: 0 !important;
@@ -32,6 +31,8 @@
       font-size: 0.9em;
       cursor: pointer;
       margin: 8px;
+      overflow: auto;
+      display: block;
     }
 }
 

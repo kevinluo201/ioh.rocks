@@ -1,4 +1,5 @@
 class Api::LiveController < ApplicationController
+	before_action :authenticate_user!, :except => :index
 	# def admin
 	# 	sort_by = params[:sort_by]
 
@@ -96,4 +97,5 @@ class Api::LiveController < ApplicationController
 
 		render plain: "good"
 	end
+
 end

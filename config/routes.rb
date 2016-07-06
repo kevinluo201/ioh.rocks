@@ -34,19 +34,21 @@ Rails.application.routes.draw do
   post "posters/download/:id" => "posters#download"
 
   namespace :admin do
-  	get "/live" => "live#index"
+  	get "/live/view" => "lives#index"
   end
 
   namespace :api do
   	get "/live" => "live#index"
   	get "/test" => "live#test"
+		# get "/update" => "live#update"
+		get "/talk" => "live#update_talk"
+		get "/school" => "live#update_school"
+		get "/department" => "live#update_department"
   end
 
   get "/lives/success" => "lives#success"
   get "/lives/agenda" => "lives#agenda"
 
   resources :lives
-
-
 
 end

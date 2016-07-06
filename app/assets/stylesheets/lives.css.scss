@@ -19,16 +19,20 @@
     border-radius: 0 !important;
 }
 
-.btn-gray:active {
-    background-color: #999999;
+.btn.btn-date {
+    background-color: red;
     color: white;
+    width: 18%;
+    margin-right: 9px;
+    margin-bottom: 8px;
     border-radius: 0 !important;
-}
+    padding: 0;
 
-.btn-gray:active, .btn-gray.active, .open > .btn-gray.dropdown-toggle {
-    color: #fff;
-    background-color: #999999;
-    border-color: #204d74;
+    label{
+      font-size: 0.9em;
+      cursor: pointer;
+      margin: 8px;
+    }
 }
 
 .circle {
@@ -56,5 +60,9 @@
 }
 
 #live_location_post {
+  display: none;
+}
+
+.display_none {
   display: none;
 }

@@ -16,7 +16,8 @@ class LivesController < ApplicationController
 			@live.ioh_url = "https://ioh.tw/talks/#{talk.post_name}"
 		end
 
-		if @live.save && talk
+		if @live.valid? && talk
+			@live.save
       redirect_to lives_success_path
     elsif talk.nil?
     	flash.now[:alert] = "名字輸入錯誤"
@@ -37,7 +38,7 @@ class LivesController < ApplicationController
 
 	private
 	def live_params
-		params.require(:live).permit(:name, :gmail, :fb_url, :feedback,
+		params.require(:live).permit(:name, :gmail, :fb_url, :feedback, :school, :department,
 																 :phone, :stream_201602, :location, { live_time_ids: [] })
 	end
 end

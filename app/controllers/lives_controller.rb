@@ -16,7 +16,8 @@ class LivesController < ApplicationController
 			@live.ioh_url = "https://ioh.tw/talks/#{talk.post_name}"
 		end
 
-		if @live.save && talk
+		if @live.valid? && talk
+			@live.save
       redirect_to lives_success_path
     elsif talk.nil?
     	flash.now[:alert] = "名字輸入錯誤"

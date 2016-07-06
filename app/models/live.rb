@@ -14,7 +14,6 @@ class Live < ActiveRecord::Base
 	validates :location, presence: true
 	validates :school, presence: true
 	validates :department, presence: true
-	validates :stream_201602, presence:true
 
 	before_save do
 		self.title = self.name

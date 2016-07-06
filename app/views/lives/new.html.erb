@@ -78,42 +78,56 @@
 <section class="live-new" ng-app="">
    <div class="container">
       <div class="row">
-         <div class="col-md-12">
+         <div>
             <h2 class="title"><i>HOW to JOIN?</i></h2>
-           <h3>如何參與？輕鬆回答以下問題！</h3>
-            <div class="form-live-reg col-md-7">
+            <h3>如何參與？輕鬆回答以下問題！</h3>
+            <div class="form-live-reg col-md-7" style="padding-left: 0px;">
                <%= form_for @live do |f| %>
-               姓名 (您在 IOH 講座頁面的中文姓名): <%= f.text_field :name, class: "form-control form-live-reg", required: "required", data: {'ng-model' => 'name'} %><br />
-               G-mail 帳號 (必須是 Gmail 帳號才能直播) : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", data: {'ng-model' => 'gmail'} %><br />
-               臉書帳號連結 (方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此)： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", data: {'ng-model' => 'fb_url'} %><br />
-               電話 (方便我們聯絡您,協調直播事宜) : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", data: {'ng-model' => 'phone'} %><br />
+               姓名 (您在 IOH 講座頁面的中文姓名): <%= f.text_field :name, class: "form-control form-live-reg", required: "required", id: "name_input", placeholder: "Name" %><br />
+               G-mail 帳號 (必須是 Gmail 帳號才能直播) : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", id: "gmail_input", placeholder: "G-mail Account" %><br />
+               臉書帳號連結 (方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此)： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", id: "fb_url_input", placeholder: "Your Mobile Phone" %><br />
+               電話 (方便我們聯絡您,協調直播事宜) : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", id: "phone_input", placeholder: "Your Facebook URL" %><br />
                <div class="field">
-                  是否參與過 2016 年 2 月學測直播線上諮詢會?
-                  <p></p>
-                  <%= f.label :location, "是", :value => "1"  %>
-                  <%= f.radio_button :location, 1 %>
-                  <%= f.label :location, "否", :value => "0" %>
-                  <%= f.radio_button :location, 0, :checked => 1 %>
-                </div>
-                直播地點 :<br />
-                <%= f.radio_button :location, 0, :checked => 1 %>
-                <%= f.label :location, "台灣", :value => "1" %>
-                <%= f.label :location, "其他：", :value => "2" %>
-                <%= f.text_field :location, class: "form-control form-live-reg pull-right", id: "gotohell", type: "text", required: "required", data: {'ng-model' => 'location'} %><br />
-               <!--Modal open -->
+                 是否參與過 2016 年 2 月學測直播線上諮詢會?
+                 <p></p>
+                 <%= f.radio_button :stream_201602, 1 %>
+                 <%= f.label :stream_201602, "是" %>
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <%= f.radio_button :stream_201602, 0 %>
+                 <%= f.label :stream_201602, "否" %>
+               </div>
+               <br>
+               直播地點 :<br />
+               <%= f.radio_button :location, "台灣" %>
+               <%= f.label :location, "台灣"%>
+               &nbsp;&nbsp;
+               <%= f.radio_button :location, "other"%>
+               <%= f.label :location, "其他："%>
+               <input type="text" id="live_location_input" name="post[title]" class="form-control form-live-reg pull-right" disabled="disabled" required="required" placeholder="others..."/>
+
+               <%= f.text_field :location, type: "text", id: "live_location_post"%>
+               <br><br><br>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8" style="padding-left: 0px;">
+              <span>請在下方選擇您所有「有空」做直播的時段(可複選,最多選擇 3 個時段):</span>
+              <br>
+              <font size="1">
+                直播一次約 30 分鐘,希望每一位講者至少可以做兩次的直播時間,兩次加起來共 1 小時。請勾選掉您沒有空的時段,IOH 會在您其他所有有空的時段
+                中,安排您的 30 分鐘直播時間在不同的日期,排定好會再通知您。請至少留至少兩個以上的時段,謝謝。
+                (例:2/22 - 2/26 每天晚上都有空,請把以下的時段全部不勾選起來,IOH 會挑兩天各安排您一次每次 30 分鐘的直播)
+              </font>
+              <br>
               <%= f.collection_check_boxes(:live_time_ids, LiveTime.all, :id, :start )do |b| %>
                 <button type="button" class="btn btn-gray" data-toggle="button" aria-pressed="false" autocomplete="off">
                   <%= b.label  do%>
-                  <%=b.check_box + ' ' + b.text %>
+                  <%= b.check_box + ' ' + b.text %>
                 </button>
                   <% end %>
                   <% end %>
                   <br /><br />
-                  有任何建議或是鼓勵,想要和我們說的嗎?: <%= f.text_field :feedback, class: "form-control form-live-reg", type: "text", required: "required", data: {'ng-model' => 'feedback'} %><br />
-                  <button type="button" class="btn btn-gray btn-block" data-toggle="modal" data-target="#myModal">Submit</button>
-
+                有任何建議或是鼓勵,想要和我們說的嗎?: <%= f.text_field :feedback, class: "form-control form-live-reg", type: "text", required: "required", id: "feedback_input", placeholder: 'thank you!' %><br />
+                <button type="button" id="button_pre" class="btn btn-gray col-md-6 col-xs-12" data-toggle="modal" data-target="#myModal">Submit</button>
+            </div>
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                <div class="modal-dialog" role="document">
@@ -125,27 +139,27 @@
                      <div class="modal-body">
                         <p>
                            <text class="gray">姓名：</text>
-                           <text class="blue">{{name}}</text>
+                           <text class="blue" id="name_pre"></text>
                         </p>
                         <p>
                            <text class="gray">Gmail: </text>
-                           <text class="blue">{{gmail}}</text>
+                           <text class="blue" id="gmail_pre"></text>
                         </p>
                         <p>
                            <text class="gray">Facebook 網址：</text>
-                           <text class="blue">{{fb_url}}</text>
+                           <text class="blue" id="fb_url_pre"></text>
                         </p>
                         <p>
                            <text class="gray">聯絡電話：</text>
-                           <text class="blue">{{phone}}</text>
+                           <text class="blue" id="phone_pre"></text>
                         </p>
                         <p>
                            <text class="gray">直播地點：</text>
-                           <text class="blue">{{location}}</text>
+                           <text class="blue" id="location_pre"></text>
                         </p>
                         <p>
                            <text class="gray">Feedback：</text>
-                           <text class="blue">{{feedback}}</text>
+                           <text class="blue" id="feedback_pre"></text>
                         </p>
                      </div>
                      <div class="modal-footer">
@@ -177,4 +191,24 @@
 <script type="text/javascript">
   $('.circle').css('height', $('.circle').width());
   $('.circle').css('padding', '20% 15% 15% 15%');
+  $('#live_location_other').change(function(){
+    $('#live_location_input').prop( "disabled", false );
+  });
+  $('#live_location_').change(function(){
+    $('#live_location_input').prop( "disabled", true );
+  });
+  $('#button_pre').click(function(){
+    $('#name_pre').text($('#name_input').val());
+    $('#gmail_pre').text($('#gmail_input').val());
+    $('#fb_url_pre').text($('#fb_url_input').val());
+    $('#phone_pre').text($('#phone_input').val());
+    if($('#live_location_other').is(':checked')) {
+      $('#location_pre').text($('#live_location_input').val());
+      $('#live_location_post').text($('#live_location_input').val());
+    }
+    else {
+      $('#location_pre').text('台灣');
+    }
+    $('#feedback_pre').text($('#feedback_input').val());
+  });
 </script>

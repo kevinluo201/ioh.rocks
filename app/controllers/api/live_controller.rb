@@ -48,7 +48,7 @@ class Api::LiveController < ApplicationController
 	end
 
 	def test
-		@lives = LiveSchool.all
+		@lives = LiveDepartment.all
 
 		respond_to do |format|
 			format.json { render json: @lives.to_json }
@@ -56,12 +56,12 @@ class Api::LiveController < ApplicationController
 	end
 
 	def update
-		schools = params[:schools]
+		departments = params[:departments]
 
-		if schools
-			school = LiveSchool.new
-			school.name = schools[0]
-			school.save
+		if departments
+			department = LiveDepartment.new
+			department.name = departments[0]
+			department.save
 		end
 
 		render plain: "good"

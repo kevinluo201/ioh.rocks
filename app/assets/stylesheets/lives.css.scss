@@ -13,6 +13,14 @@
     color: white;
     border-radius: 0 !important;
 }
+.btn.btn-date {
+    background-color: red;
+    color: white;
+    width: 15%;
+    margin-right: 5px;
+    margin-bottom: 9px;
+    border-radius: 0 !important;
+}
 .circle {
   width: 100%;
   border-radius: 50%;
@@ -38,5 +46,9 @@
 }
 
 #live_location_post {
+  display: none;
+}
+
+.display_none {
   display: none;
 }

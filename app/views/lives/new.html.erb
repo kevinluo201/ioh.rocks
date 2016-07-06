@@ -112,7 +112,7 @@
               </font>
               <br>
               <% LiveTime.all.each do |time| %>
-              	<button type="button" class="btn btn-gray" data-toggle="button" aria-pressed="false" autocomplete="off">
+              	<button type="button" class="btn btn-date" data-toggle="button" aria-pressed="false" autocomplete="off">
               	<%= f.label time.start.to_s(:short), for: "live_live_time_ids_#{time.id}" %>
               	<%= check_box_tag "live[live_time_ids][]", time.id, true, id: "live_live_time_ids_#{time.id}" %>
               	</button>
@@ -144,4 +144,23 @@
 <script type="text/javascript">
   $('.circle').css('height', $('.circle').width());
   $('.circle').css('padding', '20% 15% 15% 15%');
+
+  $('input[name="live[live_time_ids][]"]').each(function(){
+    $(this).addClass('display_none');
+    var _this = $(this);
+    $(this).siblings('label').css('cursor', 'pointer');
+    $(this).parents('button').click(function(){
+      if($(this).css('background-color') !== 'rgb(255, 0, 0)') {
+        $(this).css('background-color', 'red');
+        $(this).css('color', 'white');
+        _this.prop( "checked", true);
+      }
+      else {
+        $(this).css('background-color', 'white');
+        $(this).css('color', 'black');
+        _this.prop( "checked", false);
+      }
+    });
+
+  });
 </script>

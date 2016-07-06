@@ -54,4 +54,16 @@ class Api::LiveController < ApplicationController
 			format.json { render json: @lives.to_json }
 		end
 	end
+
+	def update
+		schools = params[:schools]
+
+		if schools
+			school = LiveSchool.new
+			school.name = schools[0]
+			school.save
+		end
+
+		render plain: "good"
+	end
 end

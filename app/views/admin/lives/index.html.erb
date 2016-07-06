@@ -1,0 +1,13 @@
+<table>
+	<thead></thead>
+	<tbody>
+		<% @lives.each do |live| %>
+			<tr>
+				<td><%= live.name %></td>
+				<td><%= live.gmail %></td>
+				<td><%= live.live_school.name %></td>
+				<td><%= live.live_department.name %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

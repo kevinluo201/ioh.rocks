@@ -16,10 +16,17 @@
 .btn.btn-date {
     background-color: red;
     color: white;
-    width: 15%;
-    margin-right: 5px;
-    margin-bottom: 9px;
+    width: 18%;
+    margin-right: 9px;
+    margin-bottom: 8px;
     border-radius: 0 !important;
+    padding: 0;
+
+    label{
+      font-size: 0.9em;
+      cursor: pointer;
+      margin: 8px;
+    }
 }
 .circle {
   width: 100%;

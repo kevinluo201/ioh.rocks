@@ -23,7 +23,7 @@
       </p>
    </div>
    <div class="container text-center">
-      <div class="col-md-4 col-xs-12">
+      <div class="col-md-4 col-xs-6">
          <h2 class="title"><i>WHO can JOIN?</i></h2>
          <div class="circle">
             <p>講者</p>
@@ -39,7 +39,7 @@
             </p>
          </div>
       </div>
-      <div class="col-md-4 col-xs-12">
+      <div class="col-md-4 col-xs-6">
          <h2 class="title"><i>for WHO?</i></h2>
          <div class="circle">
             <p>觀眾</p>
@@ -57,7 +57,7 @@
             </p>
          </div>
       </div>
-      <div class="col-md-4 col-xs-12">
+      <div class="col-md-4 col-xs-6">
          <h2 class="title"><i>WHEN?</i></h2>
          <div class="circle">
             <p>直播時間</p>
@@ -85,21 +85,19 @@
                <%= form_for @live do |f| %>
                姓名 (您在 IOH 講座頁面的中文姓名): <%= f.text_field :name, class: "form-control form-live-reg", required: "required", id: "name_input", placeholder: "Name" %><br />
                G-mail 帳號 (必須是 Gmail 帳號才能直播) : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", id: "gmail_input", placeholder: "G-mail Account" %><br />
-               臉書帳號連結 (方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此)： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", id: "fb_url_input", placeholder: "Your Mobile Phone" %><br />
-               電話 (方便我們聯絡您,協調直播事宜) : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", id: "phone_input", placeholder: "Your Facebook URL" %><br />
+               臉書帳號連結 (方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此)： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", id: "fb_url_input", placeholder: "Your Facebook URL" %><br />
+               電話 (方便我們聯絡您,協調直播事宜) : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", id: "phone_input", placeholder: "Your Mobile Phone" %><br />
                學校 : <%= f.text_field :school, class: "form-control form-live-reg", required: "required", placeholder: "School" %><br />
                科系 : <%= f.text_field :department, class: "form-control form-live-reg", required: "required", placeholder: "Department" %><br />
                <div class="field">
                  是否參與過 2016 年 2 月學測直播線上諮詢會?
                  <p></p>
-                 <%= f.radio_button :stream_201602, true %>
-                 <%= f.label :stream_201602, "是" %>
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                 <%= f.radio_button :stream_201602, false %>
-                 <%= f.label :stream_201602, "否" %>
+                 <input type="radio" value="true" name="live[stream_201602]" id="live_stream_201602_true">&nbsp;是
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+                 <input type="radio" value="false" checked="checked" name="live[stream_201602]" id="live_stream_201602_false">&nbsp;否
                </div>
                <br>
-               直播地點 : <%= f.text_field :location, class: "form-control form-live-reg", required: "required", placeholder: "Lacation" %><br />
+               直播地點 : <%= f.text_field :location, class: "form-control form-live-reg", required: "required", placeholder: "Location" %><br />
                <br>
             </div>
             <div class="col-md-8" style="padding-left: 0px;">
@@ -110,7 +108,7 @@
                 中,安排您的 30 分鐘直播時間在不同的日期,排定好會再通知您。請至少留至少兩個以上的時段,謝謝。
                 (例:2/22 - 2/26 每天晚上都有空,請把以下的時段全部不勾選起來,IOH 會挑兩天各安排您一次每次 30 分鐘的直播)
               </font>
-              <br>
+              <br><br>
               <% LiveTime.all.each do |time| %>
               	<button type="button" class="btn btn-date" data-toggle="button" aria-pressed="false" autocomplete="off">
               	<%= f.label time.start.strftime("%m/%d %H:%M") + ' - ' + time.end .strftime("%H:%M"), for: "live_live_time_ids_#{time.id}" %>
@@ -148,7 +146,6 @@
   $('input[name="live[live_time_ids][]"]').each(function(){
     $(this).addClass('display_none');
     var _this = $(this);
-    $(this).siblings('label').css('cursor', 'pointer');
     $(this).parents('button').click(function(){
       if($(this).css('background-color') !== 'rgb(255, 0, 0)') {
         $(this).css('background-color', 'red');

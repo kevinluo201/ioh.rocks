@@ -113,7 +113,7 @@
               <br>
               <% LiveTime.all.each do |time| %>
               	<button type="button" class="btn btn-date" data-toggle="button" aria-pressed="false" autocomplete="off">
-              	<%= f.label time.start.to_s(:short), for: "live_live_time_ids_#{time.id}" %>
+              	<%= f.label time.start.strftime("%m/%d %H:%M") + ' - ' + time.end .strftime("%H:%M"), for: "live_live_time_ids_#{time.id}" %>
               	<%= check_box_tag "live[live_time_ids][]", time.id, true, id: "live_live_time_ids_#{time.id}" %>
               	</button>
               <% end %>

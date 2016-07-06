@@ -48,7 +48,7 @@ class Api::LiveController < ApplicationController
 	end
 
 	def test
-		@lives = LiveDepartment.all
+		@lives = Talk.all
 
 		respond_to do |format|
 			format.json { render json: @lives.to_json }

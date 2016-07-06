@@ -41,6 +41,9 @@ Rails.application.routes.draw do
   	get "/live" => "live#index"
   	get "/test" => "live#test"
 		# get "/update" => "live#update"
+		get "/talk" => "live#update_talk"
+		get "/school" => "live#update_school"
+		get "/department" => "live#update_department"
   end
 
   get "/lives/success" => "lives#success"

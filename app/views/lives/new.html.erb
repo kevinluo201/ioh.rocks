@@ -111,14 +111,14 @@
                 (例:2/22 - 2/26 每天晚上都有空,請把以下的時段全部不勾選起來,IOH 會挑兩天各安排您一次每次 30 分鐘的直播)
               </font>
               <br>
-              <%= f.collection_check_boxes(:live_time_ids, LiveTime.all, :id, :start )do |b| %>
-                <button type="button" class="btn btn-gray" data-toggle="button" aria-pressed="false" autocomplete="off">
-                  <%= b.label  do%>
-                  <%= b.check_box + ' ' + b.text %>
-                </button>
-                  <% end %>
-                  <% end %>
-                  <br /><br />
+              <% LiveTime.all.each do |time| %>
+              	<button type="button" class="btn btn-gray" data-toggle="button" aria-pressed="false" autocomplete="off">
+              	<%= f.label time.start.to_s(:short), for: "live_live_time_ids_#{time.id}" %>
+              	<%= check_box_tag "live[live_time_ids][]", time.id, true, id: "live_live_time_ids_#{time.id}" %>
+              	</button>
+              <% end %>
+              <input type="hidden" name="live[live_time_ids][]" value="">
+                <br /><br />
                 有任何建議或是鼓勵,想要和我們說的嗎?: <%= f.text_field :feedback, class: "form-control form-live-reg", type: "text", required: "required", id: "feedback_input", placeholder: 'thank you!' %><br />
                 <button type="button" id="button_pre" class="btn btn-gray col-md-6 col-xs-12" data-toggle="modal" data-target="#myModal">Submit</button>
             </div>

@@ -1,5 +1,17 @@
-<table>
-	<thead></thead>
+<table class="table">
+	<thead>
+		<tr>
+				<th>名字</th>
+				<th>gmail</th>
+				<th>學校</th>
+				<th>科系</th>
+				<th>fb</th>
+				<th>電話</th>
+				<th>上次直播</th>
+				<th>直播地點</th>
+				<th>feedback</th>
+		</tr>	
+	</thead>
 	<tbody>
 		<% @lives.each do |live| %>
 			<tr>
@@ -7,6 +19,11 @@
 				<td><%= live.gmail %></td>
 				<td><%= live.live_school.name %></td>
 				<td><%= live.live_department.name %></td>
+				<td><%= live.fb_url %></td>
+				<td><%= live.phone %></td>
+				<td><%= live.stream_201602 %></td>
+				<td><%= live.location %></td>
+				<td><%= live.feedback %></td>
 			</tr>
 		<% end %>
 	</tbody>

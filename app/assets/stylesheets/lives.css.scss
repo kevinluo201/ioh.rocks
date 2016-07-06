@@ -9,10 +9,28 @@
     color: blue;
 }
 .btn-gray {
+    color: white;
+    border-radius: 0 !important;
+}
+
+.btn-gray:focus {
     background-color: #999999;
     color: white;
     border-radius: 0 !important;
 }
+
+.btn-gray:active {
+    background-color: #999999;
+    color: white;
+    border-radius: 0 !important;
+}
+
+.btn-gray:active, .btn-gray.active, .open > .btn-gray.dropdown-toggle {
+    color: #fff;
+    background-color: #999999;
+    border-color: #204d74;
+}
+
 .circle {
   width: 100%;
   border-radius: 50%;

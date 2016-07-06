@@ -56,12 +56,16 @@ class Api::LiveController < ApplicationController
 	end
 
 	def update
-		departments = params[:departments]
+		talk = params[:talk]
 
-		if departments
-			department = LiveDepartment.new
-			department.name = departments[0]
-			department.save
+		if talk
+			@talk = Talk.new
+			@talk.title = talk[:title]
+			@talk.post_name = talk[:name]
+			@talk.live_school = LiveSchool.find talk[:school] unless talk[:school] == "NULL"
+			@talk.live_department = LiveDepartment.find talk[:department]
+
+			@talk.save
 		end
 
 		render plain: "good"

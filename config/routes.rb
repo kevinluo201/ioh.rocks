@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
   	get "/live/view" => "lives#index"
+    get "/live/agenda" => "lives#agenda"
   end
 
   namespace :api do
@@ -47,7 +48,6 @@ Rails.application.routes.draw do
   end
 
   get "/lives/success" => "lives#success"
-  get "/lives/agenda" => "lives#agenda"
 
   resources :lives
 

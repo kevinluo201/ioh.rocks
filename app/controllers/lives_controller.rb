@@ -33,9 +33,6 @@ class LivesController < ApplicationController
 	def success
 	end
 
-	def agenda
-	end
-
 	private
 	def live_params
 		params.require(:live).permit(:name, :gmail, :fb_url, :feedback, :school, :department,

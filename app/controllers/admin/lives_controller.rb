@@ -6,6 +6,9 @@ class Admin::LivesController < ApplicationController
 		@lives = Live.all.includes(:live_school, :live_department, :live_times)
 	end
 
+	def agenda
+	end
+
 	private
 	def check_admin
 		if current_user.regular?

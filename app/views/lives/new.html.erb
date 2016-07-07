@@ -60,8 +60,8 @@
                <%= form_for @live do |f| %>
                姓名（您在 IOH 講座頁面的中文姓名）：<%= f.text_field :name, class: "form-control form-live-reg", required: "required", id: "name_input", placeholder: "Name" %><br />
                G-mail 帳號（必須是 G-mail 帳號才能直播） : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", id: "gmail_input", placeholder: "G-mail Account" %><br />
-               臉書帳號連結（方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此）： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", id: "fb_url_input", placeholder: "Your Facebook URL" %><br />
-               電話（方便我們聯絡您,協調直播事宜）: <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", id: "phone_input", placeholder: "Your Mobile Phone" %><br />
+               臉書帳號連結（方便 IOH 夥伴用臉書與您聯絡，請由網址列複製再貼上於此）： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", id: "fb_url_input", placeholder: "Your Facebook URL" %><br />
+               電話（方便我們聯絡您，協調直播事宜）: <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", id: "phone_input", placeholder: "Your Mobile Phone" %><br />
                學校 : <%= f.text_field :school, class: "form-control form-live-reg", required: "required", placeholder: "School" %><br />
                科系 : <%= f.text_field :department, class: "form-control form-live-reg", required: "required", placeholder: "Department" %><br />
                直播地點 : <%= f.text_field :location, class: "form-control form-live-reg", required: "required", placeholder: "Location", value: "台灣" %><br />
@@ -97,7 +97,7 @@
             <div class="col-md-7" style="padding-left: 0px;">
               <input type="hidden" name="live[live_time_ids][]" value="">
               <br /><br />
-              有任何建議或是鼓勵,想要和我們說的嗎?:
+              有任何建議或是鼓勵，想要和我們說的嗎？
               <%= f.text_area :feedback, class: "form-control form-live-reg", rows: 5, type: "text", id: "feedback_input", placeholder: 'Thank you！' %><br />
               <%= f.submit "Submit", class: "btn btn-gray col-md-6 col-xs-12", id: "submit" %>
             </div>
@@ -118,7 +118,9 @@
     <p>聯絡方式<br />
       張鈞婷<br />
       E-mail：gt@gmail.com<br />
-      Office: 02-2931-8954</p>
+      Office：02-2931-8954<br />
+      Phone：0919-099-125
+    </p>
   </div>
 </section>
 <script type="text/javascript">

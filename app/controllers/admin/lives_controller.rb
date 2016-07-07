@@ -8,7 +8,7 @@ class Admin::LivesController < ApplicationController
 
 	private
 	def check_admin
-		unless current_user.admin?
+		if current_user.regular?
 			redirect login_path
 		end
 	end

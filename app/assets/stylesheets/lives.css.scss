@@ -20,19 +20,20 @@
 }
 
 .btn.btn-date {
-    background-color: red;
-    color: white;
+    width: 18%;
+    background-color: white;
+    color: black;
     margin-right: 9px;
     margin-bottom: 8px;
     border-radius: 0 !important;
-    padding: 0;
+    padding: 5px;
+    text-align: left;
 
-    label{
+    span{
       font-size: 0.9em;
+      padding-left: 3px;
       cursor: pointer;
-      margin: 8px;
       overflow: auto;
-      display: block;
     }
 }
 

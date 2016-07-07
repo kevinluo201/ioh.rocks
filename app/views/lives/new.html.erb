@@ -19,7 +19,6 @@
          200 位 IOH 講者在網路上直播所花的 1 個小時,可以讓全台灣不論是身處偏鄉或是都市,不論是學校、家庭有無資源的 136,000 位高三學測考生,找到能發揮自己熱情
          的學校與科系。這些學子將會創造 10 年、20 年後我們所生存的台灣未來,藉由 1 個小時的經驗傳承讓這些學生的能力與熱情得以發揮,這也是我們可以一起改變未來
          讓台灣更好的一種方式, IOH 邀請您一起參與,成為自己想要看見的改變,用 200 位夥伴,一起替 136,000 位孩子找到人生方向。
-         IOH學長姐線上直播讓你問
       </p>
    </div>
    <div class="container text-center">
@@ -83,12 +82,13 @@
             <h3>如何參與？輕鬆回答以下問題！</h3>
             <div class="form-live-reg col-md-7" style="padding-left: 0px;">
                <%= form_for @live do |f| %>
-               姓名 (您在 IOH 講座頁面的中文姓名): <%= f.text_field :name, class: "form-control form-live-reg", required: "required", id: "name_input", placeholder: "Name" %><br />
-               G-mail 帳號 (必須是 Gmail 帳號才能直播) : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", id: "gmail_input", placeholder: "G-mail Account" %><br />
-               臉書帳號連結 (方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此)： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", id: "fb_url_input", placeholder: "Your Facebook URL" %><br />
-               電話 (方便我們聯絡您,協調直播事宜) : <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", id: "phone_input", placeholder: "Your Mobile Phone" %><br />
+               姓名（您在 IOH 講座頁面的中文姓名）：<%= f.text_field :name, class: "form-control form-live-reg", required: "required", id: "name_input", placeholder: "Name" %><br />
+               G-mail 帳號（必須是 Gmail 帳號才能直播） : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", id: "gmail_input", placeholder: "G-mail Account" %><br />
+               臉書帳號連結（方便 IOH 夥伴用臉書與您聯絡,請由網址列複製再貼上於此）： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", id: "fb_url_input", placeholder: "Your Facebook URL" %><br />
+               電話（方便我們聯絡您,協調直播事宜）: <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", id: "phone_input", placeholder: "Your Mobile Phone" %><br />
                學校 : <%= f.text_field :school, class: "form-control form-live-reg", required: "required", placeholder: "School" %><br />
                科系 : <%= f.text_field :department, class: "form-control form-live-reg", required: "required", placeholder: "Department" %><br />
+               直播地點 : <%= f.text_field :location, class: "form-control form-live-reg", required: "required", placeholder: "Location", value: "台灣" %><br />
                <div class="field">
                  是否參與過 2016 年 2 月學測直播線上諮詢會?
                  <p></p>
@@ -97,28 +97,33 @@
                  <input type="radio" value="false" checked="checked" name="live[stream_201602]" id="live_stream_201602_false">&nbsp;否
                </div>
                <br>
-               直播地點 : <%= f.text_field :location, class: "form-control form-live-reg", required: "required", placeholder: "Location" %><br />
-               <br>
             </div>
             <div class="col-md-8" style="padding-left: 0px;">
-              <span>請在下方選擇您所有「有空」做直播的時段(可複選,最多選擇 3 個時段):</span>
+              請在下方選擇您所有「有空」做直播的時段（可複選,最多選擇 3 個時段）：
               <br>
               <font size="1">
                 直播一次約 30 分鐘,希望每一位講者至少可以做兩次的直播時間,兩次加起來共 1 小時。請勾選掉您沒有空的時段,IOH 會在您其他所有有空的時段
                 中,安排您的 30 分鐘直播時間在不同的日期,排定好會再通知您。請至少留至少兩個以上的時段,謝謝。
-                (例:2/22 - 2/26 每天晚上都有空,請把以下的時段全部不勾選起來,IOH 會挑兩天各安排您一次每次 30 分鐘的直播)
+                （例:2/22 - 2/26 每天晚上都有空,請把以下的時段全部不勾選起來,IOH 會挑兩天各安排您一次每次 30 分鐘的直播)
               </font>
+            </div>
+            <div class="col-md-10" style="padding-left: 0px;">
               <br><br>
               <% LiveTime.all.each do |time| %>
               	<button type="button" class="btn btn-date" data-toggle="button" aria-pressed="false" autocomplete="off">
-              	<%= f.label time.start.strftime("%m/%d %H:%M") + ' - ' + time.end .strftime("%H:%M"), for: "live_live_time_ids_#{time.id}" %>
-              	<%= check_box_tag "live[live_time_ids][]", time.id, true, id: "live_live_time_ids_#{time.id}" %>
+                <b><%= content_tag(:span, time.start.strftime("%m/%d"), for: "live_live_time_ids_#{time.id}")%></b>
+              	<%= content_tag(:span, time.start.strftime("%a"), class: "date_span", for: "live_live_time_ids_#{time.id}") %>
+                <%= content_tag(:span, time.start.strftime("%H:%M") + ' - ' + time.end .strftime("%H:%M"), for: "live_live_time_ids_#{time.id}") %>
+                <%= check_box_tag "live[live_time_ids][]", time.id, false, id: "live_live_time_ids_#{time.id}" %>
               	</button>
               <% end %>
+            </div>
+            <div class="col-md-8" style="padding-left: 0px;">
               <input type="hidden" name="live[live_time_ids][]" value="">
-                <br /><br />
-                有任何建議或是鼓勵,想要和我們說的嗎?: <%= f.text_field :feedback, class: "form-control form-live-reg", type: "text", required: "required", id: "feedback_input", placeholder: 'thank you!' %><br />
-                <%= f.submit "Submit", class: "btn btn-gray col-md-6 col-xs-12", id: "submit" %>
+              <br /><br />
+              有任何建議或是鼓勵,想要和我們說的嗎?:
+              <%= f.text_area :feedback, class: "form-control form-live-reg", rows: 5, type: "text", id: "feedback_input", placeholder: 'Thank you！' %><br />
+              <%= f.submit "Submit", class: "btn btn-gray col-md-6 col-xs-12", id: "submit" %>
             </div>
             <% end %>
          </div>
@@ -158,6 +163,19 @@
         _this.prop( "checked", false);
       }
     });
+  });
 
+  $('.date_span').each(function(){
+    switch ($(this).text()) {
+      case "Mon":
+        $(this).text("(一)");
+        break;
+      case "Tue":
+        $(this).text("(二)");
+        break;
+      case "Wed":
+        $(this).text("(三)");
+        break;
+    }
   });
 </script>

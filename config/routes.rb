@@ -50,5 +50,6 @@ Rails.application.routes.draw do
   get "/lives/success" => "lives#success"
 
   resources :lives
+  get "/live" => "lives#new"
 
 end

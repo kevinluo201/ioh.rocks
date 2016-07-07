@@ -12,7 +12,7 @@ class Admin::LivesController < ApplicationController
 	private
 	def check_admin
 		if current_user.regular?
-			redirect login_path
+			redirect_to new_user_session_path
 		end
 	end
 end

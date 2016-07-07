@@ -1,6 +1,12 @@
 //for Live
 .title {
     color: red;
+    span {
+      float: right;
+      margin-right: 5px;
+      color: yellow;
+      font-weight: 300;
+    }
 }
 .gray {
     color: gray;
@@ -41,6 +47,11 @@
   width: 100%;
   border-radius: 50%;
   border: 1px dashed red;
+
+  h3{
+    color: red;
+    margin-bottom: -10px;
+  }
 }
 .form-live-reg {
   border-radius: 0px !important;

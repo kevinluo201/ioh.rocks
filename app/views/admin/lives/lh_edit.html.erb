@@ -18,6 +18,14 @@
 			<%= f.radio_button :audio_agree, false %>
 		</div>
 
+		<div class="form-group">
+			<%= f.label "電話聯絡：" %>
+			<%= f.label :phone_contact, "是" %>
+			<%= f.radio_button :phone_contact, true %>
+			<%= f.label :phone_contact, "否" %>
+			<%= f.radio_button :phone_contact, false %>
+		</div>
+
 		<div class="class form-group">
 			<%= f.label :qa_link, "Q&A 連結" %>
 			<%= f.text_field :qa_link, class: "form-control" %>
@@ -31,6 +39,11 @@
 		<div class="class form-group">
 			<%= f.label :stream_naming, "Goole Hangout 直播命名" %>
 			<%= f.text_field :stream_naming, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :test_record, "試錄連結" %>
+			<%= f.text_field :test_record, class: "form-control" %>
 		</div>
 
 		<div class="form-group">

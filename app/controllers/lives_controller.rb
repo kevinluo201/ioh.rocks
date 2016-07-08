@@ -18,6 +18,8 @@ class LivesController < ApplicationController
 
 		if @live.valid? && talk
 			@live.save
+			@live.time_count = @live.live_times.count
+			@live.save
       redirect_to lives_success_path
     elsif talk.nil?
     	flash.now[:alert] = "名字輸入錯誤"

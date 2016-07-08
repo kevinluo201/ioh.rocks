@@ -66,6 +66,8 @@
 
 							data['id'] = index;
 
+							data['title'] += ('\n' + data['school'] + '\n' + data['department']);
+
 							$.each(data, function (key, value) {
 								if (key === 'start' || key === 'end')
 									data[key] = new Date(value);
@@ -81,7 +83,7 @@
 							else
 								data['color'] = '#CC9933';
 						})
-						console.log(user_idObj);
+						console.log(json);
 					}
 				}
 			],

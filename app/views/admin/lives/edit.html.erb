@@ -60,6 +60,15 @@
 			<%= f.collection_select(:live_department_id, LiveDepartment.all, :id, :name, {include_hidden: false} ) %>
 		</div>
 
+		<h2>時間</h2>
+		<div class="form-group">
+			<% LiveTime.all.each do |time| %>
+				<%= label_tag "live[live_time_ids][#{time.id}]", "#{time.start.strftime("%m/%d %H:%M")} - #{time.end.strftime("%H:%M")}" %>	
+	      <%= check_box_tag "live[live_time_ids][]", time.id, @live.live_time_ids.include?(time.id), id: "live_live_time_ids_#{time.id}" %>
+	      <%= "</br></br>".html_safe if time.id % 10 == 0 %>
+	    <% end %>
+    </div>
+
 		<%= f.submit "更新", class: "btn btn-primary" %>
 		
 	<% end %>

@@ -1,1 +1,38 @@
-<h1>hah</h1>
+<div class="container col-md-7">
+	<%= form_for @live, :url => "/admin/live/lh/#{@live.id}" do |f| %>
+		<div class="form-group">
+			<%= f.label :live_host, "Live Host" %>
+			<%= f.text_field :live_host, class: "form-control" %>
+		</div>
+		
+		<div class="form-group">
+			<%= f.label "頻道" %>
+			<%= f.select :chennal, (1..5) %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "影音同意書：" %>
+			<%= f.label :audio_agree, "是" %>
+			<%= f.radio_button :audio_agree, true %>
+			<%= f.label :audio_agree, "否" %>
+			<%= f.radio_button :audio_agree, false %>
+		</div>
+
+		<div class="class form-group">
+			<%= f.label :qa_link, "Q&A 連結" %>
+			<%= f.text_field :qa_link, class: "form-control" %>
+		</div>
+
+		<div class="class form-group">
+			<%= f.label :doc_naming, "文件命名" %>
+			<%= f.text_field :doc_naming, class: "form-control" %>
+		</div>
+
+		<div class="class form-group">
+			<%= f.label :stream_naming, "Goole Hangout 直播命名" %>
+			<%= f.text_field :stream_naming, class: "form-control" %>
+		</div>
+
+		<%= f.submit "更新", class: "btn btn-primary" %>
+	<% end %>
+</div>

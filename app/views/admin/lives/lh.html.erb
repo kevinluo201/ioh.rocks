@@ -13,6 +13,7 @@
 				<th>Q&A 連結</th>
 				<th>文件命名</th>
 				<th>直播命名</th>
+				<th>Edit</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -34,6 +35,11 @@
 				<th><%= live.qa_link %></th>
 				<th><%= live.doc_naming %></th>
 				<th><%= live.stream_naming %></th>
+				<td>
+					<a href="<%= "/admin/live/lh/#{live.id}/edit" %>">
+						<span class="glyphicon glyphicon-edit"></span>
+					</a>
+				</td>
 			</tr>
 		<% end %>
 	</tbody>

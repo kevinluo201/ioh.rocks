@@ -27,6 +27,17 @@ class Admin::LivesController < ApplicationController
 		@live = Live.find params[:id]
 	end
 
+	def lh_update
+		@live = Live.find params[:id]
+
+		if @live.update_attributes(live_params)
+			redirect_to admin_live_lh_view_path
+		else
+			render :lh_edit
+			flash.now[:alert] = @live.errors.full_messages
+		end
+	end
+
 	def update
 		@live = Live.find params[:id]
 
@@ -58,6 +69,8 @@ class Admin::LivesController < ApplicationController
 	def live_params
 		params.require(:live).permit(:name, :gmail, :fb_url, :feedback, :school, :department,
 																 :phone, :stream_201602, :location, { live_time_ids: [] },
-																 :live_school_id, :live_department_id)
+																 :live_school_id, :live_department_id,
+																 :chennal, :live_host, :audio_agree, :qa_link,
+																 :doc_naming, :stream_naming)
 	end
 end

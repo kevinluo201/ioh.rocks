@@ -2,7 +2,11 @@
 <%= javascript_include_tag 'fullcalendar.min.js', 'data-turbolinks-track' => true %>
 
 <script>
-	$(document).ready(function() {
+	$(document).ready(function () {
+
+		function user_dict(user_id) {
+			console.log(user_id);
+		}
 
 		$('#calendar').fullCalendar({
 			header: {
@@ -12,7 +16,9 @@
 			defaultView: 'agendaWeek',
 			defaultDate: '2016-07-18',
 			gotoDate: '2016-07-18',
-			hiddenDays: [ 4, 5],
+			hiddenDays: [
+				4, 5
+			],
 			minTime: '14:00',
 			maxTime: '22:30',
 			aspectRatio: 1,
@@ -22,15 +28,14 @@
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
 			eventDurationEditable: false,
-			viewRender: function(currentView){
+			viewRender: function (currentView) {
 				var minDate = new Date('2016-07-18');
 				maxDate = new Date('2016-07-21');
 
 				if (minDate >= currentView.start && minDate <= currentView.end) {
 					$(".fc-prev-button").prop('disabled', true);
 					$(".fc-prev-button").addClass('fc-state-disabled');
-				}
-				else {
+				} else {
 					$(".fc-prev-button").removeClass('fc-state-disabled');
 					$(".fc-prev-button").prop('disabled', false);
 				}
@@ -44,37 +49,52 @@
 				}
 			},
 			eventSources: [
-        {
-            url: '/api/live.json',
-            type: 'GET',
-            error: function() {
-                alert('there was an error while fetching events!');
-            },
-						success: function(json) {
-							$.each(json, function (index, data) {
-							    $.each(data, function (key, value) {
-											if(key === 'start' || key === 'end')
-												data[key] = new Date(value);
-							    })
-							})
-						}
-        }
-    	],
-			eventDrop: function(event, delta, revertFunc) {
-        //alert(event.title + " was dropped on " + event.start.format());
-				// 這裡要寫auto save
-    	},
-			eventClick: function(calEvent, jsEvent, view) {
+				{
+					url: '/api/live.json',
+					type: 'GET',
+					error: function () {
+						alert('there was an error while fetching events!');
+					},
+					success: function (json) {
+						var user_idObj = {};
+						$.each(json, function (index, data) {
 
-        //alert('Event: ' + calEvent.title);
+							if(!(data['user_id'] in user_idObj))
+								user_idObj[data['user_id']] = 1;
+							else
+								user_idObj[data['user_id']] += 1;
 
-        // change the border color just for fun
-        $(this).css('border-color', 'red');
-    	}
+							data['id'] = index;
+
+							$.each(data, function (key, value) {
+								if (key === 'start' || key === 'end')
+									data[key] = new Date(value);
+								}
+							)
+						})
+
+						$.each(json, function (index, data) {
+							if(user_idObj[data['user_id']] <= 2)
+								data['color'] = '#333399';
+							else if(user_idObj[data['user_id']] <= 4 )
+								data['color'] = '#009933';
+							else
+								data['color'] = '#CC9933';
+						})
+						console.log(user_idObj);
+					}
+				}
+			],
+			eventDrop: function (event, delta, revertFunc) {
+				//alert(event.title + " was dropped on " + event.start.format()); 這裡要寫auto save
+			},
+			eventClick: function (calEvent, jsEvent, view) {
+				console.log(calEvent);
+				//alert('Event: ' + calEvent.title); change the border color just for fun $(this).css('border-color', 'red');
+			}
 		});
 
 	});
-
 </script>
 <style>
 
@@ -92,3 +112,4 @@
 </style>
 <%= render "live_nav" %>
 <div id='calendar'></div>
+

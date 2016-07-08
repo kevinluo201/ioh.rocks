@@ -14,10 +14,19 @@ class Admin::LivesController < ApplicationController
 	end
 
 	def lh
+		day = params[:day]
+		day ||= 1
+		last_day = (17 + day.to_i).to_s
+		day = (17 + day.to_i + 1).to_s
+
+		date = Time.zone.parse("2016-07-" + day)
+		last_date = Time.zone.parse("2016-07-" + last_day)
+
 		@lives = Live.joins(:live_times)
 							   .select("lives.*,
 							   					live_times.start as start,
 							   					live_times.end as end")
+							   .where("start < ? AND start > ?", date, last_date)
 							   .order("start")
 	end
 

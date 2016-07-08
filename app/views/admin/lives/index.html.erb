@@ -1,3 +1,4 @@
+<h2> 目前報名人數：<%= @lives.count %> </h2>
 <table class="table table-hover">
 	<thead>
 		<tr>
@@ -5,11 +6,8 @@
 				<th>gmail</th>
 				<th>學校</th>
 				<th>科系</th>
-				<th>fb</th>
-				<th>電話</th>
-				<th>上次直播</th>
 				<th>直播地點</th>
-				<th>feedback</th>
+				<th>Edit</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -19,11 +17,15 @@
 				<td><%= live.gmail %></td>
 				<td><%= live.live_school.name if live.live_school %></td>
 				<td><%= live.live_department.name %></td>
-				<td><%= live.fb_url %></td>
-				<td><%= live.phone %></td>
-				<td><%= live.stream_201602 %></td>
 				<td><%= live.location %></td>
-				<td><%= live.feedback %></td>
+				<td>
+					<a href="<%= "/admin/live/#{live.id}/edit" %>">
+						<span class="glyphicon glyphicon-edit"></span>
+					</a>
+					<!-- <a href="<%= "/admin/live/#{live.id}" %>" style="color: #a94442" onclick="return confirm('確定要刪除嗎？');" data-method="DELETE">
+						<span class="glyphicon glyphicon-trash"></span>
+					</a> -->
+				</td>
 			</tr>
 		<% end %>
 	</tbody>

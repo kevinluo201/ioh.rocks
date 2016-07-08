@@ -1,0 +1,75 @@
+<% if @live.feedback.present? %>
+	<h2>Feedback</h2>
+	<p><%= @live.feedback %></p>
+<% end %>
+
+<div class="container col-md-7">
+	<%= form_for @live, :url => "/admin/live/#{@live.id}" do |f| %>
+		<div class="form-group">
+			<%= f.label :name %>
+			<%= f.text_field :name, class: "form-control" %>
+		</div>
+		
+		<div class="form-group">
+			<%= f.label :gmail %>
+			<%= f.email_field :gmail, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :fb_url, "FB" %>
+			<%= f.text_field :fb_url, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :phone %>
+			<%= f.text_field :phone, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :location, "直播地點" %>
+			<%= f.text_field :location, class: "form-control" %>
+		</div>
+
+		<div class="from-group">
+			<%= f.label "是否參加上次直播？" %>
+			<%= f.label :stream_201602, "是" %>
+			<%= f.radio_button :stream_201602, true %>
+			<%= f.label :stream_201602, "否" %>
+			<%= f.radio_button :stream_201602, false %>
+		</div>
+		
+		<h2>講者自己填的</h2>
+		<div class="form-group">
+			<%= f.label :school %>
+			<%= f.text_field :school, class: "form-control" %>
+		</div>
+		
+		<div class="form-group">
+			<%= f.label :department %>
+			<%= f.text_field :department, class: "form-control" %>
+		</div>
+
+		<h2>對應到 IOH 的</h2>
+		<div class="form-group">
+			<%= f.label :live_school_id, "學校" %>
+			<%= f.collection_select(:live_school_id, LiveSchool.all, :id, :name, {include_hidden: false} ) %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :live_department_id, "學校" %>
+			<%= f.collection_select(:live_department_id, LiveDepartment.all, :id, :name, {include_hidden: false} ) %>
+		</div>
+
+		<h2>時間</h2>
+		<div class="form-group">
+			<% LiveTime.all.each do |time| %>
+				<%= label_tag "live[live_time_ids][#{time.id}]", "#{time.start.strftime("%m/%d %H:%M")} - #{time.end.strftime("%H:%M")}" %>	
+	      <%= check_box_tag "live[live_time_ids][]", time.id, @live.live_time_ids.include?(time.id), id: "live_live_time_ids_#{time.id}" %>
+	      <%= "</br></br>".html_safe if time.id % 10 == 0 %>
+	    <% end %>
+    </div>
+
+		<%= f.submit "更新", class: "btn btn-primary" %>
+		
+	<% end %>
+</div>

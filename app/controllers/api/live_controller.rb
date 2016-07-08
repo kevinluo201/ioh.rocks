@@ -36,7 +36,7 @@ class Api::LiveController < ApplicationController
 		end
 			
 		@lives = Live.joins(:live_department, :live_school, :live_times)
-							   .select("lives.id, lives.title, 
+							   .select("lives.id as user_id, lives.title, 
 							   					live_departments.name as department, 
 							   					live_schools.name as school,
 							   					live_times.start as start,

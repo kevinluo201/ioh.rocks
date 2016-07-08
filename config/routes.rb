@@ -36,6 +36,11 @@ Rails.application.routes.draw do
   namespace :admin do
   	get "/live/view" => "lives#index"
     get "/live/agenda" => "lives#agenda"
+
+    # edit
+    get "/live/:id/edit" => "lives#edit", :as => "edit_live"
+    patch "/live/:id" => "lives#update"
+    delete "/live/:id" => "lives#destroy"
   end
 
   namespace :api do

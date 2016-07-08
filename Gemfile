@@ -48,6 +48,10 @@ gem 'rubyzip'
 # add carrierwave to update pictures
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 
+# add rollbar
+gem 'rollbar'
+gem 'oj', '~> 2.12.14'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

@@ -64,10 +64,12 @@
 
 		<h2>時間</h2>
 		<div class="form-group">
+			<% count = 0 %>
 			<% LiveTime.all.each do |time| %>
+				<% count += 1 %>
 				<%= label_tag "live[live_time_ids][#{time.id}]", "#{time.start.strftime("%m/%d %H:%M")} - #{time.end.strftime("%H:%M")}" %>	
 	      <%= check_box_tag "live[live_time_ids][]", time.id, @live.live_time_ids.include?(time.id), id: "live_live_time_ids_#{time.id}" %>
-	      <%= "</br></br>".html_safe if time.id % 10 == 0 %>
+	      <%= "</br></br>".html_safe if count % 10 == 0 %>
 	    <% end %>
     </div>
 

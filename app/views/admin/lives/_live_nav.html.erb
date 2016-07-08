@@ -7,3 +7,15 @@
 		<%= link_to "直播總表", admin_live_lh_view_path, class: "btn btn-default" %>
 	</div>
 </p>
+<script>
+	$(function(){
+
+			$('btn btn-default').click(function(){
+
+					$('btn btn-default .active').removeClass('active'); // remove the class from the currently selected
+					$(this).addClass('active'); // add the class to the newly clicked link
+
+			});
+
+	});
+</script>

@@ -1,16 +1,23 @@
-<%= render "live_nav" %>
+<p>
+	<div class="row">
+		<%= link_to "資訊總表", admin_live_view_path, class: "btn btn-default btn-active" %>
+		<%= link_to "前往時刻表", admin_live_agenda_path, class: "btn btn-default" %>
+		<%= link_to "直播總表", admin_live_lh_view_path, class: "btn btn-default" %>
+	</div>
+</p>
+
 
 <% if params[:query].nil? %>
-	<h2>目前報名人數：<%= @lives.count %></h2>
+	<h2><span class="label label-ioh">目前報名人數：<%= @lives.count %></span></h2>
 <% end %>
+<%= form_tag(admin_live_view_path, :method => "GET", class: "input-group col-md-4") do %>
+		<span class="input-group-addon" id="basic-addon1">找講者？</span>
+		<input type="text" class="form-control" aria-describedby="basic-addon1" name="query">
 
-<%= form_tag(admin_live_view_path, :method => "GET") do %>
-	<%= label_tag :query, "找講者？" %>
-  <%= text_field_tag :query %>
-
-  <%= submit_tag("Search") %>
+		<span class="input-group-btn">
+	        <button class="btn btn-default" type="submit">Search</button>
+	  </span>
 <% end %>
-
 <table class="table table-hover">
 	<thead>
 		<tr>

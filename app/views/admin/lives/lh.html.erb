@@ -1,7 +1,13 @@
-<%= render "live_nav" %>
+<p>
+	<div class="row">
+		<%= link_to "資訊總表", admin_live_view_path, class: "btn btn-default" %>
+		<%= link_to "前往時刻表", admin_live_agenda_path, class: "btn btn-default" %>
+		<%= link_to "直播總表", admin_live_lh_view_path, class: "btn btn-default btn-active" %>
+	</div>
+</p>
 
 <%= form_tag(admin_live_lh_view_path, :method => "GET") do %>
-	
+
 	<%= label_tag :day, "選擇日期" %>
 	<%= select_tag :day, options_for_select([["7/18", 1], ["7/19", 2], ["7/20", 3]], params[:day]) %>
 
@@ -22,7 +28,7 @@
 				<th>文件命名</th>
 				<th>直播命名</th>
 				<th>直播連結</th>
-				<th>試錄連結</th>	
+				<th>試錄連結</th>
 				<th>Edit</th>
 		</tr>
 	</thead>

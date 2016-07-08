@@ -87,7 +87,13 @@
 				//alert(event.title + " was dropped on " + event.start.format()); 這裡要寫auto save
 			},
 			eventClick: function (calEvent, jsEvent, view) {
-				console.log(calEvent);
+				$('.fc-title').each(function(){
+					var parents = $(this).parents('a');
+					parents.removeClass('selected');
+					if($(this).text() == calEvent.title.replace(/(?:\n)/g, '')) {
+						parents.addClass('selected');
+					}
+				});
 				//alert('Event: ' + calEvent.title); change the border color just for fun $(this).css('border-color', 'red');
 			}
 		});
@@ -105,6 +111,10 @@
 
 	#calendar {
 		margin: 0 auto;
+	}
+
+	.selected {
+		background-color: red !important;
 	}
 
 </style>

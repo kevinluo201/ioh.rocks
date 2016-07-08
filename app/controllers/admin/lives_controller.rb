@@ -71,6 +71,6 @@ class Admin::LivesController < ApplicationController
 																 :phone, :stream_201602, :location, { live_time_ids: [] },
 																 :live_school_id, :live_department_id,
 																 :chennal, :live_host, :audio_agree, :qa_link,
-																 :doc_naming, :stream_naming)
+																 :doc_naming, :stream_naming, :youtube_url)
 	end
 end

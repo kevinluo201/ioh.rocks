@@ -33,6 +33,11 @@
 			<%= f.text_field :stream_naming, class: "form-control" %>
 		</div>
 
+		<div class="form-group">
+			<%= f.label :youtube_url, "直播連結" %>
+			<%= f.text_field :youtube_url, class: "form-control" %>
+		</div>
+
 		<%= f.submit "更新", class: "btn btn-primary" %>
 	<% end %>
 </div>

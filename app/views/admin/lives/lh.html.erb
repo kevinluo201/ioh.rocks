@@ -6,13 +6,12 @@
 				<th>名字</th>
 				<th>頻道</th>
 				<th>Live Host</th>
-				<th>學校</th>
-				<th>科系</th>
 				<th>直播地點</th>
 				<th>影音同意書</th>
 				<th>Q&A 連結</th>
 				<th>文件命名</th>
 				<th>直播命名</th>
+				<th>直播連結</th>
 				<th>Edit</th>
 		</tr>
 	</thead>
@@ -22,19 +21,30 @@
 				<td><%= live.name %></td>
 				<td><%= live.chennal %></td>
 				<td><%= live.live_host %></td>
-				<td><%= live.live_school.name if live.live_school %></td>
-				<td><%= live.live_department.name %></td>
 				<td><%= live.location %></td>
-				<th>
+				<td>
 					<% if live.audio_agree %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
-				</th>
-				<th><%= live.qa_link %></th>
-				<th><%= live.doc_naming %></th>
-				<th><%= live.stream_naming %></th>
+				</td>
+				<td>
+					<% if live.qa_link.present? %>
+					<a href="<%= live.qa_link %>" target="_blank">
+						<span class="glyphicon glyphicon-new-window"></span>
+					</a>
+					<% end %>
+				</td>
+				<td><%= live.doc_naming %></td>
+				<td><%= live.stream_naming %></td>
+				<td>
+					<% if live.youtube_url.present? %>
+					<a href="<%= live.youtube_url %>" target="_blank">
+						<span class="glyphicon glyphicon-new-window"></span>
+					</a>
+					<% end %>
+				</td>
 				<td>
 					<a href="<%= "/admin/live/lh/#{live.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>

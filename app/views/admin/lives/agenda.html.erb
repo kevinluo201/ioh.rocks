@@ -88,17 +88,29 @@
 			},
 			eventClick: function (calEvent, jsEvent, view) {
 				$('.fc-title').each(function(){
+
 					var parents = $(this).parents('a');
 					var selected = false;
-					if(parents.hasClass('selected'))
+					if(parents.hasClass('selected')) {
 						selected = true;
+						$(this).parent().siblings('span').removeClass('closon_selected');
+					}
 
 					parents.removeClass('selected');
 					if($(this).text() == calEvent.title.replace(/(?:\n)/g, '') && !selected) {
+						$(this).parent().siblings('span').addClass('closon_selected');
 						parents.addClass('selected');
 					}
+
 				});
+				$('.closon').click(function() {
+					console.log("obj");
+			  	$('#calendar').fullCalendar('removeEvents', calEvent._id);
+		   	});
 				//alert('Event: ' + calEvent.title); change the border color just for fun $(this).css('border-color', 'red');
+			},
+			eventAfterAllRender: function(view) {
+				$(".fc-time-grid-event").append( "<span class='closon'>隱藏</span>" );
 			}
 		});
 
@@ -119,6 +131,19 @@
 
 	.selected {
 		background-color: red !important;
+	}
+
+	.closon {
+		position: absolute;
+		left: 1px;
+		bottom: -1px;
+		cursor: pointer;
+		color: transparent;;
+		z-index: 10;
+	}
+
+	.closon_selected {
+		color: black;
 	}
 
 </style>

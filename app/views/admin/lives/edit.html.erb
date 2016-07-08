@@ -52,12 +52,12 @@
 		<h2>對應到 IOH 的</h2>
 		<div class="form-group">
 			<%= f.label :live_school_id, "學校" %>
-			<%= f.select :live_school_id, LiveSchool.all.collect {|x| [x.name, x.id]}, :selected => @live.live_school.name %>
+			<%= f.collection_select(:live_school_id, LiveSchool.all, :id, :name, {include_hidden: false} ) %>
 		</div>
 
-		<div class="from-group">
-			<%= f.label :live_department_id, "科系" %>
-			<%= f.select :live_department_id, LiveDepartment.all.collect {|x| [x.name, x.id]}, :selected => @live.live_department.name %>
+		<div class="form-group">
+			<%= f.label :live_department_id, "學校" %>
+			<%= f.collection_select(:live_department_id, LiveDepartment.all, :id, :name, {include_hidden: false} ) %>
 		</div>
 
 		<%= f.submit "更新", class: "btn btn-primary" %>

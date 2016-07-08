@@ -3,13 +3,13 @@ class Admin::LivesController < ApplicationController
 	# before_action :check_admin
 
 	def index
-		@lives = Live.all.includes(:live_school, :live_department, :live_times)
-										 .order(:created_at)
+		@lives = Live.all.includes(:live_school, :live_department)
+										 .order(:time_count)
 
 		if params[:query]
 			@lives = Live.where("name LIKE ?", "%#{params[:query]}%")
-									 .includes(:live_school, :live_department, :live_times)
-									 .order(:created_at)
+									 .includes(:live_school, :live_department)
+									 .order(:time_count)
 		end
 	end
 

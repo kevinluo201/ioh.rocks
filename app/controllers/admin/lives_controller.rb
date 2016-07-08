@@ -14,8 +14,11 @@ class Admin::LivesController < ApplicationController
 	end
 
 	def lh
-		@lives = Live.all.includes(:live_school, :live_department, :live_times)
-										 .order(:created_at)
+		@lives = Live.joins(:live_times)
+							   .select("lives.*,
+							   					live_times.start as start,
+							   					live_times.end as end")
+							   .order("start")
 	end
 
 	def edit
@@ -25,6 +28,17 @@ class Admin::LivesController < ApplicationController
 	# lh stands for live host
 	def lh_edit
 		@live = Live.find params[:id]
+	end
+
+	def lh_update
+		@live = Live.find params[:id]
+
+		if @live.update_attributes(live_params)
+			redirect_to admin_live_lh_view_path
+		else
+			render :lh_edit
+			flash.now[:alert] = @live.errors.full_messages
+		end
 	end
 
 	def update
@@ -58,6 +72,8 @@ class Admin::LivesController < ApplicationController
 	def live_params
 		params.require(:live).permit(:name, :gmail, :fb_url, :feedback, :school, :department,
 																 :phone, :stream_201602, :location, { live_time_ids: [] },
-																 :live_school_id, :live_department_id)
+																 :live_school_id, :live_department_id,
+																 :chennal, :live_host, :audio_agree, :qa_link,
+																 :doc_naming, :stream_naming, :youtube_url)
 	end
 end

@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
     # edit
     get "/live/lh/:id/edit" => "lives#lh_edit", :as => "lh_edit_live"
+    patch "/live/lh/:id" => "lives#lh_update", :as => "lh_live"
     get "/live/:id/edit" => "lives#edit", :as => "edit_live"
     patch "/live/:id" => "lives#update"
     delete "/live/:id" => "lives#destroy"

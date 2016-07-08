@@ -14,8 +14,11 @@ class Admin::LivesController < ApplicationController
 	end
 
 	def lh
-		@lives = Live.all.includes(:live_school, :live_department, :live_times)
-										 .order(:created_at)
+		@lives = Live.joins(:live_times)
+							   .select("lives.*,
+							   					live_times.start as start,
+							   					live_times.end as end")
+							   .order("start")
 	end
 
 	def edit

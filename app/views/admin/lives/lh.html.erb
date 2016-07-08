@@ -4,6 +4,7 @@
 	<thead>
 		<tr>
 				<th>名字</th>
+				<th>直播時間</th>
 				<th>頻道</th>
 				<th>Live Host</th>
 				<th>直播地點</th>
@@ -19,6 +20,7 @@
 		<% @lives.each do |live| %>
 			<tr>
 				<td><%= live.name %></td>
+				<td><%= live.start.strftime("%a %H:%M") %></td>
 				<td><%= live.chennal %></td>
 				<td><%= live.live_host %></td>
 				<td><%= live.location %></td>

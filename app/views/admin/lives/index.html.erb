@@ -29,7 +29,7 @@
 			<tr>
 				<td><%= live.name %></td>
 				<td><%= live.gmail %></td>
-				<td><%= /[\S]+$/.match(live.live_school.name) if live.live_school %></td>
+				<td><%= /[\S]+$/.match(live.live_school.name)[0] if live.live_school %></td>
 				<td><%= /[\S]+$/.match(live.live_department.name)[0] %></td>
 				<td><%= live.location %></td>
 				<td>

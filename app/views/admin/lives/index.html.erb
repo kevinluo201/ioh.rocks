@@ -1,4 +1,16 @@
-<h2> 目前報名人數：<%= @lives.count %> </h2>
+<%= render "live_nav" %>
+
+<% if params[:query].nil? %>
+	<h2>目前報名人數：<%= @lives.count %></h2>
+<% end %>
+
+<%= form_tag(admin_live_view_path, :method => "GET") do %>
+	<%= label_tag :query, "找講者？" %>
+  <%= text_field_tag :query %>
+
+  <%= submit_tag("Search") %>
+<% end %>
+
 <table class="table table-hover">
 	<thead>
 		<tr>

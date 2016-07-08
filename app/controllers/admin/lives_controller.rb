@@ -5,6 +5,12 @@ class Admin::LivesController < ApplicationController
 	def index
 		@lives = Live.all.includes(:live_school, :live_department, :live_times)
 										 .order(:created_at)
+
+		if params[:query]
+			@lives = Live.where("name LIKE ?", "%#{params[:query]}%")
+									 .includes(:live_school, :live_department, :live_times)
+									 .order(:created_at)
+		end
 	end
 
 	def edit

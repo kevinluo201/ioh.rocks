@@ -105,6 +105,7 @@ GEM
     mysql2 (0.3.20)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
+    oj (2.12.14)
     orm_adapter (0.5.0)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -138,6 +139,8 @@ GEM
       json (~> 1.4)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
+    rollbar (2.8.3)
+      multi_json
     rubyzip (1.2.0)
     sass (3.4.21)
     sass-rails (5.0.4)
@@ -190,7 +193,9 @@ DEPENDENCIES
   jquery-easing-rails
   jquery-rails (= 4.1.1)
   mysql2 (~> 0.3.18)
+  oj (~> 2.12.14)
   rails (= 4.2.5)
+  rollbar
   rubyzip
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

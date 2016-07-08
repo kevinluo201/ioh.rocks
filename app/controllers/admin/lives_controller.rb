@@ -13,7 +13,17 @@ class Admin::LivesController < ApplicationController
 		end
 	end
 
+	def lh
+		@lives = Live.all.includes(:live_school, :live_department, :live_times)
+										 .order(:created_at)
+	end
+
 	def edit
+		@live = Live.find params[:id]
+	end
+
+	# lh stands for live host
+	def lh_edit
 		@live = Live.find params[:id]
 	end
 

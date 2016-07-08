@@ -53,6 +53,7 @@
 						success: function(json) {
 							$.each(json, function (index, data) {
 							    $.each(data, function (key, value) {
+											data['id'] = index;
 											if(key === 'start' || key === 'end')
 												data[key] = new Date(value);
 							    })

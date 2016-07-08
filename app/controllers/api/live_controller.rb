@@ -1,5 +1,10 @@
 class Api::LiveController < ApplicationController
-	before_action :authenticate_user!, :except => :index
+	before_action :authenticate_user!, :except => [:index, :onair]
+	
+	skip_before_filter :verify_authenticity_token
+  before_filter :cors_preflight_check
+  after_filter :cors_set_access_control_headers
+
 	# def admin
 	# 	sort_by = params[:sort_by]
 
@@ -45,6 +50,28 @@ class Api::LiveController < ApplicationController
 
 		respond_to do |format|
 			format.json { render json: @lives.to_json }
+		end
+	end
+
+	# test if it is on air, if true return youtube_url
+	def onair
+		ioh_url = params[:ioh_url]
+
+		live = Live.find_by_ioh_url(URI.escape(ioh_url))
+
+		# test onair
+		onair = false
+
+		live.live_times.each do |time|
+			if Time.new >= time.start
+				onair = true
+			end
+		end
+
+		if onair
+			render json: { onair: true, url: live.youtube_url }
+		else
+			render json: { onair: false, message: "error!!" }
 		end
 	end
 
@@ -98,4 +125,22 @@ class Api::LiveController < ApplicationController
 		render plain: "good"
 	end
 
+	private
+	# For all responses in this controller, return the CORS access control headers.
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'GET'
+    headers['Access-Control-Max-Age'] = "1728000"
+  end
+
+  # If this is a preflight OPTIONS request, then short-circuit the
+  # request, return only the necessary headers and return an empty
+  # text/plain.
+
+  def cors_preflight_check
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'GET'
+    headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version'
+    headers['Access-Control-Max-Age'] = '1728000'
+  end
 end

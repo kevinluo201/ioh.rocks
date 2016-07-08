@@ -53,6 +53,9 @@ Rails.application.routes.draw do
 		get "/talk" => "live#update_talk"
 		get "/school" => "live#update_school"
 		get "/department" => "live#update_department"
+
+		# get if onair
+		get "/live/live_url" => "live#onair"
   end
 
   get "/lives/success" => "lives#success"

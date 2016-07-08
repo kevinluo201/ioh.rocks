@@ -4,6 +4,18 @@
 <script>
 	$(document).ready(function() {
 
+		var liveJson;
+		$.ajax({
+		  type: 'GET',
+		  url: '/api/live.json',
+		  dataType: 'json',
+		  success: function(json) {
+				liveJson = json;
+			},
+		  async: false
+		});
+		console.log(liveJson);
+
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'prev, next',
@@ -25,7 +37,7 @@
 			viewRender: function(currentView){
 				var minDate = new Date('2016-07-18');
 				maxDate = new Date('2016-07-21');
-				// Past
+
 				if (minDate >= currentView.start && minDate <= currentView.end) {
 					$(".fc-prev-button").prop('disabled', true);
 					$(".fc-prev-button").addClass('fc-state-disabled');
@@ -43,38 +55,55 @@
 					$(".fc-next-button").prop('disabled', false);
 				}
 			},
-			events: [
-				{
-					title: 'AAAAAAA',
-					start: '2016-07-18 14:00:00',
-					end: '2016-07-18 14:30:00'
-				},
-				{
-					title: 'AAAAAAA',
-					start: '2016-07-19T15:00:00',
-					end: '2016-07-19T15:30:00'
-				},
-				{
-					title: 'AAAAAAA',
-					start: '2016-07-22T19:00:00',
-					end: '2016-07-22T19:30:00'
-				},
-				{
-					title: 'BBBB',
-					start: '2016-07-18T19:00:00',
-					end: '2016-07-18T19:30:00'
-				},
-				{
-					title: 'CCCCC',
-					start: '2016-07-18T20:00:00',
-					end: '2016-07-18T20:30:00'
-				},
-				{
-					title: 'CCCCCC',
-					start: '2016-07-18T22:00:00',
-					end: '2016-07-18T22:30:00'
-				},
-			],
+			eventSources: [
+        {
+            url: '/api/live.json',
+            type: 'GET',
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+						success: function(json) {
+							$.each(json, function (index, data) {
+							    console.log('index', index);
+							    $.each(data, function (key, value) {
+							        console.log(key, value);
+							    })
+							})
+						}
+        }
+    	],
+			// events: [
+			// 	{
+			// 		title: 'AAAAAAA',
+			// 		start: '2016-07-18 14:00:00',
+			// 		end: '2016-07-18 14:30:00'
+			// 	},
+			// 	{
+			// 		title: 'AAAAAAA',
+			// 		start: '2016-07-19T15:00:00',
+			// 		end: '2016-07-19T15:30:00'
+			// 	},
+			// 	{
+			// 		title: 'AAAAAAA',
+			// 		start: '2016-07-22T19:00:00',
+			// 		end: '2016-07-22T19:30:00'
+			// 	},
+			// 	{
+			// 		title: 'BBBB',
+			// 		start: '2016-07-18T19:00:00',
+			// 		end: '2016-07-18T19:30:00'
+			// 	},
+			// 	{
+			// 		title: 'CCCCC',
+			// 		start: '2016-07-18T20:00:00',
+			// 		end: '2016-07-18T20:30:00'
+			// 	},
+			// 	{
+			// 		title: 'CCCCCC',
+			// 		start: '2016-07-18T22:00:00',
+			// 		end: '2016-07-18T22:30:00'
+			// 	},
+			// ],
 			eventDrop: function(event, delta, revertFunc) {
         alert(event.title + " was dropped on " + event.start.format());
 				// 這裡要寫auto save
@@ -85,7 +114,6 @@
 
         // change the border color just for fun
         $(this).css('border-color', 'red');
-
     	}
 		});
 

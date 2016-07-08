@@ -24,7 +24,13 @@
 				<td><%= live.live_school.name if live.live_school %></td>
 				<td><%= live.live_department.name %></td>
 				<td><%= live.location %></td>
-				<th><%= live.audio_agree %></th>
+				<th>
+					<% if live.audio_agree %>
+						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
+					<% else %>
+						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
+					<% end %>
+				</th>
 				<th><%= live.qa_link %></th>
 				<th><%= live.doc_naming %></th>
 				<th><%= live.stream_naming %></th>

@@ -18,5 +18,6 @@ class Live < ActiveRecord::Base
 	before_save do
 		self.title = self.name
 		self.onair = "yet" if self.new_record?
+		self.audio_agree = false if self.new_record?
 	end
 end

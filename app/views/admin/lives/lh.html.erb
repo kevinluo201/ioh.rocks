@@ -1,10 +1,4 @@
-<p>
-	<div class="row">
-		<%= link_to "資訊總表", admin_live_view_path, class: "btn btn-default" %>
-		<%= link_to "前往時刻表", admin_live_agenda_path, class: "btn btn-default" %>
-		<%= link_to "直播總表", admin_live_lh_view_path, class: "btn btn-default btn-active" %>
-	</div>
-</p>
+<%= render "live_nav" %>
 
 <%= form_tag(admin_live_lh_view_path, :method => "GET") do %>
 

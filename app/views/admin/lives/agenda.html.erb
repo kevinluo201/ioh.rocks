@@ -57,6 +57,7 @@
 												data[key] = new Date(value);
 							    })
 							})
+							console.log(json);
 						}
         }
     	],
@@ -65,11 +66,11 @@
 				// 這裡要寫auto save
     	},
 			eventClick: function(calEvent, jsEvent, view) {
-
+				console.log(calEvent);
         //alert('Event: ' + calEvent.title);
 
         // change the border color just for fun
-        $(this).css('border-color', 'red');
+        //$(this).css('border-color', 'red');
     	}
 		});
 

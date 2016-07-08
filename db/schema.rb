@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20160708083307) do
     t.boolean  "audio_agree"
     t.string   "qa_link",            limit: 255
     t.string   "stream_naming",      limit: 255
-    t.string   "doc_namimg",         limit: 255
+    t.string   "doc_naming",         limit: 255
   end
 
   add_index "lives", ["live_department_id"], name: "index_lives_on_live_department_id", using: :btree

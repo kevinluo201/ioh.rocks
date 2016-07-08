@@ -36,8 +36,10 @@ Rails.application.routes.draw do
   namespace :admin do
   	get "/live/view" => "lives#index"
     get "/live/agenda" => "lives#agenda"
+    get "/live/lh/view" => "lives#lh"
 
     # edit
+    get "/live/lh/:id/edit" => "lives#lh_edit", :as => "lh_edit_live"
     get "/live/:id/edit" => "lives#edit", :as => "edit_live"
     patch "/live/:id" => "lives#update"
     delete "/live/:id" => "lives#destroy"

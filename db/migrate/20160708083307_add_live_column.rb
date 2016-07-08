@@ -6,6 +6,6 @@ class AddLiveColumn < ActiveRecord::Migration
   	add_column :lives, :audio_agree, :boolean
   	add_column :lives, :qa_link, :string
   	add_column :lives, :stream_naming, :string
-  	add_column :lives, :doc_namimg, :string
+  	add_column :lives, :doc_naming, :string
   end
 end

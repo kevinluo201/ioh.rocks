@@ -8,7 +8,7 @@
 		<input type="text" class="form-control" aria-describedby="basic-addon1" name="query">
 
 		<span class="input-group-btn">
-	        <button class="btn btn-default" type="submit">Search</button>
+      <button class="btn btn-default" type="submit">Search</button>
 	  </span>
 <% end %>
 <table class="table table-hover">
@@ -21,6 +21,7 @@
 				<th>直播地點</th>
 				<th>IOH 連結</th>
 				<th>時間數量</th>
+				<th>填表時間</th>
 				<th>Edit</th>
 		</tr>
 	</thead>
@@ -40,6 +41,7 @@
 					<% end %>
 				</td>
 				<td><%= live.time_count %></td>
+				<td><%= live.created_at.strftime("%m/%d %H:%M") %></td>
 				<td>
 					<a href="<%= "/admin/live/#{live.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>

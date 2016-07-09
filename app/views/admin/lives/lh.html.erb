@@ -23,6 +23,8 @@
 				<th>直播命名</th>
 				<th>直播連結</th>
 				<th>試錄連結</th>
+				<th>移到 Part 3</th>
+				<th>直播開始？</th>
 				<th>Edit</th>
 		</tr>
 	</thead>
@@ -72,6 +74,20 @@
 					<% end %>
 				</td>
 				<td>
+					<% if live.move_to_part_3 %>
+						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
+					<% else %>
+						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
+					<% end %>
+				</td>
+				<td>
+					<% if live.onair %>
+						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
+					<% else %>
+						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
+					<% end %>
+				</td>
+				<td>
 					<a href="<%= "/admin/live/lh/#{live.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
@@ -80,3 +96,11 @@
 		<% end %>
 	</tbody>
 </table>
+
+<script>
+	// new Clipboard('.banner-link');
+
+	// $('.banner-link').click(function(){
+	// 	$(this).text("copied!");
+	// });
+</script>

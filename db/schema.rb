@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708140518) do
+ActiveRecord::Schema.define(version: 20160709050548) do
 
   create_table "live_departments", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -43,12 +43,11 @@ ActiveRecord::Schema.define(version: 20160708140518) do
 
   create_table "lives", force: :cascade do |t|
     t.string   "name",               limit: 255
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.integer  "live_school_id",     limit: 4
     t.integer  "live_department_id", limit: 4
     t.string   "title",              limit: 255
-    t.string   "onair",              limit: 255
     t.string   "gmail",              limit: 255
     t.string   "fb_url",             limit: 255
     t.string   "phone",              limit: 255
@@ -68,6 +67,9 @@ ActiveRecord::Schema.define(version: 20160708140518) do
     t.integer  "time_count",         limit: 4
     t.boolean  "phone_contact"
     t.string   "test_record",        limit: 255
+    t.string   "banner_link",        limit: 255
+    t.boolean  "move_to_part_3"
+    t.boolean  "onair",                                 default: false
   end
 
   add_index "lives", ["live_department_id"], name: "index_lives_on_live_department_id", using: :btree

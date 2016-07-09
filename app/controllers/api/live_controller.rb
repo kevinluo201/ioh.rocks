@@ -67,16 +67,16 @@ class Api::LiveController < ApplicationController
 			live = Live.find_by_ioh_url(URI.escape(ioh_url))
 
 			live.live_times.each do |time|
-				if Time.new >= time.start
+				if Time.new >= time.start && Time.now <= time.end
 					onair = true
 				end
 			end
 		end
 
 		if onair
-			render json: { onair: true, url: live.youtube_url }
+			render json: { onair: true, url: live.youtube_url, banner: live.banner_link }
 		elsif live
-			render json: { onair: false, url: live.youtube_url }
+			render json: { onair: false, url: live.youtube_url, banner: live.banner_link }
 		else
 			render json: { onair: false, message: "error!!" }
 		end

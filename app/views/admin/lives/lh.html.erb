@@ -23,7 +23,6 @@
 				<th>直播命名</th>
 				<th>直播連結</th>
 				<th>試錄連結</th>
-				<th>Banner Link</th>
 				<th>移到 Part 3</th>
 				<th>Edit</th>
 		</tr>
@@ -74,11 +73,6 @@
 					<% end %>
 				</td>
 				<td>
-					<% if live.banner_link.present? %>
-					<a style="cursor: pointer;" class="banner-link" data-clipboard-text="<%= live.banner_link %>">copy</a>
-					<% end %>
-				</td>
-				<td>
 					<% if live.move_to_part_3 %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
@@ -96,9 +90,9 @@
 </table>
 
 <script>
-	new Clipboard('.banner-link');
+	// new Clipboard('.banner-link');
 
-	$('.banner-link').click(function(){
-		$(this).text("copied!");
-	});
+	// $('.banner-link').click(function(){
+	// 	$(this).text("copied!");
+	// });
 </script>

@@ -78,7 +78,6 @@
 								data['color'] = '#CC9933';
 							}
 						)
-						console.log(json);
 					}
 				}
 			],
@@ -108,7 +107,15 @@
 				//alert('Event: ' + calEvent.title); change the border color just for fun $(this).css('border-color', 'red');
 			},
 			eventAfterRender: function (event, element, view) {
-				$(element).css('width', '20%');
+				var element = $(element);
+				element.addClass('event_customize');
+				//console.log(element);
+				// if (element[0].childElementCount == 2)
+				// 	element.css('left', '40%');
+				// else if (element[0].childElementCount == 3)
+				// 	element.css('left', '60%');
+				// else if (element[0].childElementCount == 4)
+				// 	element.css('left', '80%');
 			},
 			eventAfterAllRender: function (view) {
 				$(".fc-time-grid-event").append("<span class='closon'>隱藏</span>");
@@ -153,6 +160,13 @@
 
 	.closon_selected {
 		color: black;
+	}
+
+	.event_customize {
+		padding-top: 3px;
+		/*width: 20%;*/
+		/*text-align: center;*/
+		margin-right: 0;
 	}
 
 </style>

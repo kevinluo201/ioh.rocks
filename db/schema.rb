@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708140518) do
+ActiveRecord::Schema.define(version: 20160709035908) do
 
   create_table "live_departments", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 20160708140518) do
     t.integer  "time_count",         limit: 4
     t.boolean  "phone_contact"
     t.string   "test_record",        limit: 255
+    t.string   "banner_link",        limit: 255
+    t.boolean  "move_to_part_3"
   end
 
   add_index "lives", ["live_department_id"], name: "index_lives_on_live_department_id", using: :btree

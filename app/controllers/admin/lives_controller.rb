@@ -58,7 +58,6 @@ class Admin::LivesController < ApplicationController
 
 	def lh_update
 		@live = Live.find params[:id]
-		@live.ioh_url = URI.escape(@live.ioh_url)
 
 		if @live.update_attributes(live_params)
 			redirect_to admin_live_lh_view_path
@@ -102,6 +101,7 @@ class Admin::LivesController < ApplicationController
 																 :live_school_id, :live_department_id,
 																 :chennal, :live_host, :audio_agree, :qa_link,
 																 :doc_naming, :stream_naming, :youtube_url,
-																 :test_record, :phone_contact, :ioh_url)
+																 :test_record, :phone_contact, :ioh_url,
+																 :banner_link, :move_to_part_3)
 	end
 end

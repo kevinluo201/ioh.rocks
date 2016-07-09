@@ -53,6 +53,19 @@
 			<%= f.text_field :youtube_url, class: "form-control" %>
 		</div>
 
+		<div class="form-group">
+			<%= f.label :banner_link, "Banner Link" %>
+			<%= f.text_field :banner_link, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "移動到 Part 3：" %>
+			<%= f.label :move_to_part_3, "是" %>
+			<%= f.radio_button :move_to_part_3, true %>
+			<%= f.label :move_to_part_3, "否" %>
+			<%= f.radio_button :move_to_part_3, false %>
+		</div>
+
 		<%= f.submit "更新", class: "btn btn-primary" %>
 	<% end %>
 </div>

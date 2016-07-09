@@ -14,7 +14,7 @@
 			],
 			minTime: '14:00',
 			maxTime: '22:30',
-			aspectRatio: 1,
+			aspectRatio: 0.95,
 			weekends: false,
 			allDaySlot: false,
 			nowIndicator: true,
@@ -40,10 +40,11 @@
 					$(".fc-next-button").removeClass('fc-state-disabled');
 					$(".fc-next-button").prop('disabled', false);
 				}
+
 			},
 			eventSources: [
 				{
-					url: '/api/live.json',
+					url: 'http://ioh.rocks/api/live.json',
 					type: 'GET',
 					error: function () {
 						alert('there was an error while fetching events!');
@@ -52,7 +53,7 @@
 						var user_idObj = {};
 						$.each(json, function (index, data) {
 
-							if(!(data['user_id'] in user_idObj))
+							if (!(data['user_id'] in user_idObj))
 								user_idObj[data['user_id']] = 1;
 							else
 								user_idObj[data['user_id']] += 1;
@@ -69,13 +70,14 @@
 						})
 
 						$.each(json, function (index, data) {
-							if(user_idObj[data['user_id']] <= 2)
+							if (user_idObj[data['user_id']] <= 2)
 								data['color'] = '#333399';
-							else if(user_idObj[data['user_id']] <= 4 )
+							else if (user_idObj[data['user_id']] <= 4)
 								data['color'] = '#009933';
 							else
 								data['color'] = '#CC9933';
-						})
+							}
+						)
 						console.log(json);
 					}
 				}
@@ -84,30 +86,40 @@
 				//alert(event.title + " was dropped on " + event.start.format()); 這裡要寫auto save
 			},
 			eventClick: function (calEvent, jsEvent, view) {
-				$('.fc-title').each(function(){
+				$('.fc-title').each(function () {
 
 					var parents = $(this).parents('a');
 					var selected = false;
-					if(parents.hasClass('selected')) {
+					if (parents.hasClass('selected')) {
 						selected = true;
 						$(this).parent().siblings('span').removeClass('closon_selected');
 					}
 
 					parents.removeClass('selected');
-					if($(this).text() == calEvent.title.replace(/(?:\n)/g, '') && !selected) {
+					if ($(this).text() == calEvent.title.replace(/(?:\n)/g, '') && !selected) {
 						$(this).parent().siblings('span').addClass('closon_selected');
 						parents.addClass('selected');
 					}
 
 				});
-				$('.closon').click(function() {
-					console.log("obj");
-			  	$('#calendar').fullCalendar('removeEvents', calEvent._id);
-		   	});
+				$('.closon').click(function () {
+					$('#calendar').fullCalendar('removeEvents', calEvent._id);
+				});
 				//alert('Event: ' + calEvent.title); change the border color just for fun $(this).css('border-color', 'red');
 			},
-			eventAfterAllRender: function(view) {
-				$(".fc-time-grid-event").append( "<span class='closon'>隱藏</span>" );
+			eventAfterRender: function (event, element, view) {
+				$(element).css('width', '20%');
+			},
+			eventAfterAllRender: function (view) {
+				$(".fc-time-grid-event").append("<span class='closon'>隱藏</span>");
+			},
+			displayEventTime: false,
+			slotLabelFormat: 'H:mm',
+			slotLabelInterval: 30,
+			views: {
+				agenda: {
+					columnFormat: 'dddd MM/DD'
+				}
 			}
 		});
 
@@ -135,7 +147,7 @@
 		left: 1px;
 		bottom: -1px;
 		cursor: pointer;
-		color: transparent;;
+		color: transparent;
 		z-index: 10;
 	}
 

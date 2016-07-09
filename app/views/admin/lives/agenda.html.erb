@@ -26,10 +26,22 @@
 		background-color: rgba(0, 0, 0, 0.2);
 	}
 
-	.mon_td_event,
-	.tue_td_event,
-	.wed_td_event {
+	.all_td_event {
 		width: 30px;
+		font-size: 0.75em;
+		color: white;
+	}
+
+	.blue_background {
+		background-color: #333399;
+	}
+
+	.green_background {
+		background-color: #009933;
+	}
+
+	.orange_background {
+		background-color: #CC9933;
 	}
 
 </style>
@@ -92,6 +104,7 @@
 
 					time_idObj[data['time_id']].push({
 						id: data['id'],
+						user_id: data['user_id'],
 						title: data['title']
 					});
 				})
@@ -113,29 +126,24 @@
 		renderHtml_1 += '<tr class="final_slot" id="final_slot_' + i + '">';
 		renderHtml_1 += '<td class="time_td">' + time_startArr[i].substring(5, 10) + '<br>~<br>' + time_endArr[i].substring(5, 10) + '</td>';
 
-		renderHtml_1 += '<td class="mon_td" data="' + mon_data + '"> <div class="mon_div">1</div> </td>';
-		renderHtml_1 += '<td class="mon_td" data="' + mon_data + '"> <div class="mon_div">2</div> </td>';
-		renderHtml_1 += '<td class="mon_td" data="' + mon_data + '"> <div class="mon_div">3</div> </td>';
-		renderHtml_1 += '<td class="mon_td" data="' + mon_data + '"> <div class="mon_div">4</div> </td>';
-		renderHtml_1 += '<td class="mon_td" data="' + mon_data + '"> <div class="mon_div">5</div> </td>';
+		for (var y = 1; y <= 5; y++) {
+			renderHtml_1 += '<td class="mon_td" data="' + mon_data + '"> <div class="mon_div">' + y + '</div> </td>';
+		}
 
-		renderHtml_1 += '<td class="tue_td" data="' + tue_data + '"> <div class="tue_div">1</div> </td>';
-		renderHtml_1 += '<td class="tue_td" data="' + tue_data + '"> <div class="tue_div">2</div> </td>';
-		renderHtml_1 += '<td class="tue_td" data="' + tue_data + '"> <div class="tue_div">3</div> </td>';
-		renderHtml_1 += '<td class="tue_td" data="' + tue_data + '"> <div class="tue_div">4</div> </td>';
-		renderHtml_1 += '<td class="tue_td" data="' + tue_data + '"> <div class="tue_div">5</div> </td>';
+		for (var y = 1; y <= 5; y++) {
+			renderHtml_1 += '<td class="mon_td" data="' + tue_data + '"> <div class="mon_div">' + y + '</div> </td>';
+		}
 
-		renderHtml_1 += '<td class="wed_td" data="' + wed_data + '"> <div class="wed_div">1</div> </td>';
-		renderHtml_1 += '<td class="wed_td" data="' + wed_data + '"> <div class="wed_div">2</div> </td>';
-		renderHtml_1 += '<td class="wed_td" data="' + wed_data + '"> <div class="wed_div">3</div> </td>';
-		renderHtml_1 += '<td class="wed_td" data="' + wed_data + '"> <div class="wed_div">4</div> </td>';
-		renderHtml_1 += '<td class="wed_td" data="' + wed_data + '"> <div class="wed_div">5</div> </td>';
+		for (var y = 1; y <= 5; y++) {
+			renderHtml_1 += '<td class="mon_td" data="' + wed_data + '"> <div class="mon_div">' + y + '</div> </td>';
+		}
 
 		renderHtml_1 += '</tr>';
 	}
 
 	$('tbody').append(renderHtml_1);
 
+	//render出講者資訊
 	for (var i = 0; i < 10; i++) {
 
 		var mon_data = i + 37,
@@ -147,29 +155,28 @@
 
 		for (var j = 0; j < rowNum; j++) {
 			var fiveJ = j * 5;
-			console.log(time_idObj[mon_data][fiveJ]);
 			renderHtml_2 += '<tr>';
 			renderHtml_2 += '<td></td>';
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[mon_data][fiveJ + z])
-					renderHtml_2 += '<td class="mon_td_event" data="' + time_idObj[mon_data][fiveJ + z].id + '"> <div class="mon_div"><b>' + time_idObj[mon_data][fiveJ + z].title + '</b></div> </td>';
+					renderHtml_2 += '<td class="mon_td_event all_td_event" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[mon_data][fiveJ + z].title + '</b></div> </td>';
 				else
-					renderHtml_2 += '<td class="mon_td_event" data=""> <div class="mon_div"><b></b></div> </td>';
+					renderHtml_2 += '<td class="mon_td_event all_td_event" data="" user_id=""> <div class="mon_div"><b></b></div> </td>';
 			}
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[tue_data][fiveJ + z])
-					renderHtml_2 += '<td class="tue_td_event" data="' + time_idObj[tue_data][fiveJ + z].id + '"> <div class="mon_div"><b>' + time_idObj[tue_data][fiveJ + z].title + '</b></div> </td>';
+					renderHtml_2 += '<td class="tue_td_event all_td_event" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[tue_data][fiveJ + z].title + '</b></div> </td>';
 				else
-					renderHtml_2 += '<td class="tue_td_event" data=""> <div class="tue_div"><b></b></div> </td>';
+					renderHtml_2 += '<td class="tue_td_event all_td_event" data=""> <div class="tue_div"><b></b></div> </td>';
 			}
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[wed_data][fiveJ + z])
-					renderHtml_2 += '<td class="wed_td_event" data="' + time_idObj[wed_data][fiveJ + z].id + '"> <div class="wed_div"><b>' + time_idObj[wed_data][fiveJ + z].title + '</b></div> </td>';
+					renderHtml_2 += '<td class="wed_td_event all_td_event" data="' + time_idObj[wed_data][fiveJ + z].id + '" user_id="' + time_idObj[wed_data][fiveJ + z].user_id + '"""> <div class="wed_div"><b>' + time_idObj[wed_data][fiveJ + z].title + '</b></div> </td>';
 				else
-					renderHtml_2 += '<td class="wed_td_event" data=""> <div class="wed_div"><b></b></div> </td>';
+					renderHtml_2 += '<td class="wed_td_event all_td_event" data=""> <div class="wed_div"><b></b></div> </td>';
 			}
 
 			renderHtml_2 += '</tr>';
@@ -177,4 +184,18 @@
 		var selector = 'tr#final_slot_' + i + '.final_slot';
 		$(selector).before(renderHtml_2);
 	}
+
+	//上背景色
+	$('td.all_td_event').each(function(){
+		var tmp = user_idObj[$(this).attr('user_id')];
+		if(tmp <= 2)
+			$(this).addClass('blue_background');
+		else if(tmp <= 4)
+			$(this).addClass('green_background');
+		else {
+			$(this).addClass('orange_background');
+		}
+	});
+
+	console.log(user_idObj);
 </script>

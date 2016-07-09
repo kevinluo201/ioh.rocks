@@ -4,7 +4,7 @@ class Admin::LivesController < ApplicationController
 
 	def index
 		@lives = Live.all.includes(:live_school, :live_department)
-										 .order(:time_count)
+										 .order(:live_school_id)
 
 		if params[:query]
 			@lives = Live.where("name LIKE ?", "%#{params[:query]}%")

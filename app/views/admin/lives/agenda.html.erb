@@ -22,14 +22,18 @@
 
 	.all_td_final {
 		background-color: rgba(0, 0, 0, 0.2);
-		height: 5em;
+		width: 30px;
+		height: 70px;
+		font-size: 0.75em;
 		vertical-align: middle !important;
+		text-align: center;
 	}
 
 	.all_td_event {
 		width: 30px;
 		height: 70px;
 		font-size: 0.75em;
+		vertical-align: middle !important;
 		color: white;
 		cursor: pointer;
 	}
@@ -48,7 +52,7 @@
 
 	.selected {
 		background-color: red !important;
-		outline: 3px solid black !important;
+		outline: 2px solid black !important;
 	}
 
 	.closon {
@@ -58,6 +62,19 @@
 		text-align: left;
 		color: black;
 		z-index: 10;
+	}
+
+	[draggable] {
+	  -moz-user-select: none;
+	  -khtml-user-select: none;
+	  -webkit-user-select: none;
+	  user-select: none;
+	  -khtml-user-drag: element;
+	  -webkit-user-drag: element;
+	}
+
+	.all_td_final.over {
+	  border: 2px dashed #000 !important;
 	}
 
 </style>
@@ -141,15 +158,15 @@
 		renderHtml_1 += '<td class="time_td"><b>' + time_startArr[i].substring(5, 10) + '<br>~<br>' + time_endArr[i].substring(5, 10) + '</b></td>';
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="mon_div"><b>' + y + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final"> <div class="mon_div"><b>時段 ' + y + '</b></div> </td>';
 		}
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>' + y + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>時段 ' + y + '</b></div> </td>';
 		}
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>' + y + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>時段 ' + y + '</b></div> </td>';
 		}
 
 		renderHtml_1 += '</tr>';
@@ -174,23 +191,23 @@
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[mon_data][fiveJ + z])
-					renderHtml_2 += '<td class="mon_td_event all_td_event" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[mon_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					renderHtml_2 += '<td class="mon_td_event all_td_event" draggable="true" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[mon_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
 				else
-					renderHtml_2 += '<td class="mon_td_event all_td_event" data="" user_id=""> <div class="mon_div"><b></b></div> </td>';
+					renderHtml_2 += '<td class="mon_td_event all_td_event"> <div class="mon_div"><b></b></div> </td>';
 			}
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[tue_data][fiveJ + z])
-					renderHtml_2 += '<td class="tue_td_event all_td_event" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[tue_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					renderHtml_2 += '<td class="tue_td_event all_td_event" draggable="true" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[tue_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
 				else
-					renderHtml_2 += '<td class="tue_td_event all_td_event" data=""> <div class="tue_div"><b></b></div> </td>';
+					renderHtml_2 += '<td class="tue_td_event all_td_event"> <div class="tue_div"><b></b></div> </td>';
 			}
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[wed_data][fiveJ + z])
-					renderHtml_2 += '<td class="wed_td_event all_td_event" data="' + time_idObj[wed_data][fiveJ + z].id + '" user_id="' + time_idObj[wed_data][fiveJ + z].user_id + '"""> <div class="wed_div"><b>' + time_idObj[wed_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					renderHtml_2 += '<td class="wed_td_event all_td_event" draggable="true" data="' + time_idObj[wed_data][fiveJ + z].id + '" user_id="' + time_idObj[wed_data][fiveJ + z].user_id + '"""> <div class="wed_div"><b>' + time_idObj[wed_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
 				else
-					renderHtml_2 += '<td class="wed_td_event all_td_event" data=""> <div class="wed_div"><b></b></div> </td>';
+					renderHtml_2 += '<td class="wed_td_event all_td_event"> <div class="wed_div"><b></b></div> </td>';
 			}
 
 			renderHtml_2 += '</tr>';
@@ -213,9 +230,8 @@
 
 	//td_event click event
 	$('.all_td_event').click(function(){
-		console.log("event");
 		var _this_user_id = $(this).attr('user_id');
-		if(_this_user_id != "") {
+		if(_this_user_id != undefined) {
 			$('td.all_td_event').each(function(){
 				if($(this).attr('user_id') == _this_user_id){
 					if($(this).hasClass('selected')) {
@@ -232,10 +248,81 @@
 	});
 
 	$('.closon').click(function () {
-		console.log("closon");
 		$(this).parents('.selected').unbind('click');
 		$(this).parents('.selected').css('visibility', 'hidden');
 	});
 
+
+	var dragSrcEl = null;
+
+	function handleDragStart(e) {
+	  this.style.opacity = '0.4';
+
+		dragSrcEl = this;
+
+	  e.originalEvent.dataTransfer.effectAllowed = 'move';
+	  e.originalEvent.dataTransfer.setData('text/html', this.innerHTML);
+	}
+
+	function handleDragOver(e) {
+	  if (e.preventDefault) {
+	    e.preventDefault();
+	  }
+		$(this).addClass('over');
+	  e.originalEvent.dataTransfer.dropEffect = 'move';
+
+	  return false;
+	}
+
+	function handleDragEnter(e) {
+	  $(this).addClass('over');
+	}
+
+	function handleDragLeave(e) {
+	  $(this).removeClass('over');
+	}
+
+	function handleDrop(e) {
+
+	  if (e.stopPropagation) {
+	    e.stopPropagation();
+	  }
+
+		if (dragSrcEl != this) {
+	    dragSrcEl.innerHTML = this.innerHTML;
+	    this.innerHTML = e.originalEvent.dataTransfer.getData('text/html');
+	  }
+
+		$(this).children('.closon').hide();
+
+		$('.closon').click(function () {
+			$(this).parents('.selected').unbind('click');
+			$(this).parents('.selected').css('visibility', 'hidden');
+		});
+
+	  return false;
+	}
+
+	function handleDragEnd(e) {
+		if($(this).hasClass('all_td_event'))
+			this.style.opacity = '1';
+
+	  $('.all_td_final').each(function(){
+	    $(this).removeClass('over');
+	  });
+	}
+
+	$('.all_td_event').each(function(){
+		$(this).on('dragstart', handleDragStart);
+		$(this).on('dragend', handleDragEnd);
+	});
+
+	$('.all_td_final').each(function(){
+		$(this).on('dragenter', handleDragEnter);
+		$(this).on('dragover', handleDragOver);
+		$(this).on('dragleave', handleDragLeave);
+		$(this).on('drop', handleDrop);
+		$(this).on('dragend', handleDragEnd);
+	});
 
 </script>

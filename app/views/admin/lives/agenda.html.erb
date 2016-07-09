@@ -146,9 +146,6 @@
 		return json;
 	})();
 
-	// console.log(time_startArr); console.log(time_endArr);
-	//console.log(time_idObj);
-
 	var renderHtml_1 = '', renderHtml_2 = '';
 
 	//render出final slot
@@ -158,15 +155,15 @@
 		renderHtml_1 += '<td class="time_td"><b>' + time_startArr[i].substring(5, 10) + '<br>~<br>' + time_endArr[i].substring(5, 10) + '</b></td>';
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="mon_div"><b>時段 ' + y + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final"> <div class="mon_div"><b>頻道 ' + y + '</b></div> </td>';
 		}
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>時段 ' + y + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>頻道 ' + y + '</b></div> </td>';
 		}
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>時段 ' + y + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>頻道 ' + y + '</b></div> </td>';
 		}
 
 		renderHtml_1 += '</tr>';
@@ -252,7 +249,7 @@
 		$(this).parents('.selected').css('visibility', 'hidden');
 	});
 
-
+	// drag and drop
 	var dragSrcEl = null;
 
 	function handleDragStart(e) {

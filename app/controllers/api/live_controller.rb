@@ -33,6 +33,7 @@ class Api::LiveController < ApplicationController
 							   .select("lives.id as user_id, lives.title,
 							   					live_departments.name as department,
 							   					live_schools.name as school,
+							   					live_times.id as time_id,
 							   					live_times.start as start,
 							   					live_times.end as end")
 
@@ -47,6 +48,7 @@ class Api::LiveController < ApplicationController
 			data_item[:start] = live.start
 			data_item[:end] = live.end
 			data_item[:user_id] = live.user_id
+			data_item[:time_id] = live.time_id
 
 			data.push data_item
 		end

@@ -29,27 +29,30 @@ class Api::LiveController < ApplicationController
 	# end
 
 	def index
-		sort_by = params[:sort_by]
-
-		case sort_by
-		when "school"
-			sort_by = "live_schools.name"
-		when "department"
-			sort_by = "live_departments.name"
-		when "time"
-			sort_by = "live_times.start"
-		end
-
-		@lives = Live.joins(:live_department, :live_school, :live_times)
+		lives = Live.joins(:live_department, :live_school, :live_times)
 							   .select("lives.id as user_id, lives.title,
 							   					live_departments.name as department,
 							   					live_schools.name as school,
 							   					live_times.start as start,
 							   					live_times.end as end")
-							   .order(sort_by)
+
+		data = []
+
+		lives.each do |live|
+			data_item = {}
+
+			data_item[:title] = live.title
+			data_item[:school] = /[\S]+$/.match(live.school)[0]
+			data_item[:department] = /[\S]+$/.match(live.department)[0]
+			data_item[:start] = live.start
+			data_item[:end] = live.end
+			data_item[:user_id] = live.user_id
+
+			data.push data_item
+		end
 
 		respond_to do |format|
-			format.json { render json: @lives.to_json }
+			format.json { render json: data }
 		end
 	end
 

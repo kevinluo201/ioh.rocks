@@ -13,6 +13,23 @@ class Admin::LivesController < ApplicationController
 		end
 	end
 
+	def new
+		@live = Live.new
+	end
+
+	def create
+		@live = Live.new(live_params)
+
+		if @live.save
+			@live.time_count = @live.live_times.count
+			@live.save
+			redirect_to admin_live_view_path
+		else
+			render :new
+			flash.now[:alert] = @live.errors.full_messages
+		end
+	end
+
 	def lh
 		day = params[:day]
 		day ||= 1

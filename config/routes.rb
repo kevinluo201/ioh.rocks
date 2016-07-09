@@ -38,6 +38,10 @@ Rails.application.routes.draw do
     get "/live/agenda" => "lives#agenda"
     get "/live/lh/view" => "lives#lh"
 
+    # new
+    get "/live/new" => "lives#new"
+    post "/live" => "lives#create"
+
     # edit
     get "/live/lh/:id/edit" => "lives#lh_edit", :as => "lh_edit_live"
     patch "/live/lh/:id" => "lives#lh_update", :as => "lh_live"

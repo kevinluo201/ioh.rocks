@@ -30,6 +30,7 @@
 		width: 30px;
 		font-size: 0.75em;
 		color: white;
+		cursor: pointer;
 	}
 
 	.blue_background {
@@ -42,6 +43,11 @@
 
 	.orange_background {
 		background-color: #CC9933;
+	}
+
+	.selected {
+		background-color: red !important;
+		border: 3px solid black !important;
 	}
 
 </style>
@@ -124,7 +130,7 @@
 				tue_data = i + 47,
 				wed_data = i + 57;
 		renderHtml_1 += '<tr class="final_slot" id="final_slot_' + i + '">';
-		renderHtml_1 += '<td class="time_td">' + time_startArr[i].substring(5, 10) + '<br>~<br>' + time_endArr[i].substring(5, 10) + '</td>';
+		renderHtml_1 += '<td class="time_td"><b>' + time_startArr[i].substring(5, 10) + '<br>~<br>' + time_endArr[i].substring(5, 10) + '</b></td>';
 
 		for (var y = 1; y <= 5; y++) {
 			renderHtml_1 += '<td class="mon_td" data="' + mon_data + '"> <div class="mon_div">' + y + '</div> </td>';
@@ -197,5 +203,18 @@
 		}
 	});
 
-	console.log(user_idObj);
+	//click eventLimit
+	$('.all_td_event').click(function(){
+		var _this_user_id = $(this).attr('user_id');
+		if(_this_user_id != "") {
+			$('td.all_td_event').each(function(){
+				if($(this).attr('user_id') == _this_user_id){
+					if($(this).hasClass('selected'))
+						$(this).removeClass('selected');
+					else
+						$(this).addClass('selected');
+				}
+			});
+		}
+	});
 </script>

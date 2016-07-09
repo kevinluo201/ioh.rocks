@@ -24,6 +24,7 @@
 				<th>直播連結</th>
 				<th>試錄連結</th>
 				<th>移到 Part 3</th>
+				<th>直播開始？</th>
 				<th>Edit</th>
 		</tr>
 	</thead>
@@ -74,6 +75,13 @@
 				</td>
 				<td>
 					<% if live.move_to_part_3 %>
+						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
+					<% else %>
+						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
+					<% end %>
+				</td>
+				<td>
+					<% if live.onair %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>

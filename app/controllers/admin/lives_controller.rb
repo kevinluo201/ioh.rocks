@@ -102,6 +102,6 @@ class Admin::LivesController < ApplicationController
 																 :chennal, :live_host, :audio_agree, :qa_link,
 																 :doc_naming, :stream_naming, :youtube_url,
 																 :test_record, :phone_contact, :ioh_url,
-																 :banner_link, :move_to_part_3)
+																 :banner_link, :move_to_part_3, :onair)
 	end
 end

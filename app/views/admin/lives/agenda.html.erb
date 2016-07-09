@@ -1,175 +1,123 @@
-<script>
-	$(document).ready(function () {
+<script type="text/javascript">
+	var user_idObj = {},
+		time_startArr = [],
+		time_endArr = [];
+	var json = (function () {
+		var json = null;
+		$.ajax({
+			'async': false,
+			'global': false,
+			'url': 'http://ioh.rocks/api/live.json',
+			'dataType': "json",
+			'success': function (data) {
+				json = data;
+				$.each(json, function (index, data) {
 
-		$('#calendar').fullCalendar({
-			header: {
-				left: 'prev, next',
-				right: 'agendaWeek, agendaDay'
-			},
-			defaultView: 'agendaWeek',
-			defaultDate: '2016-07-18',
-			gotoDate: '2016-07-18',
-			hiddenDays: [
-				4, 5
-			],
-			minTime: '14:00',
-			maxTime: '22:30',
-			aspectRatio: 0.95,
-			weekends: false,
-			allDaySlot: false,
-			nowIndicator: true,
-			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-			eventDurationEditable: false,
-			viewRender: function (currentView) {
-				var minDate = new Date('2016-07-18');
-				maxDate = new Date('2016-07-21');
+					if (!(data['user_id'] in user_idObj))
+						user_idObj[data['user_id']] = 1;
+					else
+						user_idObj[data['user_id']] += 1;
 
-				if (minDate >= currentView.start && minDate <= currentView.end) {
-					$(".fc-prev-button").prop('disabled', true);
-					$(".fc-prev-button").addClass('fc-state-disabled');
-				} else {
-					$(".fc-prev-button").removeClass('fc-state-disabled');
-					$(".fc-prev-button").prop('disabled', false);
-				}
-				// Future
-				if (maxDate >= currentView.start && maxDate <= currentView.end) {
-					$(".fc-next-button").prop('disabled', true);
-					$(".fc-next-button").addClass('fc-state-disabled');
-				} else {
-					$(".fc-next-button").removeClass('fc-state-disabled');
-					$(".fc-next-button").prop('disabled', false);
-				}
+					data['id'] = index;
 
-			},
-			eventSources: [
-				{
-					// url: 'http://ioh.rocks/api/live.json',
-					url: '/api/live.json',
-					type: 'GET',
-					error: function () {
-						alert('there was an error while fetching events!');
-					},
-					success: function (json) {
-						var user_idObj = {};
-						$.each(json, function (index, data) {
+					data['title'] += ('\n' + data['school'] + '\n' + data['department']);
 
-							if (!(data['user_id'] in user_idObj))
-								user_idObj[data['user_id']] = 1;
-							else
-								user_idObj[data['user_id']] += 1;
-
-							data['id'] = index;
-
-							data['title'] += ('\n' + data['school'] + '\n' + data['department']);
-
-							$.each(data, function (key, value) {
-								if (key === 'start' || key === 'end')
-									data[key] = new Date(value);
-								}
-							)
-						})
-
-						$.each(json, function (index, data) {
-							if (user_idObj[data['user_id']] <= 2)
-								data['color'] = '#333399';
-							else if (user_idObj[data['user_id']] <= 4)
-								data['color'] = '#009933';
-							else
-								data['color'] = '#CC9933';
+					$.each(data, function (key, value) {
+						if (key === 'start') {
+							var date = new Date(value);
+							data[key] = (date.getMonth() + 1) + '/' + date.getDate() + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+							if (!(time_startArr.indexOf(data[key]) > -1))
+								time_startArr.push(data[key]);
 							}
-						)
-					}
-				}
-			],
-			eventDrop: function (event, delta, revertFunc) {
-				//alert(event.title + " was dropped on " + event.start.format()); 這裡要寫auto save
-			},
-			eventClick: function (calEvent, jsEvent, view) {
-				$('.fc-title').each(function () {
-
-					var parents = $(this).parents('a');
-					var selected = false;
-					if (parents.hasClass('selected')) {
-						selected = true;
-						$(this).parent().siblings('span').removeClass('closon_selected');
-					}
-
-					parents.removeClass('selected');
-					if ($(this).text() == calEvent.title.replace(/(?:\n)/g, '') && !selected) {
-						$(this).parent().siblings('span').addClass('closon_selected');
-						parents.addClass('selected');
-					}
-
-				});
-				$('.closon').click(function () {
-					$('#calendar').fullCalendar('removeEvents', calEvent._id);
-				});
-				//alert('Event: ' + calEvent.title); change the border color just for fun $(this).css('border-color', 'red');
-			},
-			eventAfterRender: function (event, element, view) {
-				var element = $(element);
-				element.addClass('event_customize');
-				//console.log(element);
-				// if (element[0].childElementCount == 2)
-				// 	element.css('left', '40%');
-				// else if (element[0].childElementCount == 3)
-				// 	element.css('left', '60%');
-				// else if (element[0].childElementCount == 4)
-				// 	element.css('left', '80%');
-			},
-			eventAfterAllRender: function (view) {
-				$(".fc-time-grid-event").append("<span class='closon'>隱藏</span>");
-			},
-			displayEventTime: false,
-			slotLabelFormat: 'H:mm',
-			slotLabelInterval: 30,
-			views: {
-				agenda: {
-					columnFormat: 'dddd MM/DD'
-				}
+						else if (key === 'end') {
+							var date = new Date(value);
+							data[key] = (date.getMonth() + 1) + '/' + date.getDate() + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+							if (!(time_endArr.indexOf(data[key]) > -1))
+								time_endArr.push(data[key]);
+							}
+						})
+				})
 			}
 		});
+		return json;
+	})();
 
-	});
+	// console.log(time_startArr); console.log(time_endArr);
+	console.log(json);
+
+	var renderHtml = '';
+
+	for (var i = 0; i < time_startArr.length; i++) {
+		renderHtml += '<tr class="final_slot" id="final_slot_' + i + '" data="' + time_startArr[i].substring(5, 10) + '">';
+		renderHtml += '<td class="time_td">' + time_startArr[i].substring(5, 10) + '<br>~<br>' + time_endArr[i].substring(5, 10) + '</td>';
+
+		renderHtml += '<td class="mon_td"> <div class="mon_div">1</div> </td>';
+		renderHtml += '<td class="mon_td"> <div class="mon_div">2</div> </td>';
+		renderHtml += '<td class="mon_td"> <div class="mon_div">3</div> </td>';
+		renderHtml += '<td class="mon_td"> <div class="mon_div">4</div> </td>';
+		renderHtml += '<td class="mon_td"> <div class="mon_div">5</div> </td>';
+
+		renderHtml += '<td class="tue_td"> <div class="tue_div">1</div> </td>';
+		renderHtml += '<td class="tue_td"> <div class="tue_div">2</div> </td>';
+		renderHtml += '<td class="tue_td"> <div class="tue_div">3</div> </td>';
+		renderHtml += '<td class="tue_td"> <div class="tue_div">4</div> </td>';
+		renderHtml += '<td class="tue_td"> <div class="tue_div">5</div> </td>';
+
+		renderHtml += '<td class="wed_td"> <div class="wed_div">1</div> </td>';
+		renderHtml += '<td class="wed_td"> <div class="wed_div">2</div> </td>';
+		renderHtml += '<td class="wed_td"> <div class="wed_div">3</div> </td>';
+		renderHtml += '<td class="wed_td"> <div class="wed_div">4</div> </td>';
+		renderHtml += '<td class="wed_td"> <div class="wed_div">5</div> </td>';
+
+		renderHtml += '</tr>';
+	}
+
 </script>
+
 <style>
-
-	body {
-		margin: 40px 10px;
-		padding: 0;
-		font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-		font-size: 14px;
+	table {
+		border-collapse: collapse !important;
 	}
 
-	#calendar {
-		margin: 0 auto;
+	table,
+	td,
+	th {
+		border: 1px solid black !important;
+	}
+	.table > tbody > tr > td.time_td {
+		vertical-align: middle;
 	}
 
-	.selected {
-		background-color: red !important;
+	.thaed_css {
+		width: 31.666%;
 	}
 
-	.closon {
-		position: absolute;
-		left: 1px;
-		bottom: -1px;
-		cursor: pointer;
-		color: transparent;
-		z-index: 10;
+	.final_slot {
+		background-color: white;
 	}
 
-	.closon_selected {
-		color: black;
-	}
-
-	.event_customize {
-		padding-top: 3px;
-		/*width: 20%;*/
-		/*text-align: center;*/
-		margin-right: 0;
+	.mon_td,
+	.tue_td,
+	.wed_td {
+		background-color: rgba(0, 0, 0, 0.2);
 	}
 
 </style>
+
 <%= render "live_nav" %>
-<div id='calendar'></div>
+
+<table class="table text-center table-condensed">
+	<thead>
+		<tr>
+			<th style="width: 5%;"></th>
+			<th class="text-center thaed_css" colspan="5">Monday 7/18</th>
+			<th class="text-center thaed_css" colspan="5">Tuesday 7/19</th>
+			<th class="text-center thaed_css" colspan="5">Wednesday 7/20</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<script type="text/javascript">
+	$('tbody').append(renderHtml);
+</script>

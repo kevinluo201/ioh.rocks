@@ -18,6 +18,8 @@
 
 	.final_slot {
 		background-color: white;
+		border-top: 2px solid black;
+		border-bottom: 2px solid black;
 	}
 
 	.all_td_final {
@@ -190,21 +192,21 @@
 				if(time_idObj[mon_data][fiveJ + z])
 					renderHtml_2 += '<td class="mon_td_event all_td_event" draggable="true" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[mon_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
 				else
-					renderHtml_2 += '<td class="mon_td_event all_td_event"> <div class="mon_div"><b></b></div> </td>';
+					renderHtml_2 += '<td class="mon_td_event"> <div class="mon_div"></div> </td>';
 			}
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[tue_data][fiveJ + z])
 					renderHtml_2 += '<td class="tue_td_event all_td_event" draggable="true" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[tue_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
 				else
-					renderHtml_2 += '<td class="tue_td_event all_td_event"> <div class="tue_div"><b></b></div> </td>';
+					renderHtml_2 += '<td class="tue_td_event"> <div class="tue_div"></div> </td>';
 			}
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[wed_data][fiveJ + z])
 					renderHtml_2 += '<td class="wed_td_event all_td_event" draggable="true" data="' + time_idObj[wed_data][fiveJ + z].id + '" user_id="' + time_idObj[wed_data][fiveJ + z].user_id + '"""> <div class="wed_div"><b>' + time_idObj[wed_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
 				else
-					renderHtml_2 += '<td class="wed_td_event all_td_event"> <div class="wed_div"><b></b></div> </td>';
+					renderHtml_2 += '<td class="wed_td_event"> <div class="wed_div"></div> </td>';
 			}
 
 			renderHtml_2 += '</tr>';

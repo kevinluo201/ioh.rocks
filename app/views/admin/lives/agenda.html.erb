@@ -180,15 +180,15 @@
 		renderHtml_1 += '<td class="time_td"><b>' + time_startArr[i].substring(5, 10) + '<br>~<br>' + time_endArr[i].substring(5, 10) + '</b></td>';
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="mon_div"><b>頻道 ' + y + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final"> <div class="mon_div"><b>頻道 ' + y + '-' + ((i%2)+1) + '</b></div> </td>';
 		}
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>頻道 ' + y + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>頻道 ' + y + '-' + ((i%2)+1) + '</b></div> </td>';
 		}
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>頻道 ' + y + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>頻道 ' + y + '-' + ((i%2)+1)+ '</b></div> </td>';
 		}
 
 		renderHtml_1 += '</tr>';

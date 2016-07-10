@@ -100,11 +100,27 @@
 		background-color: rgba(0, 0, 0, 0.5);
 	}
 
+	#save_btn {
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
+	}
+
 </style>
 
 <%= render "live_nav" %>
+<br>
+<div class="row" style="height: 200px;">
+	<div class="col-md-8" style="padding-left: 0px;">
+		<%= image_tag("agenda-legend.png", class: "img-responsive") %>
+	</div>
+	<div class="col-md-4" style="padding-left: 0px; position: relative; height: 200px;">
+		<a class="btn btn-default" id="save_btn">儲存</a>
+	</div>
 
-<%= image_tag("agenda-legend.png", class: "img-responsive", style: "width: 70%;") %>
+</div>
+<br>
+
 
 <table class="table text-center table-condensed">
 	<thead>
@@ -176,19 +192,23 @@
 	//render出final slot
 	for (var i = 0; i < 10; i++) {
 
+		var mon_time_id = i + 37,
+				tue_time_id = i + 47,
+				wed_time_id = i + 57;
+
 		renderHtml_1 += '<tr class="final_slot" id="final_slot_' + i + '">';
 		renderHtml_1 += '<td class="time_td"><b>' + time_startArr[i].substring(5, 10) + '<br>~<br>' + time_endArr[i].substring(5, 10) + '</b></td>';
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="mon_div"><b>頻道 ' + y + '-' + ((i%2)+1) + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final" time_id="' + mon_time_id + '"> <div class="mon_div"><b>頻道 ' + y + '-' + ((i%2)+1) + '</b></div> </td>';
 		}
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>頻道 ' + y + '-' + ((i%2)+1) + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final" time_id="' + tue_time_id + '"> <div class="tue_div"><b>頻道 ' + y + '-' + ((i%2)+1) + '</b></div> </td>';
 		}
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>頻道 ' + y + '-' + ((i%2)+1)+ '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final" time_id="' + wed_time_id + '"> <div class="tue_div"><b>頻道 ' + y + '-' + ((i%2)+1)+ '</b></div> </td>';
 		}
 
 		renderHtml_1 += '</tr>';

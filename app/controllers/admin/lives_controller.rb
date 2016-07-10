@@ -1,6 +1,6 @@
 class Admin::LivesController < ApplicationController
-	# before_action :authenticate_user!
-	# before_action :check_admin
+	before_action :authenticate_user!
+	before_action :check_admin
 
 	def index
 		@lives = Live.all.includes(:live_school, :live_department)

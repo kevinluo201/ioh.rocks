@@ -83,6 +83,49 @@ class Api::LiveController < ApplicationController
 	end
 
 	def basic_data
+		data = { school: [], department_one: [], department_two: [], time: [] }
+
+		# get school		
+		lives = Live.all.select(:live_school_id).includes(:live_school)
+
+		lives.each do |live|
+			data[:school].push /[\S]+$/.match(live.live_school.name)[0]
+		end
+
+		data[:school].uniq!
+
+		#get department 1
+		lives = Live.all.select(:live_department_id).includes(:live_department)
+		
+		lives.each do |live|
+			if live.live_department.group == 1
+				data[:department_one].push /[\S]+$/.match(live.live_department.name)[0]
+			end
+		end
+
+		data[:department_one].uniq!
+
+		#get department 2
+		lives = Live.all.select(:live_department_id).includes(:live_department)
+		
+		lives.each do |live|
+			if live.live_department.group != 1
+				data[:department_two].push /[\S]+$/.match(live.live_department.name)[0]
+			end
+		end
+
+		data[:department_two].uniq!
+
+		#get time
+		times = LiveTime.all.select(:start)
+
+		times.each do |time|
+			data[:time].push time.start
+		end
+
+		respond_to do |format|
+			format.json { render json: data }
+		end
 	end
 
 	def test

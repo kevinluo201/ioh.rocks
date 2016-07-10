@@ -60,6 +60,9 @@ Rails.application.routes.draw do
 
 		# get if onair
 		get "/live/live_url" => "live#onair"
+
+		# ioh.tw/live
+		get "/live/basic" => "live#basic_data"
   end
 
   get "/lives/success" => "lives#success"

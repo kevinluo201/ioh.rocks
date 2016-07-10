@@ -23,7 +23,7 @@
 	}
 
 	.all_td_final {
-		background-color: rgba(0, 0, 0, 0.2);
+		background-color: rgba(0, 0, 0, 0.1);
 		width: 30px;
 		height: 70px;
 		font-size: 0.75em;
@@ -36,30 +36,31 @@
 		height: 70px;
 		font-size: 0.75em;
 		vertical-align: middle !important;
-		color: white;
+		color: black;
 		cursor: pointer;
+		position: relative;
+		z-index: 2;
 	}
 
 	.blue_background {
-		background-color: #333399;
+		background-color: #C5E5EC;
 	}
 
 	.green_background {
-		background-color: #009933;
+		background-color: #D4E9D0;
 	}
 
 	.orange_background {
-		background-color: #FF6600;
+		background-color: #E1D6EA;
 	}
 
 	.yellow_background {
-		background-color: #FFFF00;
+		background-color: #FEF6AB;
 		color: black;
 	}
 
 	.selected {
 		background-color: red !important;
-		outline: 2px solid black !important;
 	}
 
 	.closon {
@@ -68,7 +69,7 @@
 		cursor: pointer;
 		text-align: left;
 		color: black;
-		z-index: 10;
+		z-index: 3;
 	}
 
 	[draggable] {
@@ -82,6 +83,21 @@
 
 	.all_td_final.over {
 	  border: 2px dashed #000 !important;
+	}
+
+	.overlay {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		text-align: center;
+		line-height: 70px;
+		font-size: medium;
+		z-index: 1;
+		visibility: hidden;
+		color: white;
+		background-color: rgba(0, 0, 0, 0.5);
 	}
 
 </style>
@@ -197,21 +213,21 @@
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[mon_data][fiveJ + z])
-					renderHtml_2 += '<td class="mon_td_event all_td_event" draggable="true" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[mon_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					renderHtml_2 += '<td class="mon_td_event all_td_event" draggable="true" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '""> <div class="overlay">還原</div> <div class="mon_div"><b>' + time_idObj[mon_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
 				else
 					renderHtml_2 += '<td class="mon_td_event"> <div class="mon_div"></div> </td>';
 			}
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[tue_data][fiveJ + z])
-					renderHtml_2 += '<td class="tue_td_event all_td_event" draggable="true" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[tue_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					renderHtml_2 += '<td class="tue_td_event all_td_event" draggable="true" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '""> <div class="overlay">還原</div> <div class="tue_div"><b>' + time_idObj[tue_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
 				else
 					renderHtml_2 += '<td class="tue_td_event"> <div class="tue_div"></div> </td>';
 			}
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[wed_data][fiveJ + z])
-					renderHtml_2 += '<td class="wed_td_event all_td_event" draggable="true" data="' + time_idObj[wed_data][fiveJ + z].id + '" user_id="' + time_idObj[wed_data][fiveJ + z].user_id + '"""> <div class="wed_div"><b>' + time_idObj[wed_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					renderHtml_2 += '<td class="wed_td_event all_td_event" draggable="true" data="' + time_idObj[wed_data][fiveJ + z].id + '" user_id="' + time_idObj[wed_data][fiveJ + z].user_id + '"""> <div class="overlay">還原</div> <div class="wed_div"><b>' + time_idObj[wed_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
 				else
 					renderHtml_2 += '<td class="wed_td_event"> <div class="wed_div"></div> </td>';
 			}
@@ -235,7 +251,7 @@
 	});
 
 	//td_event click event
-	$('.all_td_event').click(function(){
+	$('.all_td_event').click( all_td_event_click = function(){
 		var _this_user_id = $(this).attr('user_id');
 		if(_this_user_id != undefined) {
 			$('td.all_td_event').each(function(){
@@ -253,9 +269,17 @@
 		}
 	});
 
-	$('.closon').click(function () {
+	// 隱藏功能
+	$('.closon').click( closon_click = function () {
 		$(this).parents('.selected').unbind('click');
-		$(this).parents('.selected').css('visibility', 'hidden');
+		$(this).siblings('.overlay').css('visibility', 'visible');
+	});
+
+	// 還原功能
+	$('.overlay').click( overlay_click = function() {
+		$(this).css('visibility', 'hidden');
+		$(this).parents('.all_td_event').bind('click', all_td_event_click);
+		$(this).parents('.all_td_event').trigger('click');
 	});
 
 	// drag and drop
@@ -263,6 +287,8 @@
 	var fromEvent = false;
 
 	function handleDragStart(e) {
+
+		var _this = $(this);
 		if($(this).children().hasClass('closon'))
 			fromEvent = true;
 		else
@@ -312,10 +338,19 @@
 
 		$(this).children('.closon').hide();
 
-		$('.closon').click(function () {
+		// 隱藏功能
+		$('.closon').unbind('click').click(function () {
 			$(this).parents('.selected').unbind('click');
-			$(this).parents('.selected').css('visibility', 'hidden');
+			$(this).siblings('.overlay').css('visibility', 'visible');
 		});
+
+		// 還原功能
+		$('.overlay').unbind('click').click(function() {
+			$(this).css('visibility', 'hidden');
+			$(this).parents('.all_td_event').bind('click', all_td_event_click);
+			$(this).parents('.all_td_event').trigger('click');
+		});
+
 
 	  return false;
 	}

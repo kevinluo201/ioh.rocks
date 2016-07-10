@@ -49,7 +49,12 @@
 	}
 
 	.orange_background {
-		background-color: #CC9933;
+		background-color: #FF6600;
+	}
+
+	.yellow_background {
+		background-color: #FFFF00;
+		color: black;
 	}
 
 	.selected {
@@ -82,6 +87,8 @@
 </style>
 
 <%= render "live_nav" %>
+
+<%= image_tag("agenda-legend.png", class: "img-responsive") %>
 
 <table class="table text-center table-condensed">
 	<thead>
@@ -212,18 +219,18 @@
 			renderHtml_2 += '</tr>';
 		}
 		var selector = 'tr#final_slot_' + i + '.final_slot';
-		$(selector).before(renderHtml_2);
+		$(selector).after(renderHtml_2);
 	}
 
 	//上背景色
 	$('td.all_td_event').each(function(){
 		var tmp = user_idObj[$(this).attr('user_id')];
 		if(tmp <= 2)
-			$(this).addClass('blue_background');
-		else if(tmp <= 4)
-			$(this).addClass('green_background');
-		else {
 			$(this).addClass('orange_background');
+		else if(tmp <= 4)
+			$(this).addClass('blue_background');
+		else {
+			$(this).addClass('green_background');
 		}
 	});
 
@@ -253,8 +260,14 @@
 
 	// drag and drop
 	var dragSrcEl = null;
+	var fromEvent = false;
 
 	function handleDragStart(e) {
+		if($(this).children().hasClass('closon'))
+			fromEvent = true;
+		else
+			fromEvent = false;
+
 	  this.style.opacity = '0.4';
 
 		dragSrcEl = this;
@@ -282,6 +295,11 @@
 	}
 
 	function handleDrop(e) {
+
+		if(!($(this).hasClass('yellow_background')))
+			$(this).addClass('yellow_background');
+		else if(!fromEvent)
+			$(this).removeClass('yellow_background');
 
 	  if (e.stopPropagation) {
 	    e.stopPropagation();

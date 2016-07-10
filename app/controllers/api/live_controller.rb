@@ -1,5 +1,5 @@
 class Api::LiveController < ApplicationController
-	before_action :authenticate_user!, :except => [:index, :onair]
+	before_action :authenticate_user!, :except => [:index, :onair, :basic_data]
 	
 	skip_before_filter :verify_authenticity_token
   before_filter :cors_preflight_check
@@ -49,6 +49,7 @@ class Api::LiveController < ApplicationController
 			data_item[:end] = live.end
 			data_item[:user_id] = live.user_id
 			data_item[:time_id] = live.time_id
+			data_item[:link] = live.ioh_url
 
 			data.push data_item
 		end
@@ -76,6 +77,12 @@ class Api::LiveController < ApplicationController
 		else
 			render json: { onair: onair, message: "error!!" }
 		end
+	end
+
+	def get_live
+	end
+
+	def basic_data
 	end
 
 	def test

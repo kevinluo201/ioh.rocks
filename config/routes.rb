@@ -71,8 +71,8 @@ Rails.application.routes.draw do
 		get "/live/live" => "live#live"
 		get "/live/basic" => "live#basic_data"
 
-		# ioh 時刻總表
-		
+		# ioh 時刻表
+		patch "/live/" => "live#update_stream"
   end
 
   get "/lives/success" => "lives#success"

@@ -5,6 +5,30 @@ class Api::LiveController < ApplicationController
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
 
+  def update_stream
+  	data = params[:postData]
+
+  	# delete all data
+  	Stream.all.each do |stream|
+  		stream.destroy
+  	end
+
+  	Stream.connection.execute('ALTER TABLE `streams` AUTO_INCREMENT = 1;')
+
+  	data.each_value do |item|
+  		stream = Stream.new
+
+  		stream.name = item['name'] if item['name']
+  		stream.chennal = item['channel']
+  		stream.live_time = LiveTime.find(item['time_id'].to_i)
+  		stream.live = Live.find_by_name(stream.name)
+
+  		stream.save
+  	end
+
+  	render :json => { status: "success" }
+  end
+
 	# def admin
 	# 	sort_by = params[:sort_by]
 
@@ -248,7 +272,7 @@ class Api::LiveController < ApplicationController
 	# For all responses in this controller, return the CORS access control headers.
   def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'GET'
+    headers['Access-Control-Allow-Methods'] = 'GET PATCH'
     headers['Access-Control-Max-Age'] = "1728000"
   end
 
@@ -258,7 +282,7 @@ class Api::LiveController < ApplicationController
 
   def cors_preflight_check
     headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'GET'
+    headers['Access-Control-Allow-Methods'] = 'GET PATCH'
     headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version'
     headers['Access-Control-Max-Age'] = '1728000'
   end

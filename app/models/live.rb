@@ -2,6 +2,7 @@ class Live < ActiveRecord::Base
 	belongs_to :live_school
 	belongs_to :live_department
 	has_and_belongs_to_many :live_times
+	has_many :streams
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :gmail, presence: true, length: { maximum: 255 }, 

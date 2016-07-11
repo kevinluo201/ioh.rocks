@@ -113,7 +113,7 @@ class Admin::LivesController < ApplicationController
 							   					live_times.start as start,
 							   					live_times.end as end")
 							   .where("start < ? AND start > ?", date, last_date)
-							   .order("start")
+							   .order("live_host, start")
 	end
 
 	def follow_up_edit

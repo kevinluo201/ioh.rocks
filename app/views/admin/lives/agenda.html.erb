@@ -443,6 +443,12 @@
 			tmpObj['channel'] = $(this).attr('channel');
 			postData.push(tmpObj);
 		});
+
+		$.ajax({
+			'url': 'http://ioh.rocks/api/live',
+			'method': 'PATCH',
+			'data': { postData },
+		});
 		console.log(postData);
 	});
 

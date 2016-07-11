@@ -11,19 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711124121) do
+ActiveRecord::Schema.define(version: 20160711140317) do
 
   create_table "live_departments", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "group",      limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string  "name",  limit: 255
+    t.integer "group", limit: 4
   end
 
   create_table "live_schools", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string "name", limit: 255
   end
 
   create_table "live_times", force: :cascade do |t|
@@ -43,8 +39,8 @@ ActiveRecord::Schema.define(version: 20160711124121) do
 
   create_table "lives", force: :cascade do |t|
     t.string   "name",               limit: 255
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.integer  "live_school_id",     limit: 4
     t.integer  "live_department_id", limit: 4
     t.string   "title",              limit: 255
@@ -70,13 +66,13 @@ ActiveRecord::Schema.define(version: 20160711124121) do
     t.boolean  "move_to_part_3"
     t.string   "banner_status",      limit: 255
     t.string   "embed_link_status",  limit: 255
-    t.boolean  "no_show"
-    t.boolean  "in_studio"
-    t.boolean  "video_download"
-    t.boolean  "speaker_screenshot"
+    t.boolean  "no_show",                               default: false
+    t.boolean  "in_studio",                             default: false
+    t.boolean  "video_download",                        default: false
+    t.boolean  "speaker_screenshot",                    default: false
     t.string   "youtube_naming",     limit: 255
-    t.boolean  "save_to_hard_drive"
-    t.boolean  "paste_survey_link"
+    t.boolean  "save_to_hard_drive",                    default: false
+    t.boolean  "paste_survey_link",                     default: false
     t.string   "chennal",            limit: 255
   end
 
@@ -121,11 +117,12 @@ ActiveRecord::Schema.define(version: 20160711124121) do
   create_table "streams", force: :cascade do |t|
     t.string  "name",         limit: 255
     t.string  "chennal",      limit: 255
+    t.string  "live_host",    limit: 255
+    t.integer "live_id",      limit: 4
     t.integer "live_time_id", limit: 4
-    t.integer "life_id",      limit: 4
   end
 
-  add_index "streams", ["life_id"], name: "index_streams_on_life_id", using: :btree
+  add_index "streams", ["live_id"], name: "index_streams_on_live_id", using: :btree
   add_index "streams", ["live_time_id"], name: "index_streams_on_live_time_id", using: :btree
 
   create_table "talks", force: :cascade do |t|
@@ -165,7 +162,7 @@ ActiveRecord::Schema.define(version: 20160711124121) do
   add_foreign_key "posters", "users"
   add_foreign_key "posters", "users", column: "last_edit_id"
   add_foreign_key "streams", "live_times"
-  add_foreign_key "streams", "lives"
+  add_foreign_key "streams", "lives", column: "live_id"
   add_foreign_key "talks", "live_departments"
   add_foreign_key "talks", "live_schools"
   add_foreign_key "users", "roles"

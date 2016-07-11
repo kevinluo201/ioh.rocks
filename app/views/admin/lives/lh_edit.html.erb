@@ -2,16 +2,6 @@
 
 <div class="container col-md-7">
 	<%= form_for @live, :url => "/admin/live/lh/#{@live.id}" do |f| %>
-		
-		<div class="form-group">
-			<%= f.label :chennal, "頻道" %>
-			<%= f.text_field :chennal, class: "form-control" %>
-		</div>
-
-		<div class="form-group">
-			<%= f.label :live_host, "Live Host" %>
-			<%= f.text_field :live_host, class: "form-control" %>
-		</div>
 
 		<div class="form-group">
 			<%= f.label :youtube_url, "直播連結" %>

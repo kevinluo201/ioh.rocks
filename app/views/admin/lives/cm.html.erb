@@ -29,40 +29,40 @@
 		<% @lives.each do |live| %>
 			<tr>
 				<td><%= live.name %></td>
-				<td><%= (live.start + 8*60*60).strftime("%a %H:%M") %></td>
+				<td><%= (live.live_time.start + 8*60*60).strftime("%a %H:%M") %></td>
 				<td><%= live.chennal %></td>
 				<td><%= live.live_host %></td>
-				<td><%= live.location %></td>
+				<td><%= live.live.location %></td>
 				<td>
-					<% if live.youtube_url.present? %>
-					<a href="#" class="copy-link" data-clipboard-text="<%= live.youtube_url %>">Copy</a>
+					<% if live.live.youtube_url.present? %>
+					<a href="#" class="copy-link" data-clipboard-text="<%= live.live.youtube_url %>">Copy</a>
 					<% end %>
 				</td>
 				<td>
-				<% if live.ioh_url.present? %>
-					<a href="<%= live.ioh_url %>" target="_blank">
+				<% if live.live.ioh_url.present? %>
+					<a href="<%= live.live.ioh_url %>" target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
 					</a>
 				<% end %>
 				</td>
 				<td>
-					<% if live.move_to_part_3 %>
+					<% if live.live.move_to_part_3 %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
-				<td><%= live.banner_status %></td>
-				<th><%= live.embed_link_status %></th>
+				<td><%= live.live.banner_status %></td>
+				<th><%= live.live.embed_link_status %></th>
 				<td>
-					<% if live.paste_survey_link %>
+					<% if live.live.paste_survey_link %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<a href="<%= "/admin/live/cm/#{live.id}/edit" %>">
+					<a href="<%= "/admin/live/cm/#{live.live.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 				</td>

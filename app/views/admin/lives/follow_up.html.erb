@@ -26,33 +26,33 @@
 		<% @lives.each do |live| %>
 			<tr>
 				<td><%= live.name %></td>
-				<td><%= (live.start + 8*60*60).strftime("%a %H:%M") %></td>
+				<td><%= (live.live_time.start + 8*60*60).strftime("%a %H:%M") %></td>
 				<td><%= live.chennal %></td>
 				<td><%= live.live_host %></td>
-				<td><%= live.location %></td>
+				<td><%= live.live.location %></td>
 				<td>
-					<% if live.speaker_screenshot %>
+					<% if live.live.speaker_screenshot %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<% if live.video_download %>
+					<% if live.live.video_download %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<% if live.save_to_hard_drive %>
+					<% if live.live.save_to_hard_drive %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<a href="<%= "/admin/live/follow_up/#{live.id}/edit" %>">
+					<a href="<%= "/admin/live/follow_up/#{live.live.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 				</td>

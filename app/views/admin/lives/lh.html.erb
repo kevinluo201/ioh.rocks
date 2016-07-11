@@ -26,67 +26,73 @@
 				<th>在 studio?</th>
 				<th>no show</th>
 				<th>Edit</th>
+				<th>Edit LH&Channel</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @lives.each do |live| %>
 			<tr>
 				<td><%= live.name %></td>
-				<td><%= (live.start + 8*60*60).strftime("%a %H:%M") %></td>
-				<td><%= live.chennal %></td>
+				<td><%= (live.live_time.start + 8*60*60).strftime("%a %H:%M") %></td>
+				<td><%= live.live.chennal %></td>
 				<td><%= live.live_host %></td>
-				<td><%= live.location %></td>
+				<td><%= live.live.location %></td>
 				<td>
-					<% if live.youtube_url.present? %>
+					<% if live.live.youtube_url.present? %>
 					<a href="#" class="copy-link" data-clipboard-text="<%= live.youtube_url %>">Copy</a>
 					<% end %>
 				</td>
 				<td>
-					<% if live.audio_agree %>
+					<% if live.live.audio_agree %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<% if live.phone_contact %>
+					<% if live.live.phone_contact %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<% if live.qa_link.present? %>
+					<% if live.live.qa_link.present? %>
 					<a href="<%= live.qa_link %>" target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
 					</a>
 					<% end %>
 				</td>
-				<td><%= live.doc_naming %></td>
-				<td><%= live.stream_naming %></td>
+				<td><%= live.live.doc_naming %></td>
+				<td><%= live.live.stream_naming %></td>
 				<td>
-					<% if live.test_record.present? %>
+					<% if live.live.test_record.present? %>
 					<a href="<%= live.test_record %>" target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
 					</a>
 					<% end %>
 				</td>
 				<td>
-					<% if live.in_studio %>
+					<% if live.live.in_studio %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<% if live.no_show %>
+					<% if live.live.no_show %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<a href="<%= "/admin/live/lh/#{live.id}/edit" %>">
+					<a href="<%= "/admin/live/lh/#{live.live.id}/edit" %>">
+						<span class="glyphicon glyphicon-edit"></span>
+					</a>
+				</td>
+				<td>
+					<a href="<%= "/admin/live/channel/#{live.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 				</td>

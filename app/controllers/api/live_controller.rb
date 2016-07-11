@@ -1,9 +1,16 @@
 class Api::LiveController < ApplicationController
-	before_action :authenticate_user!, :except => [:index, :onair, :basic_data, :live]
+	before_action :authenticate_user!, :except => [:index, :onair, :basic_data, :live, :schedule, :update_stream]
 	
 	skip_before_filter :verify_authenticity_token
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
+
+  def schedule
+  	streams = Stream.all.select("name, chennal as channel, live_time_id as time_id")
+  									.order("time_id")
+
+  	render :json => streams
+  end
 
   def update_stream
   	data = params[:postData]

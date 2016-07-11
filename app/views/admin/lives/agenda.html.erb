@@ -451,6 +451,7 @@
 			'data': { postData },
 			'success': function() {
 				alert('儲存完畢！');
+				console.log(postData);
 			}
 		});
 	});
@@ -467,11 +468,13 @@
           tmp = data;
         }
     });
+
     return tmp;
 	}();
 
 	for (var key in getData) {
 		if(getData[key].name != null) {
+			console.log(getData[key].name);
 			var selector = 'td.all_td_final[time_id="' + getData[key].time_id + '"][channel="' + getData[key].channel + '"]'
 			var textStr = '<div><b>' + getData[key].name + '<br>' + getData[key].school + '<br>' + getData[key].department + '<b></div>'
 			$(selector).html(textStr);

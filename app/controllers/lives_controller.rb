@@ -3,6 +3,8 @@ class LivesController < ApplicationController
 
 	def new
 		@live = Live.new
+
+		render :over
 	end
 
 	def create
@@ -30,6 +32,9 @@ class LivesController < ApplicationController
 
       render :new
     end
+	end
+
+	def over
 	end
 
 	def success

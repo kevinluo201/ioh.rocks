@@ -62,10 +62,15 @@ Rails.application.routes.draw do
 		get "/live/live_url" => "live#onair"
 
 		# ioh.tw/live
+		get "/live/live" => "live#live"
 		get "/live/basic" => "live#basic_data"
+
+		# ioh 時刻總表
+		
   end
 
   get "/lives/success" => "lives#success"
+  get "lives/over" => "lives#over"
 
   resources :lives
   get "/live" => "lives#new"

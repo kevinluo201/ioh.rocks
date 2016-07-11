@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160709050548) do
+ActiveRecord::Schema.define(version: 20160710154925) do
 
   create_table "live_departments", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -110,6 +110,16 @@ ActiveRecord::Schema.define(version: 20160709050548) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "streams", force: :cascade do |t|
+    t.string  "name",         limit: 255
+    t.string  "chennal",      limit: 255
+    t.integer "live_time_id", limit: 4
+    t.integer "life_id",      limit: 4
+  end
+
+  add_index "streams", ["life_id"], name: "index_streams_on_life_id", using: :btree
+  add_index "streams", ["live_time_id"], name: "index_streams_on_live_time_id", using: :btree
+
   create_table "talks", force: :cascade do |t|
     t.integer "ioh_id",             limit: 4
     t.string  "title",              limit: 255
@@ -146,6 +156,8 @@ ActiveRecord::Schema.define(version: 20160709050548) do
   add_foreign_key "lives", "live_schools"
   add_foreign_key "posters", "users"
   add_foreign_key "posters", "users", column: "last_edit_id"
+  add_foreign_key "streams", "live_times"
+  add_foreign_key "streams", "lives"
   add_foreign_key "talks", "live_departments"
   add_foreign_key "talks", "live_schools"
   add_foreign_key "users", "roles"

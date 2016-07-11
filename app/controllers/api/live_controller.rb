@@ -1,5 +1,5 @@
 class Api::LiveController < ApplicationController
-	before_action :authenticate_user!, :except => [:index, :onair, :basic_data]
+	before_action :authenticate_user!, :except => [:index, :onair, :basic_data, :live]
 	
 	skip_before_filter :verify_authenticity_token
   before_filter :cors_preflight_check
@@ -30,7 +30,7 @@ class Api::LiveController < ApplicationController
 
 	def index
 		lives = Live.joins(:live_department, :live_school, :live_times)
-							   .select("lives.id as user_id, lives.title, lives.ioh_url,
+							   .select("lives.id as user_id, lives.title,
 							   					live_departments.name as department,
 							   					live_schools.name as school,
 							   					live_times.id as time_id,
@@ -49,7 +49,6 @@ class Api::LiveController < ApplicationController
 			data_item[:end] = live.end
 			data_item[:user_id] = live.user_id
 			data_item[:time_id] = live.time_id
-			data_item[:link] = live.ioh_url
 
 			data.push data_item
 		end
@@ -79,7 +78,70 @@ class Api::LiveController < ApplicationController
 		end
 	end
 
-	def get_live
+	def live
+
+		order = params[:order]
+		data = []
+
+		if order == "time"
+			lives = Live.joins(:live_department, :live_school, :live_times)
+							    .select("lives.name, lives.ioh_url, lives.onair,
+							   					 live_departments.name as department,
+							   					 live_schools.name as school,
+							   					 live_times.start as start,
+							   					 live_times.end as end")
+							    .order("start, school")
+		elsif order == "school"
+			lives = Live.joins(:live_department, :live_school, :live_times)
+							    .select("lives.name, lives.ioh_url, lives.onair,
+							   					 live_departments.name as department,
+							   					 live_schools.name as school,
+							   					 live_times.start as start,
+							   					 live_times.end as end")
+							    .order("school, start")
+		elsif order == "major_one"
+			lives = Live.joins(:live_department, :live_school, :live_times)
+									.where("live_departments.group = 1")
+								  .select("lives.name, lives.ioh_url, lives.onair,
+							   					 live_departments.name as department,
+							   					 live_schools.name as school,
+							   					 live_times.start as start,
+							   					 live_times.end as end")
+								  .order("department, start")
+		elsif order == "major_two"
+			lives = Live.joins(:live_department, :live_school, :live_times)
+									.where("live_departments.group = 2")
+								  .select("lives.name, lives.ioh_url, lives.onair,
+							   					 live_departments.name as department,
+							   					 live_schools.name as school,
+							   					 live_times.start as start,
+							   					 live_times.end as end")
+								  .order("department, start")
+		end  	
+
+		lives.each do |live|
+			data_item = {}
+
+			data_item[:name] = live.name
+			data_item[:school] = /[\S]+$/.match(live.school)[0]
+			data_item[:department] = /[\S]+$/.match(live.department)[0]
+			data_item[:start] = live.start
+			data_item[:link] = live.ioh_url
+
+			if live.onair && live.start.today?
+				data_item[:onair] = "onair"
+			elsif Time.now > live.end
+				data_item[:onair] = "end"
+			elsif Time.now < live.end
+				data_item[:onair] = "yet"
+			end
+
+			data.push data_item
+		end
+
+		respond_to do |format|
+			format.json { render json: data }
+		end
 	end
 
 	def basic_data
@@ -117,10 +179,14 @@ class Api::LiveController < ApplicationController
 		data[:department_two].uniq!
 
 		#get time
-		times = LiveTime.all.select(:start)
+		times = LiveTime.all.select("start, end").order(:start)
 
 		times.each do |time|
-			data[:time].push time.start
+			item = {}
+
+			item[:time] = time.start
+			item[:over] = Time.now > time.end
+			data[:time].push item
 		end
 
 		respond_to do |format|

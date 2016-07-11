@@ -46,6 +46,17 @@ class Api::LiveController < ApplicationController
   		stream.save
   	end
 
+  	# data.each_value do |item|
+  	# 	stream = Stream.where("chennal = ? ", item['channel']).first
+
+  	# 	stream.name = item['name']
+  	# 	stream.chennal = item['channel']
+  	# 	stream.live_time = LiveTime.find(item['time_id'].to_i)
+  	# 	stream.live = Live.find_by_name(stream.name)
+
+  	# 	stream.save
+  	# end
+
   	render :json => { status: "success" }
   end
 

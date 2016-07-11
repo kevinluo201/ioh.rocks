@@ -3,13 +3,27 @@
 		border-collapse: collapse !important;
 	}
 
+	thead, tbody{
+		border: 2px solid black;
+	}
+
+	table.table > thead > tr > th {
+		border: 2px solid black;
+	}
+
 	table,
 	td,
 	th {
-		border: 1px solid black !important;
+		border: 1px solid black;
 	}
 	.table > tbody > tr > td.time_td {
 		vertical-align: middle;
+	}
+
+	td.empty_td, .time_td {
+		border-right: 2px solid black;
+		border-top: 0px !important;
+		border-bottom: 0px;
 	}
 
 	.thaed_css {
@@ -18,10 +32,12 @@
 
 	.final_slot {
 		background-color: white;
+		border-top: 2px solid black;
+		border-bottom: 2px solid black;
 	}
 
 	.all_td_final {
-		background-color: rgba(0, 0, 0, 0.2);
+		background-color: rgba(0, 0, 0, 0.1);
 		width: 30px;
 		height: 70px;
 		font-size: 0.75em;
@@ -34,25 +50,31 @@
 		height: 70px;
 		font-size: 0.75em;
 		vertical-align: middle !important;
-		color: white;
+		color: black;
 		cursor: pointer;
+		position: relative;
+		z-index: 2;
 	}
 
 	.blue_background {
-		background-color: #333399;
+		background-color: #C5E5EC;
 	}
 
 	.green_background {
-		background-color: #009933;
+		background-color: #D4E9D0;
 	}
 
 	.orange_background {
-		background-color: #CC9933;
+		background-color: #E1D6EA;
+	}
+
+	.yellow_background {
+		background-color: #FEF6AB;
+		color: black;
 	}
 
 	.selected {
 		background-color: red !important;
-		outline: 2px solid black !important;
 	}
 
 	.closon {
@@ -61,7 +83,7 @@
 		cursor: pointer;
 		text-align: left;
 		color: black;
-		z-index: 10;
+		z-index: 3;
 	}
 
 	[draggable] {
@@ -77,9 +99,42 @@
 	  border: 2px dashed #000 !important;
 	}
 
+	.overlay {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		text-align: center;
+		line-height: 70px;
+		font-size: medium;
+		z-index: 1;
+		visibility: hidden;
+		color: white;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+
+	#save_btn {
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
+	}
+
 </style>
 
 <%= render "live_nav" %>
+<br>
+<div class="row" style="height: 200px;">
+	<div class="col-md-8" style="padding-left: 0px;">
+		<%= image_tag("agenda-legend.png", class: "img-responsive") %>
+	</div>
+	<div class="col-md-4" style="padding-left: 0px; position: relative; height: 200px;">
+		<a class="btn btn-default" id="save_btn">儲存</a>
+	</div>
+
+</div>
+<br>
+
 
 <table class="table text-center table-condensed">
 	<thead>
@@ -117,7 +172,7 @@
 						user_idObj[data['user_id']] += 1;
 
 					data['id'] = index;
-
+					data['user_name'] = data['title'];
 					data['title'] += ('<br>' + data['school'] + '<br>' + data['department']);
 
 					$.each(data, function (key, value) {
@@ -138,6 +193,7 @@
 					time_idObj[data['time_id']].push({
 						id: data['id'],
 						user_id: data['user_id'],
+						user_name: data['user_name'],
 						title: data['title']
 					});
 				})
@@ -151,19 +207,29 @@
 	//render出final slot
 	for (var i = 0; i < 10; i++) {
 
+		var mon_time_id = i + 37,
+				tue_time_id = i + 47,
+				wed_time_id = i + 57;
+
 		renderHtml_1 += '<tr class="final_slot" id="final_slot_' + i + '">';
 		renderHtml_1 += '<td class="time_td"><b>' + time_startArr[i].substring(5, 10) + '<br>~<br>' + time_endArr[i].substring(5, 10) + '</b></td>';
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="mon_div"><b>頻道 ' + y + '</b></div> </td>';
+			if(y < 5)
+				renderHtml_1 += '<td class="all_td_final" time_id="' + mon_time_id + '" channel="Mon 頻道' + y + '-' + ((i%2)+1) + '"> <div><b>Mon<br>頻道' + y + '-' + ((i%2)+1) + '</b></div> </td>';
+			else
+			renderHtml_1 += '<td class="all_td_final" time_id="' + mon_time_id + '" channel="Mon 頻道' + y + '-' + ((i%2)+1) + '" style="border-right: 2px solid;"> <div><b>Mon<br>頻道' + y + '-' + ((i%2)+1) + '</b></div> </td>';
 		}
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>頻道 ' + y + '</b></div> </td>';
+			if(y < 5)
+			renderHtml_1 += '<td class="all_td_final" time_id="' + tue_time_id + '" channel="Tue 頻道' + y + '-' + ((i%2)+1) + '"> <div><b>Tue<br>頻道' + y + '-' + ((i%2)+1) + '</b></div> </td>';
+			else
+				renderHtml_1 += '<td class="all_td_final" time_id="' + tue_time_id + '" channel="Tue 頻道' + y + '-' + ((i%2)+1) + '" style="border-right: 2px solid;"> <div><b>Tue<br>頻道' + y + '-' + ((i%2)+1) + '</b></div> </td>';
 		}
 
 		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final"> <div class="tue_div"><b>頻道 ' + y + '</b></div> </td>';
+			renderHtml_1 += '<td class="all_td_final" time_id="' + wed_time_id + '" channel="Wed 頻道' + y + '-' + ((i%2)+1) + '"> <div><b>Wed<br>頻道' + y + '-' + ((i%2)+1)+ '</b></div> </td>';
 		}
 
 		renderHtml_1 += '</tr>';
@@ -184,49 +250,65 @@
 		for (var j = 0; j < rowNum; j++) {
 			var fiveJ = j * 5;
 			renderHtml_2 += '<tr>';
-			renderHtml_2 += '<td></td>';
+			renderHtml_2 += '<td class="empty_td"></td>';
 
 			for (var z = 0; z < 5; z++) {
-				if(time_idObj[mon_data][fiveJ + z])
-					renderHtml_2 += '<td class="mon_td_event all_td_event" draggable="true" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[mon_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
-				else
-					renderHtml_2 += '<td class="mon_td_event all_td_event"> <div class="mon_div"><b></b></div> </td>';
+				if(z == 4) {
+					if(time_idObj[mon_data][fiveJ + z])
+						renderHtml_2 += '<td class="mon_td_event all_td_event" draggable="true" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '" style="border-right: 2px solid;""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[mon_data][fiveJ + z].user_name + '">' + time_idObj[mon_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					else
+						renderHtml_2 += '<td class="mon_td_event" style="border-right: 2px solid;"> <div class="mon_div"></div> </td>';
+				}
+				else {
+					if(time_idObj[mon_data][fiveJ + z])
+						renderHtml_2 += '<td class="mon_td_event all_td_event" draggable="true" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[mon_data][fiveJ + z].user_name + '">' + time_idObj[mon_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					else
+						renderHtml_2 += '<td class="mon_td_event"> <div class="mon_div"></div> </td>';
+				}
 			}
 
 			for (var z = 0; z < 5; z++) {
-				if(time_idObj[tue_data][fiveJ + z])
-					renderHtml_2 += '<td class="tue_td_event all_td_event" draggable="true" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '""> <div class="mon_div"><b>' + time_idObj[tue_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
-				else
-					renderHtml_2 += '<td class="tue_td_event all_td_event"> <div class="tue_div"><b></b></div> </td>';
+				if(z == 4) {
+					if(time_idObj[tue_data][fiveJ + z])
+						renderHtml_2 += '<td class="tue_td_event all_td_event" draggable="true" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '" style="border-right: 2px solid;""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[tue_data][fiveJ + z].user_name + '">' + time_idObj[tue_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					else
+						renderHtml_2 += '<td class="tue_td_event" style="border-right: 2px solid;"> <div class="tue_div"></div> </td>';
+				}
+				else {
+					if(time_idObj[tue_data][fiveJ + z])
+						renderHtml_2 += '<td class="tue_td_event all_td_event" draggable="true" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[tue_data][fiveJ + z].user_name + '">' + time_idObj[tue_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					else
+						renderHtml_2 += '<td class="tue_td_event"> <div class="tue_div"></div> </td>';
+				}
 			}
 
 			for (var z = 0; z < 5; z++) {
 				if(time_idObj[wed_data][fiveJ + z])
-					renderHtml_2 += '<td class="wed_td_event all_td_event" draggable="true" data="' + time_idObj[wed_data][fiveJ + z].id + '" user_id="' + time_idObj[wed_data][fiveJ + z].user_id + '"""> <div class="wed_div"><b>' + time_idObj[wed_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+					renderHtml_2 += '<td class="wed_td_event all_td_event" draggable="true" data="' + time_idObj[wed_data][fiveJ + z].id + '" user_id="' + time_idObj[wed_data][fiveJ + z].user_id + '""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[wed_data][fiveJ + z].user_name + '">' + time_idObj[wed_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
 				else
-					renderHtml_2 += '<td class="wed_td_event all_td_event"> <div class="wed_div"><b></b></div> </td>';
+					renderHtml_2 += '<td class="wed_td_event"> <div class="wed_div"></div> </td>';
 			}
 
 			renderHtml_2 += '</tr>';
 		}
 		var selector = 'tr#final_slot_' + i + '.final_slot';
-		$(selector).before(renderHtml_2);
+		$(selector).after(renderHtml_2);
 	}
 
 	//上背景色
 	$('td.all_td_event').each(function(){
 		var tmp = user_idObj[$(this).attr('user_id')];
 		if(tmp <= 2)
-			$(this).addClass('blue_background');
-		else if(tmp <= 4)
-			$(this).addClass('green_background');
-		else {
 			$(this).addClass('orange_background');
+		else if(tmp <= 4)
+			$(this).addClass('blue_background');
+		else {
+			$(this).addClass('green_background');
 		}
 	});
 
 	//td_event click event
-	$('.all_td_event').click(function(){
+	$('.all_td_event').click( all_td_event_click = function(){
 		var _this_user_id = $(this).attr('user_id');
 		if(_this_user_id != undefined) {
 			$('td.all_td_event').each(function(){
@@ -244,15 +326,31 @@
 		}
 	});
 
-	$('.closon').click(function () {
+	// 隱藏功能
+	$('.closon').click( closon_click = function () {
 		$(this).parents('.selected').unbind('click');
-		$(this).parents('.selected').css('visibility', 'hidden');
+		$(this).siblings('.overlay').css('visibility', 'visible');
+	});
+
+	// 還原功能
+	$('.overlay').click( overlay_click = function() {
+		$(this).css('visibility', 'hidden');
+		$(this).parents('.all_td_event').bind('click', all_td_event_click);
+		$(this).parents('.all_td_event').trigger('click');
 	});
 
 	// drag and drop
 	var dragSrcEl = null;
+	var fromEvent = false;
 
 	function handleDragStart(e) {
+
+		var _this = $(this);
+		if($(this).children().hasClass('closon'))
+			fromEvent = true;
+		else
+			fromEvent = false;
+
 	  this.style.opacity = '0.4';
 
 		dragSrcEl = this;
@@ -281,6 +379,11 @@
 
 	function handleDrop(e) {
 
+		if(!($(this).hasClass('yellow_background')))
+			$(this).addClass('yellow_background');
+		else if(!fromEvent)
+			$(this).removeClass('yellow_background');
+
 	  if (e.stopPropagation) {
 	    e.stopPropagation();
 	  }
@@ -292,10 +395,19 @@
 
 		$(this).children('.closon').hide();
 
-		$('.closon').click(function () {
+		// 隱藏功能
+		$('.closon').unbind('click').click(function () {
 			$(this).parents('.selected').unbind('click');
-			$(this).parents('.selected').css('visibility', 'hidden');
+			$(this).siblings('.overlay').css('visibility', 'visible');
 		});
+
+		// 還原功能
+		$('.overlay').unbind('click').click(function() {
+			$(this).css('visibility', 'hidden');
+			$(this).parents('.all_td_event').bind('click', all_td_event_click);
+			$(this).parents('.all_td_event').trigger('click');
+		});
+
 
 	  return false;
 	}
@@ -320,6 +432,18 @@
 		$(this).on('dragleave', handleDragLeave);
 		$(this).on('drop', handleDrop);
 		$(this).on('dragend', handleDragEnd);
+	});
+
+	$('#save_btn').click(function(){
+		var postData = [];
+		$('.all_td_final').each(function(){
+			var tmpObj = {}
+			tmpObj['name'] = $(this).find('b').attr('user_name');
+			tmpObj['time_id'] = $(this).attr('time_id');
+			tmpObj['channel'] = $(this).attr('channel');
+			postData.push(tmpObj);
+		});
+		console.log(postData);
 	});
 
 </script>

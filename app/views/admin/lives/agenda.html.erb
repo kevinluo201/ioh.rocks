@@ -475,8 +475,8 @@
 	for (var key in getData) {
 		if(getData[key].name != null) {
 			console.log(getData[key].name);
-			var selector = 'td.all_td_final[time_id="' + getData[key].time_id + '"][channel="' + getData[key].channel + '"]'
-			var textStr = '<div><b>' + getData[key].name + '<br>' + getData[key].school + '<br>' + getData[key].department + '<b></div>'
+			var selector = 'td.all_td_final[time_id="' + getData[key].time_id + '"][channel="' + getData[key].channel + '"]';
+			var textStr = '<div><b user_name="' + getData[key].name + '">' + getData[key].name + '<br>' + getData[key].school + '<br>' + getData[key].department + '<b></div>';
 			$(selector).html(textStr);
 		}
   }

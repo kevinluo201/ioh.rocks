@@ -6,10 +6,23 @@ class Api::LiveController < ApplicationController
   after_filter :cors_set_access_control_headers
 
   def schedule
-  	streams = Stream.all.select("name, chennal as channel, live_time_id as time_id")
+  	streams = Stream.all.select("name, chennal as channel, live_time_id as time_id, live_id")
   									.order("time_id")
 
-  	render :json => streams
+  	data = []
+  	streams.each do |stream|
+  		item = {}
+
+  		item['name'] = stream.name
+  		item['channel'] = stream.channel
+  		item['time_id'] = stream.time_id
+  		item['school'] = /[\S]+$/.match(stream.live.live_school.name)[0] if stream.live
+  		item['department'] = /[\S]+$/.match(stream.live.live_department.name)[0] if stream.live
+
+  		data.push item
+  	end
+
+  	render :json => data
   end
 
   def update_stream
@@ -32,6 +45,17 @@ class Api::LiveController < ApplicationController
 
   		stream.save
   	end
+
+  	# data.each_value do |item|
+  	# 	stream = Stream.where("chennal = ? ", item['channel']).first
+
+  	# 	stream.name = item['name']
+  	# 	stream.chennal = item['channel']
+  	# 	stream.live_time = LiveTime.find(item['time_id'].to_i)
+  	# 	stream.live = Live.find_by_name(stream.name)
+
+  	# 	stream.save
+  	# end
 
   	render :json => { status: "success" }
   end
@@ -279,7 +303,7 @@ class Api::LiveController < ApplicationController
 	# For all responses in this controller, return the CORS access control headers.
   def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'GET PATCH OPTIONS'
+    headers['Access-Control-Allow-Methods'] = 'GET, PATCH'
     headers['Access-Control-Max-Age'] = "1728000"
   end
 
@@ -289,7 +313,7 @@ class Api::LiveController < ApplicationController
 
   def cors_preflight_check
     headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'GET PATCH OPTIONS'
+    headers['Access-Control-Allow-Methods'] = 'GET, PATCH'
     headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version'
     headers['Access-Control-Max-Age'] = '1728000'
   end

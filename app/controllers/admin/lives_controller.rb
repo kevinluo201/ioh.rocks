@@ -39,12 +39,10 @@ class Admin::LivesController < ApplicationController
 		date = Time.zone.parse("2016-07-" + day)
 		last_date = Time.zone.parse("2016-07-" + last_day)
 
-		@lives = Live.joins(:live_times)
-							   .select("lives.*,
-							   					live_times.start as start,
-							   					live_times.end as end")
-							   .where("start < ? AND start > ?", date, last_date)
-							   .order("start")
+		@lives = Stream.where("streams.name IS NOT NULL")
+								   .joins(:live, :live_time)
+								   .where("live_times.start < ? AND live_times.start > ?", date, last_date)
+								   .order("streams.live_host, live_times.start")
 	end
 
 	def cm
@@ -56,12 +54,10 @@ class Admin::LivesController < ApplicationController
 		date = Time.zone.parse("2016-07-" + day)
 		last_date = Time.zone.parse("2016-07-" + last_day)
 
-		@lives = Live.joins(:live_times)
-							   .select("lives.*,
-							   					live_times.start as start,
-							   					live_times.end as end")
-							   .where("start < ? AND start > ?", date, last_date)
-							   .order("start")
+		@lives = Stream.where("streams.name IS NOT NULL")
+								   .joins(:live, :live_time)
+								   .where("live_times.start < ? AND live_times.start > ?", date, last_date)
+								   .order("streams.live_host, live_times.start")
 	end
 
 	def cm_edit
@@ -108,12 +104,16 @@ class Admin::LivesController < ApplicationController
 		date = Time.zone.parse("2016-07-" + day)
 		last_date = Time.zone.parse("2016-07-" + last_day)
 
-		@lives = Live.joins(:live_times)
-							   .select("lives.*,
-							   					live_times.start as start,
-							   					live_times.end as end")
-							   .where("start < ? AND start > ?", date, last_date)
-							   .order("live_host, start")
+		# @lives = Live.joins(:live_times)
+		# 					   .select("lives.*,
+		# 					   					live_times.start as start,
+		# 					   					live_times.end as end")
+		# 					   .where("start < ? AND start > ?", date, last_date)
+		# 					   .order("live_host, start")
+		@lives = Stream.where("streams.name IS NOT NULL")
+								   .joins(:live, :live_time)
+								   .where("live_times.start < ? AND live_times.start > ?", date, last_date)
+								   .order("streams.live_host, live_times.start")
 	end
 
 	def follow_up_edit
@@ -152,6 +152,21 @@ class Admin::LivesController < ApplicationController
 	def agenda
 	end
 
+	def channel_edit
+		@stream = Stream.find(params[:id])
+	end
+
+	def channel_update
+		@stream = Stream.find params[:id]
+
+		if @stream.update_attributes(stream_params)
+			redirect_to admin_live_lh_view_path
+		else
+			render :edit
+			flash.now[:alert] = @stream.errors.full_messages
+		end
+	end
+
 	private
 	def check_admin
 		if current_user.regular?
@@ -169,6 +184,11 @@ class Admin::LivesController < ApplicationController
 																 :banner_link, :move_to_part_3, :banner_status,
 																 :embed_link_status, :no_show, :in_studio, :video_download,
 																 :speaker_screenshot, :youtube_naming, :save_to_hard_drive,
-																 :paste_survey_link)
+																 :paste_survey_link,
+																 :streams_attributes => [:chennal, :live_host])
+	end
+
+	def stream_params
+		params.require(:stream).permit(:live_host, :chennal)
 	end
 end

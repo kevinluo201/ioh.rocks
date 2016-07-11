@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160710154925) do
+ActiveRecord::Schema.define(version: 20160711124121) do
 
   create_table "live_departments", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 20160710154925) do
 
   create_table "lives", force: :cascade do |t|
     t.string   "name",               limit: 255
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "live_school_id",     limit: 4
     t.integer  "live_department_id", limit: 4
     t.string   "title",              limit: 255
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(version: 20160710154925) do
     t.text     "feedback",           limit: 4294967295
     t.string   "school",             limit: 255
     t.string   "department",         limit: 255
-    t.integer  "chennal",            limit: 4
     t.string   "youtube_url",        limit: 255
     t.string   "live_host",          limit: 255
     t.boolean  "audio_agree"
@@ -69,7 +68,16 @@ ActiveRecord::Schema.define(version: 20160710154925) do
     t.string   "test_record",        limit: 255
     t.string   "banner_link",        limit: 255
     t.boolean  "move_to_part_3"
-    t.boolean  "onair",                                 default: false
+    t.string   "banner_status",      limit: 255
+    t.string   "embed_link_status",  limit: 255
+    t.boolean  "no_show"
+    t.boolean  "in_studio"
+    t.boolean  "video_download"
+    t.boolean  "speaker_screenshot"
+    t.string   "youtube_naming",     limit: 255
+    t.boolean  "save_to_hard_drive"
+    t.boolean  "paste_survey_link"
+    t.string   "chennal",            limit: 255
   end
 
   add_index "lives", ["live_department_id"], name: "index_lives_on_live_department_id", using: :btree

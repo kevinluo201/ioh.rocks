@@ -4,7 +4,7 @@ class LivesController < ApplicationController
 	def new
 		@live = Live.new
 
-		render :over
+		# render :over
 	end
 
 	def create

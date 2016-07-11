@@ -19,9 +19,9 @@
 				<th>學校</th>
 				<th>科系</th>
 				<th>直播地點</th>
-				<th>IOH 連結</th>
+				<th>FB</th>
+				<th>電話</th>
 				<th>時間數量</th>
-				<th>填表時間</th>
 				<th>Edit</th>
 		</tr>
 	</thead>
@@ -33,22 +33,26 @@
 				<td><%= /[\S]+$/.match(live.live_school.name)[0] if live.live_school %></td>
 				<td><%= /[\S]+$/.match(live.live_department.name)[0] %></td>
 				<td><%= live.location %></td>
-				<td>
+<!-- 				<td>
 					<% if live.ioh_url.present? %>
 					<a href="<%= live.ioh_url %>" target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
 					</a>
 					<% end %>
-				</td>
+				</td> -->
+				<th>
+					<% if live.fb_url.present? %>
+						<a href="<%= live.fb_url %>" target="_blank">
+							<span class="glyphicon glyphicon-new-window"></span>
+						</a>
+					<% end %>
+				</th>
+				<th><%= live.phone %></th>
 				<td><%= live.time_count %></td>
-				<td><%= live.created_at.strftime("%m/%d %H:%M") %></td>
 				<td>
 					<a href="<%= "/admin/live/#{live.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
-					<!-- <a href="<%= "/admin/live/#{live.id}" %>" style="color: #a94442" onclick="return confirm('確定要刪除嗎？');" data-method="DELETE">
-						<span class="glyphicon glyphicon-trash"></span>
-					</a> -->
 				</td>
 			</tr>
 		<% end %>

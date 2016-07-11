@@ -1,6 +1,6 @@
 class Admin::LivesController < ApplicationController
-	# before_action :authenticate_user!
-	# before_action :check_admin
+	before_action :authenticate_user!
+	before_action :check_admin
 
 	def index
 		@lives = Live.all.includes(:live_school, :live_department)
@@ -47,6 +47,38 @@ class Admin::LivesController < ApplicationController
 							   .order("start")
 	end
 
+	def cm
+		day = params[:day]
+		day ||= 1
+		last_day = (17 + day.to_i).to_s
+		day = (17 + day.to_i + 1).to_s
+
+		date = Time.zone.parse("2016-07-" + day)
+		last_date = Time.zone.parse("2016-07-" + last_day)
+
+		@lives = Live.joins(:live_times)
+							   .select("lives.*,
+							   					live_times.start as start,
+							   					live_times.end as end")
+							   .where("start < ? AND start > ?", date, last_date)
+							   .order("start")
+	end
+
+	def cm_edit
+		@live = Live.find params[:id]
+	end
+
+	def cm_update
+		@live = Live.find params[:id]
+
+		if @live.update_attributes(live_params)
+			redirect_to admin_live_cm_view_path
+		else
+			render :cm_edit
+			flash.now[:alert] = @live.errors.full_messages
+		end
+	end
+
 	def edit
 		@live = Live.find params[:id]
 	end
@@ -63,6 +95,38 @@ class Admin::LivesController < ApplicationController
 			redirect_to admin_live_lh_view_path
 		else
 			render :lh_edit
+			flash.now[:alert] = @live.errors.full_messages
+		end
+	end
+
+	def follow_up
+		day = params[:day]
+		day ||= 1
+		last_day = (17 + day.to_i).to_s
+		day = (17 + day.to_i + 1).to_s
+
+		date = Time.zone.parse("2016-07-" + day)
+		last_date = Time.zone.parse("2016-07-" + last_day)
+
+		@lives = Live.joins(:live_times)
+							   .select("lives.*,
+							   					live_times.start as start,
+							   					live_times.end as end")
+							   .where("start < ? AND start > ?", date, last_date)
+							   .order("start")
+	end
+
+	def follow_up_edit
+		@live = Live.find params[:id]
+	end
+
+	def follow_up_update
+		@live = Live.find params[:id]
+
+		if @live.update_attributes(live_params)
+			redirect_to admin_live_follow_up_path
+		else
+			render :edit
 			flash.now[:alert] = @live.errors.full_messages
 		end
 	end
@@ -102,6 +166,9 @@ class Admin::LivesController < ApplicationController
 																 :chennal, :live_host, :audio_agree, :qa_link,
 																 :doc_naming, :stream_naming, :youtube_url,
 																 :test_record, :phone_contact, :ioh_url,
-																 :banner_link, :move_to_part_3, :onair)
+																 :banner_link, :move_to_part_3, :banner_status,
+																 :embed_link_status, :no_show, :in_studio, :video_download,
+																 :speaker_screenshot, :youtube_naming, :save_to_hard_drive,
+																 :paste_survey_link)
 	end
 end

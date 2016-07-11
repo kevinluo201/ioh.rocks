@@ -1,0 +1,42 @@
+<%= render "live_nav" %>
+
+<div class="container col-md-7">
+	<%= form_for @live, :url => "/admin/live/follow_up/#{@live.id}" do |f| %>
+		
+		<div class="form-group">
+			<%= f.label :chennal, "頻道" %>
+			<%= f.text_field :chennal, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :live_host, "Live Host" %>
+			<%= f.text_field :live_host, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "講者截圖：" %>
+			<%= f.label :speaker_screenshot, "是" %>
+			<%= f.radio_button :speaker_screenshot, true %>
+			<%= f.label :speaker_screenshot, "否" %>
+			<%= f.radio_button :speaker_screenshot, false %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "下載影片：" %>
+			<%= f.label :video_download, "是" %>
+			<%= f.radio_button :video_download, true %>
+			<%= f.label :video_download, "否" %>
+			<%= f.radio_button :video_download, false %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "存到 3TB：" %>
+			<%= f.label :save_to_hard_drive, "是" %>
+			<%= f.radio_button :save_to_hard_drive, true %>
+			<%= f.label :save_to_hard_drive, "否" %>
+			<%= f.radio_button :save_to_hard_drive, false %>
+		</div>
+
+		<%= f.submit "更新", class: "btn btn-primary" %>
+	<% end %>
+</div>

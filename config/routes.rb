@@ -37,13 +37,19 @@ Rails.application.routes.draw do
   	get "/live/view" => "lives#index"
     get "/live/agenda" => "lives#agenda"
     get "/live/lh/view" => "lives#lh"
+    get "/live/cm/view" => "lives#cm"
+    get "/live/follow_up" => "lives#follow_up"
 
     # new
     get "/live/new" => "lives#new"
     post "/live" => "lives#create"
 
     # edit
+    patch "/live/follow_up/:id" => "lives#follow_up_update", :as => "follow_up_live"
+    get "/live/follow_up/:id/edit" => "lives#follow_up_edit", :as => "follow_up_edit_live"
     get "/live/lh/:id/edit" => "lives#lh_edit", :as => "lh_edit_live"
+    patch "/live/cm/:id" => "lives#cm_update", :as => "cm_live"
+    get "/live/cm/:id/edit" => "lives#cm_edit", :as => "cm_edit_live"
     patch "/live/lh/:id" => "lives#lh_update", :as => "lh_live"
     get "/live/:id/edit" => "lives#edit", :as => "edit_live"
     patch "/live/:id" => "lives#update"

@@ -1,0 +1,54 @@
+<%= render "live_nav" %>
+
+<div class="container col-md-7">
+	<%= form_for @live, :url => "/admin/live/cm/#{@live.id}" do |f| %>
+		
+		<div class="form-group">
+			<%= f.label :chennal, "頻道" %>
+			<%= f.text_field :chennal, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :live_host, "Live Host" %>
+			<%= f.text_field :live_host, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :youtube_url, "直播連結" %>
+			<%= f.text_field :youtube_url, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :ioh_url, "IOH 連結" %>
+			<%= f.text_field :ioh_url, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "移動到 Part 3：" %>
+			<%= f.label :move_to_part_3, "是" %>
+			<%= f.radio_button :move_to_part_3, true %>
+			<%= f.label :move_to_part_3, "否" %>
+			<%= f.radio_button :move_to_part_3, false %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "Banner Status:" %>
+			<%= f.select :banner_status, options_for_select(["貼上", "移除"], @live.banner_status) %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "Embed Link Status:" %>
+			<%= f.select :embed_link_status, options_for_select(["貼上", "移除"], @live.embed_link_status) %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label "Paste Survey Link?：" %>
+			<%= f.label :paste_survey_link, "是" %>
+			<%= f.radio_button :paste_survey_link, true %>
+			<%= f.label :paste_survey_link, "否" %>
+			<%= f.radio_button :paste_survey_link, false %>
+		</div>
+
+		<%= f.submit "更新", class: "btn btn-primary" %>
+	<% end %>
+</div>

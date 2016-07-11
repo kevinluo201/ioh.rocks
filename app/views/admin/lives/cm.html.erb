@@ -1,6 +1,6 @@
 <%= render "live_nav" %>
 
-<%= form_tag(admin_live_lh_view_path, :method => "GET") do %>
+<%= form_tag(admin_live_cm_view_path, :method => "GET") do %>
 
 	<%= label_tag :day, "選擇日期" %>
 	<%= select_tag :day, options_for_select([["7/18", 1], ["7/19", 2], ["7/20", 3]], params[:day]) %>
@@ -17,14 +17,11 @@
 				<th>Live Host</th>
 				<th>直播地點</th>
 				<th>直播連結</th>
-				<th>影音同意書</th>
-				<th>電話聯絡</th>
-				<th>Q&A 連結</th>
-				<th>文件命名</th>
-				<th>直播命名</th>
-				<th>試錄連結</th>
-				<th>在 studio?</th>
-				<th>no show</th>
+				<th>IOH 連結</th>
+				<th>移到 Part3</th>
+				<th>Banner Status</th>
+				<th>Enbed Link</th>
+				<th>Survey Link</th>
 				<th>Edit</th>
 		</tr>
 	</thead>
@@ -42,51 +39,30 @@
 					<% end %>
 				</td>
 				<td>
-					<% if live.audio_agree %>
-						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
-					<% else %>
-						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
-					<% end %>
-				</td>
-				<td>
-					<% if live.phone_contact %>
-						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
-					<% else %>
-						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
-					<% end %>
-				</td>
-				<td>
-					<% if live.qa_link.present? %>
-					<a href="<%= live.qa_link %>" target="_blank">
+				<% if live.ioh_url.present? %>
+					<a href="<%= live.ioh_url %>" target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
 					</a>
-					<% end %>
-				</td>
-				<td><%= live.doc_naming %></td>
-				<td><%= live.stream_naming %></td>
-				<td>
-					<% if live.test_record.present? %>
-					<a href="<%= live.test_record %>" target="_blank">
-						<span class="glyphicon glyphicon-new-window"></span>
-					</a>
-					<% end %>
+				<% end %>
 				</td>
 				<td>
-					<% if live.in_studio %>
+					<% if live.move_to_part_3 %>
+						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
+					<% else %>
+						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
+					<% end %>
+				</td>
+				<td><%= live.banner_status %></td>
+				<th><%= live.embed_link_status %></th>
+				<td>
+					<% if live.paste_survey_link %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<% if live.no_show %>
-						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
-					<% else %>
-						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
-					<% end %>
-				</td>
-				<td>
-					<a href="<%= "/admin/live/lh/#{live.id}/edit" %>">
+					<a href="<%= "/admin/live/cm/#{live.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 				</td>

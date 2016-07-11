@@ -40,13 +40,7 @@
 					</a>
 					<% end %>
 				</td> -->
-				<th>
-					<% if live.fb_url.present? %>
-						<a href="<%= live.fb_url %>" target="_blank">
-							<span class="glyphicon glyphicon-new-window"></span>
-						</a>
-					<% end %>
-				</th>
+				<th><%= live.fb_url %></th>
 				<th><%= live.phone %></th>
 				<td><%= live.time_count %></td>
 				<td>

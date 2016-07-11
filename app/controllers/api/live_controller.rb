@@ -53,7 +53,7 @@ class Api::LiveController < ApplicationController
 	  		stream.name = item['name']
 	  		stream.live = Live.find_by_name(stream.name)
 
-	  		stream.save!
+	  		stream.save
 	  	end
   	end
 

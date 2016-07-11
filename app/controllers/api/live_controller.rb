@@ -6,10 +6,23 @@ class Api::LiveController < ApplicationController
   after_filter :cors_set_access_control_headers
 
   def schedule
-  	streams = Stream.all.select("name, chennal as channel, live_time_id as time_id")
+  	streams = Stream.all.select("name, chennal as channel, live_time_id as time_id, live_id")
   									.order("time_id")
 
-  	render :json => streams
+  	data = []
+  	streams.each do |stream|
+  		item = {}
+
+  		item['name'] = stream.name
+  		item['channel'] = stream.channel
+  		item['time_id'] = stream.time_id
+  		item['school'] = /[\S]+$/.match(stream.live.live_school.name)[0] if stream.live
+  		item['department'] = /[\S]+$/.match(stream.live.live_department.name)[0] if stream.live
+
+  		data.push item
+  	end
+
+  	render :json => data
   end
 
   def update_stream

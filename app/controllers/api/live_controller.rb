@@ -279,7 +279,7 @@ class Api::LiveController < ApplicationController
 	# For all responses in this controller, return the CORS access control headers.
   def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'GET PATCH'
+    headers['Access-Control-Allow-Methods'] = 'GET PATCH OPTIONS'
     headers['Access-Control-Max-Age'] = "1728000"
   end
 
@@ -289,7 +289,7 @@ class Api::LiveController < ApplicationController
 
   def cors_preflight_check
     headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'GET PATCH'
+    headers['Access-Control-Allow-Methods'] = 'GET PATCH OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version'
     headers['Access-Control-Max-Age'] = '1728000'
   end

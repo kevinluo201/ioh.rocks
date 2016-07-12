@@ -20,6 +20,11 @@
 		</div>
 
 		<div class="form-group">
+			<%= f.label :youtube_naming, "Youtube 命名" %>
+			<%= f.text_field :youtube_naming, class: "form-control" %>
+		</div>
+
+		<div class="form-group">
 			<%= f.label "存到 3TB：" %>
 			<%= f.label :save_to_hard_drive, "是" %>
 			<%= f.radio_button :save_to_hard_drive, true %>

@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
   	get "/live/view" => "lives#index"
-    get "/live/agenda" => "lives#agenda"
+    get "/live/calendar" => "lives#agenda"
     get "/live/lh/view" => "lives#lh"
     get "/live/cm/view" => "lives#cm"
     get "/live/follow_up" => "lives#follow_up"
@@ -54,9 +54,6 @@ Rails.application.routes.draw do
     get "/live/:id/edit" => "lives#edit", :as => "edit_live"
     patch "/live/:id" => "lives#update"
     delete "/live/:id" => "lives#destroy"
-
-    get "/live/channel/:id/edit" => "lives#channel_edit"
-    patch "/live/channel/:id" => "lives#channel_update"
   end
 
   namespace :api do

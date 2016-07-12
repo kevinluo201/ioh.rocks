@@ -18,6 +18,7 @@
 				<th>直播地點</th>
 				<th>講者截圖</th>
 				<th>影片下載</th>
+				<th>Youtube 命名</th>	
 				<th>存到 3TB</th>
 				<th>Edit</th>
 		</tr>
@@ -42,6 +43,11 @@
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
+					<% end %>
+				</td>
+				<td>
+					<% if live.youtube_naming.present? %>
+					<a href="#" class="copy-link" data-clipboard-text="<%= live.youtube_naming %>">Copy</a>
 					<% end %>
 				</td>
 				<td>

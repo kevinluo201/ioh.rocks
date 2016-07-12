@@ -32,7 +32,7 @@ class Admin::LivesController < ApplicationController
 
 	def lh
 		day = params[:day]
-		day ||= 0
+		day ||= '0'
 
 		if day == '0'
 			@lives = Stream.where("streams.name IS NOT NULL")
@@ -54,7 +54,7 @@ class Admin::LivesController < ApplicationController
 
 	def cm
 		day = params[:day]
-		day ||= 0
+		day ||= '0'
 
 		if day == '0'
 			@lives = Stream.where("streams.name IS NOT NULL")
@@ -111,7 +111,7 @@ class Admin::LivesController < ApplicationController
 
 	def follow_up
 		day = params[:day]
-		day ||= 0
+		day ||= '0'
 
 		if day == '0'
 			@lives = Stream.where("streams.name IS NOT NULL")

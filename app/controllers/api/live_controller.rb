@@ -29,33 +29,34 @@ class Api::LiveController < ApplicationController
   	data = params[:postData]
 
   	# delete all data
-  	Stream.all.each do |stream|
-  		stream.destroy
-  	end
-
-  	Stream.connection.execute('ALTER TABLE `streams` AUTO_INCREMENT = 1;')
-
-  	data.each_value do |item|
-  		stream = Stream.new
-
-  		stream.name = item['name'] if item['name']
-  		stream.chennal = item['channel']
-  		stream.live_time = LiveTime.find(item['time_id'].to_i)
-  		stream.live = Live.find_by_name(stream.name)
-
-  		stream.save
-  	end
-
-  	# data.each_value do |item|
-  	# 	stream = Stream.where("chennal = ? ", item['channel']).first
-
-  	# 	stream.name = item['name']
-  	# 	stream.chennal = item['channel']
-  	# 	stream.live_time = LiveTime.find(item['time_id'].to_i)
-  	# 	stream.live = Live.find_by_name(stream.name)
-
-  	# 	stream.save
+  	# Stream.all.each do |stream|
+  	# 	stream.destroy
   	# end
+
+  	# Stream.connection.execute('ALTER TABLE `streams` AUTO_INCREMENT = 1;')
+
+  	if Stream.first.nil?
+	  	data.each_value do |item|
+	  		stream = Stream.new
+
+	  		stream.name = item['name'] if item['name']
+	  		stream.chennal = item['channel']
+	  		stream.live_time = LiveTime.find(item['time_id'].to_i)
+	  		stream.live = Live.find_by_name(stream.name)
+
+	  		stream.save
+	  	end
+  	else
+  		data.each_value do |item|
+	  		stream = Stream.where("chennal = ? AND live_time_id = ?", item['channel'], item['time_id'].to_i).first
+
+	  		stream.name = item['name']
+	  		stream.live = Live.find_by_name(stream.name)
+
+	  		stream.save
+	  	end
+  	end
+
 
   	render :json => { status: "success" }
   end

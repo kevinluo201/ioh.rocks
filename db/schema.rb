@@ -11,19 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711140317) do
+ActiveRecord::Schema.define(version: 20160711235234) do
 
   create_table "live_departments", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "group",      limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string  "name",  limit: 255
+    t.integer "group", limit: 4
   end
 
   create_table "live_schools", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string "name", limit: 255
   end
 
   create_table "live_times", force: :cascade do |t|
@@ -43,8 +39,8 @@ ActiveRecord::Schema.define(version: 20160711140317) do
 
   create_table "lives", force: :cascade do |t|
     t.string   "name",               limit: 255
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "live_school_id",     limit: 4
     t.integer  "live_department_id", limit: 4
     t.string   "title",              limit: 255
@@ -57,27 +53,8 @@ ActiveRecord::Schema.define(version: 20160711140317) do
     t.text     "feedback",           limit: 4294967295
     t.string   "school",             limit: 255
     t.string   "department",         limit: 255
-    t.string   "youtube_url",        limit: 255
-    t.string   "live_host",          limit: 255
-    t.boolean  "audio_agree"
-    t.string   "qa_link",            limit: 255
-    t.string   "stream_naming",      limit: 255
-    t.string   "doc_naming",         limit: 255
     t.integer  "time_count",         limit: 4
-    t.boolean  "phone_contact"
-    t.string   "test_record",        limit: 255
     t.string   "banner_link",        limit: 255
-    t.boolean  "move_to_part_3"
-    t.string   "banner_status",      limit: 255
-    t.string   "embed_link_status",  limit: 255
-    t.boolean  "no_show",                               default: false
-    t.boolean  "in_studio",                             default: false
-    t.boolean  "video_download",                        default: false
-    t.boolean  "speaker_screenshot",                    default: false
-    t.string   "youtube_naming",     limit: 255
-    t.boolean  "save_to_hard_drive",                    default: false
-    t.boolean  "paste_survey_link",                     default: false
-    t.string   "chennal",            limit: 255
   end
 
   add_index "lives", ["live_department_id"], name: "index_lives_on_live_department_id", using: :btree
@@ -119,11 +96,28 @@ ActiveRecord::Schema.define(version: 20160711140317) do
   end
 
   create_table "streams", force: :cascade do |t|
-    t.string  "name",         limit: 255
-    t.string  "chennal",      limit: 255
-    t.string  "live_host",    limit: 255
-    t.integer "live_id",      limit: 4
-    t.integer "live_time_id", limit: 4
+    t.string  "name",               limit: 255
+    t.string  "chennal",            limit: 255
+    t.string  "live_host",          limit: 255
+    t.integer "live_id",            limit: 4
+    t.integer "live_time_id",       limit: 4
+    t.string  "youtube_url",        limit: 255
+    t.boolean "phone_contact",                  default: false
+    t.string  "qa_link",            limit: 255
+    t.string  "doc_naming",         limit: 255
+    t.string  "stream_naming",      limit: 255
+    t.string  "test_record",        limit: 255
+    t.boolean "move_to_part_3",                 default: false
+    t.string  "banner_status",      limit: 255
+    t.string  "embed_link_status",  limit: 255
+    t.boolean "no_show",                        default: false
+    t.boolean "in_studio",                      default: false
+    t.boolean "video_download",                 default: false
+    t.boolean "speaker_screenshot",             default: false
+    t.string  "youtube_naming",     limit: 255
+    t.boolean "save_to_hard_drive",             default: false
+    t.boolean "paste_survey_link",              default: false
+    t.boolean "audio_agree",                    default: false
   end
 
   add_index "streams", ["live_id"], name: "index_streams_on_live_id", using: :btree

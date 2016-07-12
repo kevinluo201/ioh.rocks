@@ -1,7 +1,7 @@
 <%= render "live_nav" %>
 
 <div class="container col-md-7">
-	<%= form_for @live, :url => "/admin/live/follow_up/#{@live.id}" do |f| %>
+	<%= form_for @stream, :url => "/admin/live/follow_up/#{@stream.id}" do |f| %>
 
 		<div class="form-group">
 			<%= f.label "講者截圖：" %>

@@ -34,8 +34,8 @@
 				<td><%= live.live_host %></td>
 				<td><%= live.live.location %></td>
 				<td>
-					<% if live.live.youtube_url.present? %>
-					<a href="#" class="copy-link" data-clipboard-text="<%= live.live.youtube_url %>">Copy</a>
+					<% if live.youtube_url.present? %>
+					<a href="#" class="copy-link" data-clipboard-text="<%= live.youtube_url %>">Copy</a>
 					<% end %>
 				</td>
 				<td>
@@ -46,23 +46,23 @@
 				<% end %>
 				</td>
 				<td>
-					<% if live.live.move_to_part_3 %>
+					<% if live.move_to_part_3 %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
-				<td><%= live.live.banner_status %></td>
-				<th><%= live.live.embed_link_status %></th>
+				<td><%= live.banner_status %></td>
+				<th><%= live.embed_link_status %></th>
 				<td>
-					<% if live.live.paste_survey_link %>
+					<% if live.paste_survey_link %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<a href="<%= "/admin/live/cm/#{live.live.id}/edit" %>">
+					<a href="<%= "/admin/live/cm/#{live.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 				</td>

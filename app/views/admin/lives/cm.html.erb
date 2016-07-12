@@ -29,7 +29,7 @@
 		<% @lives.each do |live| %>
 			<tr>
 				<td><%= live.name %></td>
-				<td><%= (live.live_time.start + 8*60*60).strftime("%a %H:%M") %></td>
+				<td><%= (live.live_time.start).strftime("%a %H:%M") %></td>
 				<td><%= live.chennal %></td>
 				<td><%= live.live_host %></td>
 				<td><%= live.live.location %></td>

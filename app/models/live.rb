@@ -18,9 +18,6 @@ class Live < ActiveRecord::Base
 
 	before_save do
 		self.title = self.name
-		self.audio_agree = false if self.new_record?
-		self.phone_contact = false if self.new_record?
-		self.move_to_part_3 = false if self.new_record?
 		self.time_count = self.live_times.count
 	end
 end

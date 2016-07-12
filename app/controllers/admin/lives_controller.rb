@@ -61,17 +61,17 @@ class Admin::LivesController < ApplicationController
 	end
 
 	def cm_edit
-		@live = Live.find params[:id]
+		@stream = Stream.find params[:id]
 	end
 
 	def cm_update
-		@live = Live.find params[:id]
+		@stream = Stream.find params[:id]
 
-		if @live.update_attributes(live_params)
+		if @stream.update_attributes(stream_params)
 			redirect_to admin_live_cm_view_path
 		else
 			render :cm_edit
-			flash.now[:alert] = @live.errors.full_messages
+			flash.now[:alert] = @stream.errors.full_messages
 		end
 	end
 
@@ -81,17 +81,17 @@ class Admin::LivesController < ApplicationController
 
 	# lh stands for live host
 	def lh_edit
-		@live = Live.find params[:id]
+		@stream = Stream.find params[:id]
 	end
 
 	def lh_update
-		@live = Live.find params[:id]
+		@stream = Stream.find params[:id]
 
-		if @live.update_attributes(live_params)
+		if @stream.update_attributes(stream_params)
 			redirect_to admin_live_lh_view_path
 		else
 			render :lh_edit
-			flash.now[:alert] = @live.errors.full_messages
+			flash.now[:alert] = @stream.errors.full_messages
 		end
 	end
 
@@ -117,17 +117,17 @@ class Admin::LivesController < ApplicationController
 	end
 
 	def follow_up_edit
-		@live = Live.find params[:id]
+		@stream = Stream.find params[:id]
 	end
 
 	def follow_up_update
-		@live = Live.find params[:id]
+		@stream = Stream.find params[:id]
 
-		if @live.update_attributes(live_params)
+		if @stream.update_attributes(stream_params)
 			redirect_to admin_live_follow_up_path
 		else
 			render :edit
-			flash.now[:alert] = @live.errors.full_messages
+			flash.now[:alert] = @stream.errors.full_messages
 		end
 	end
 
@@ -178,17 +178,17 @@ class Admin::LivesController < ApplicationController
 		params.require(:live).permit(:name, :gmail, :fb_url, :feedback, :school, :department,
 																 :phone, :stream_201602, :location, { live_time_ids: [] },
 																 :live_school_id, :live_department_id,
-																 :chennal, :live_host, :audio_agree, :qa_link,
-																 :doc_naming, :stream_naming, :youtube_url,
-																 :test_record, :phone_contact, :ioh_url,
-																 :banner_link, :move_to_part_3, :banner_status,
-																 :embed_link_status, :no_show, :in_studio, :video_download,
-																 :speaker_screenshot, :youtube_naming, :save_to_hard_drive,
-																 :paste_survey_link,
-																 :streams_attributes => [:chennal, :live_host])
+																  :ioh_url, :banner_link)
 	end
 
 	def stream_params
-		params.require(:stream).permit(:live_host, :chennal)
+		params.require(:stream).permit(:live_host, :chennal,
+																	 :audio_agree, :qa_link,
+																 	 :doc_naming, :stream_naming, :youtube_url,
+																   :test_record, :phone_contact,
+																   :move_to_part_3, :banner_status,
+																	 :embed_link_status, :no_show, :in_studio, :video_download,
+																	 :speaker_screenshot, :youtube_naming, :save_to_hard_drive,
+																	 :paste_survey_link)
 	end
 end

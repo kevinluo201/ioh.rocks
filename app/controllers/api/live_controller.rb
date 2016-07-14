@@ -148,9 +148,7 @@ class Api::LiveController < ApplicationController
 		# 				    .order("start, school")
 
 		lives = Stream.joins(:live, :live_time)
-									.select("streams.*, 
-													 live_times.start as start")
-									.order("start")
+									.order("live_times.start")
 
 		lives.each do |live|
 			data_item = {}

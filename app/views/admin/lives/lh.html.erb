@@ -64,12 +64,12 @@
 				</td>
 				<td>
 					<% if live.doc_naming.present? %>
-					<a href="#" class="copy-link" data-clipboard-text="<%= live.doc_naming %>">Copy</a>
+					<a href="#!" class="copy-link" data-clipboard-text="<%= live.doc_naming %>">Copy</a>
 					<% end %>
 				</td>
 				<td>
 					<% if live.stream_naming.present? %>
-					<a href="#" class="copy-link" data-clipboard-text="<%= live.stream_naming %>">Copy</a>
+					<a href="#!" class="copy-link" data-clipboard-text="<%= live.stream_naming %>">Copy</a>
 					<% end %>
 				</td>
 				<td>
@@ -108,5 +108,16 @@
 
 	$('.copy-link').click(function(){
 		$(this).text("Copied!");
+	});
+
+	$( window ).scroll(function() {
+	  if(window.scrollY > 275)
+	  {
+	  	$('thead').css('position', 'fixed');
+	  }
+	  else
+	  {
+	  	$('thead').css('position', 'static');
+	  }
 	});
 </script>

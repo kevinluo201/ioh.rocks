@@ -147,21 +147,19 @@ class Api::LiveController < ApplicationController
 		# 				   					 live_times.end as end")
 		# 				    .order("start, school")
 
-		lives = Stream.includes(:live, :live_time)
-									.select("streams.name, lives.ioh_url as ioh_url,
-													 lives.live_department.name as department,
-													 lives.live_schools.name as school,
-													 live_times,start as start")
-									.order("start, school")
+		lives = Stream.joins(:live, :live_time)
+									.select("streams.*, 
+													 live_times.start as start")
+									.order("start")
 
 		lives.each do |live|
 			data_item = {}
 
 			data_item[:name] = live.name
-			data_item[:school] = /[\S]+$/.match(live.school)[0]
-			data_item[:department] = /[\S]+$/.match(live.department)[0]
+			data_item[:school] = /[\S]+$/.match(live.live.school.name)[0]
+			data_item[:department] = /[\S]+$/.match(live.live.department.name)[0]
 			data_item[:start] = live.start
-			data_item[:link] = live.ioh_url
+			data_item[:link] = live.live.ioh_url
 
 			data.push data_item
 		end

@@ -149,6 +149,7 @@ class Api::LiveController < ApplicationController
 
 		lives = Stream.joins(:live_time, :live)
 		              .select("streams.name,
+		              				 streams.live_id,
 		              				 live_times.start as start")
 		              .order("start")
 
@@ -156,8 +157,8 @@ class Api::LiveController < ApplicationController
 			data_item = {}
 
 			data_item[:name] = live.name
-			data_item[:school] = /[\S]+$/.match(live.live.school.name)[0]
-			data_item[:department] = /[\S]+$/.match(live.live.department.name)[0]
+			data_item[:school] = /[\S]+$/.match(live.live.live_school.name)[0]
+			data_item[:department] = /[\S]+$/.match(live.live.live_department.name)[0]
 			data_item[:start] = live.start
 			data_item[:link] = live.live.ioh_url
 
@@ -165,7 +166,7 @@ class Api::LiveController < ApplicationController
 		end
 
 		respond_to do |format|
-			format.json { render json: lives }
+			format.json { render json: data }
 		end
 	end
 

@@ -147,8 +147,10 @@ class Api::LiveController < ApplicationController
 		# 				   					 live_times.end as end")
 		# 				    .order("start, school")
 
-		lives = Stream.joins(:live, :live_time)
-									.order("live_times.start")
+		lives = Stream.joins(:live_time, :live)
+		              .select("streams.name,
+		              				 live_times.start as start")
+		              .order("start")
 
 		lives.each do |live|
 			data_item = {}
@@ -163,7 +165,7 @@ class Api::LiveController < ApplicationController
 		end
 
 		respond_to do |format|
-			format.json { render json: data }
+			format.json { render json: lives }
 		end
 	end
 

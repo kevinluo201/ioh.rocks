@@ -85,3 +85,18 @@
 </div>
 
 <%= f.submit "更新", class: "btn btn-primary" %>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Delete</button>
+
+<!-- delete modal -->
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body modal-body-rewrite">失去的資料永遠都回不來，你真的不是手殘？</div>
+      <div class="modal-footer modal-footer-rewrite">
+        <a class="btn btn-default modal-btn modal-btn-left" rel="nofollow" data-method="DELETE" href="/admin/live/<%= @live.id %>">YES</a>
+        <a class="btn btn-default modal-btn modal-btn-right" data-dismiss="modal">NO</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

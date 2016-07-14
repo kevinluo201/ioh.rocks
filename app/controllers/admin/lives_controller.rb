@@ -35,8 +35,7 @@ class Admin::LivesController < ApplicationController
 		day ||= '0'
 
 		if day == '0'
-			@lives = Stream.where("streams.name IS NOT NULL")
-									   .joins(:live, :live_time)
+			@lives = Stream.joins(:live, :live_time)
 									   .order("streams.live_host, live_times.start")
 		else
 			last_day = (17 + day.to_i).to_s

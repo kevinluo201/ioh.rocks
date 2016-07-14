@@ -139,41 +139,13 @@ class Api::LiveController < ApplicationController
 		order = params[:order]
 		data = []
 
-		if order == "time"
-			lives = Live.joins(:live_department, :live_school, :live_times)
-							    .select("lives.name, lives.ioh_url, lives.onair,
-							   					 live_departments.name as department,
-							   					 live_schools.name as school,
-							   					 live_times.start as start,
-							   					 live_times.end as end")
-							    .order("start, school")
-		elsif order == "school"
-			lives = Live.joins(:live_department, :live_school, :live_times)
-							    .select("lives.name, lives.ioh_url, lives.onair,
-							   					 live_departments.name as department,
-							   					 live_schools.name as school,
-							   					 live_times.start as start,
-							   					 live_times.end as end")
-							    .order("school, start")
-		elsif order == "major_one"
-			lives = Live.joins(:live_department, :live_school, :live_times)
-									.where("live_departments.group = 1")
-								  .select("lives.name, lives.ioh_url, lives.onair,
-							   					 live_departments.name as department,
-							   					 live_schools.name as school,
-							   					 live_times.start as start,
-							   					 live_times.end as end")
-								  .order("department, start")
-		elsif order == "major_two"
-			lives = Live.joins(:live_department, :live_school, :live_times)
-									.where("live_departments.group = 2")
-								  .select("lives.name, lives.ioh_url, lives.onair,
-							   					 live_departments.name as department,
-							   					 live_schools.name as school,
-							   					 live_times.start as start,
-							   					 live_times.end as end")
-								  .order("department, start")
-		end  	
+		lives = Live.joins(:live_department, :live_school, :live_times)
+						    .select("lives.name, lives.ioh_url,
+						   					 live_departments.name as department,
+						   					 live_schools.name as school,
+						   					 live_times.start as start,
+						   					 live_times.end as end")
+						    .order("start, school")
 
 		lives.each do |live|
 			data_item = {}
@@ -183,14 +155,6 @@ class Api::LiveController < ApplicationController
 			data_item[:department] = /[\S]+$/.match(live.department)[0]
 			data_item[:start] = live.start
 			data_item[:link] = live.ioh_url
-
-			if live.onair && live.start.today?
-				data_item[:onair] = "onair"
-			elsif Time.now > live.end
-				data_item[:onair] = "end"
-			elsif Time.now < live.end
-				data_item[:onair] = "yet"
-			end
 
 			data.push data_item
 		end

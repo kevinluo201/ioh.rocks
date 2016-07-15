@@ -19,11 +19,9 @@
 				<th>直播地點</th>
 				<th>直播連結</th>
 				<th>影音同意書</th>
-				<th>電話聯絡</th>
 				<th>Q&A 連結</th>
 				<th>文件命名</th>
 				<th>直播命名</th>
-				<th>試錄連結</th>
 				<th>在 studio?</th>
 				<th>no show</th>
 				<th>Edit</th>
@@ -55,13 +53,6 @@
 					<% end %>
 				</td>
 				<td>
-					<% if live.phone_contact %>
-						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
-					<% else %>
-						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
-					<% end %>
-				</td>
-				<td>
 					<% if live.qa_link.present? %>
 					<a href="<%= live.qa_link %>" target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
@@ -76,13 +67,6 @@
 				<td>
 					<% if live.stream_naming.present? %>
 					<a href="#!" class="copy-link" data-clipboard-text="<%= live.stream_naming %>">Copy</a>
-					<% end %>
-				</td>
-				<td>
-					<% if live.test_record.present? %>
-					<a href="<%= live.test_record %>" target="_blank">
-						<span class="glyphicon glyphicon-new-window"></span>
-					</a>
 					<% end %>
 				</td>
 				<td>

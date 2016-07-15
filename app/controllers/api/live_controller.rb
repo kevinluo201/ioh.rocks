@@ -151,7 +151,6 @@ class Api::LiveController < ApplicationController
 		              .select("streams.name,
 		              				 streams.live_id,
 		              				 live_times.start as start")
-		              .where("name IS NOT NULL")
 		              .order("start")
 
 		lives.each do |live|

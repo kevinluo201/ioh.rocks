@@ -58,6 +58,8 @@ Rails.application.routes.draw do
     # school
     get "/live/school" => "lives#new_school"
     post "/live/school" => "lives#create_school"
+    get "/live/department" => "lives#new_department"
+    post "/live/department" => "lives#create_department"
   end
 
   namespace :api do

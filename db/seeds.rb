@@ -7,21 +7,19 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-schools = LiveSchool.create([
-  { name: "嶺東科技大學" },
-  { name: "馬偕醫學院" },
-  { name: "聯合大學" },
-  { name: "真理大學" },
-  { name: "德明科技大學" },
-  { name: "中信金融管理學院" }
-])
+# schools = LiveSchool.create([
+#   { name: "聯合大學" },
+#   { name: "真理大學" },
+#   { name: "德明科技大學" },
+#   { name: "中信金融管理學院" }
+# ])
 
-departments = LiveDepartment.create([
-	{ name: "美術與文創學系" },
-	{ name: "能源工程學系" },
-	{ name: "巨量資料管理學系" },
-	{ name: "教育經營與管理學系" }
-])
+# departments = LiveDepartment.create([
+# 	{ name: "美術與文創學系" },
+# 	{ name: "能源工程學系" },
+# 	{ name: "巨量資料管理學系" },
+# 	{ name: "教育經營與管理學系" }
+# ])
 
 
 # r1 = Role.create({name: "Regular", description: "Can read items"})

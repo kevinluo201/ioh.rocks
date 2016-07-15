@@ -1,6 +1,6 @@
 class Admin::LivesController < ApplicationController
-	# before_action :authenticate_user!
-	# before_action :check_admin
+	before_action :authenticate_user!
+	before_action :check_admin
 
 	def new_school
 	end
@@ -17,6 +17,23 @@ class Admin::LivesController < ApplicationController
 
 	def school_params
 		params.require(:school).permit(:name)
+	end
+
+	def new_department
+	end
+
+	def create_department
+		@department = LiveDepartment.new(department_params)
+
+		if @department.save
+			redirect_to admin_live_department_path
+		else
+			render :plain => "gg"
+		end
+	end
+
+	def department_params
+		params.require(:department).permit(:name)
 	end
 
 	def index

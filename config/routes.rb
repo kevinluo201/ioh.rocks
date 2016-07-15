@@ -54,6 +54,10 @@ Rails.application.routes.draw do
     get "/live/:id/edit" => "lives#edit", :as => "edit_live"
     patch "/live/:id" => "lives#update"
     delete "/live/:id" => "lives#destroy"
+
+    # school
+    get "/live/school" => "lives#new_school"
+    post "/live/school" => "lives#create_school"
   end
 
   namespace :api do

@@ -2,6 +2,23 @@ class Admin::LivesController < ApplicationController
 	# before_action :authenticate_user!
 	# before_action :check_admin
 
+	def new_school
+	end
+
+	def create_school
+		@school = LiveSchool.new(school_params)
+
+		if @school.save
+			redirect_to admin_live_school_path
+		else
+			render :plain => "gg"
+		end
+	end
+
+	def school_params
+		params.require(:school).permit(:name)
+	end
+
 	def index
 		@lives = Live.all.includes(:live_school, :live_department)
 										 .order(:live_school_id, :created_at)

@@ -1,0 +1,6 @@
+<%= simple_form_for @live_event, url: admin_live_events_path do |f| %>
+  <%= f.input :start_date, label: '開始日期' %>
+  <%= f.input :end_date, label: '結束日期' %>
+  <%= f.input :signup_end, label: '報名死線' %>
+  <%= f.button :submit %>
+<% end %>

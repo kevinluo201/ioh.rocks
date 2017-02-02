@@ -6,8 +6,7 @@ class LiveEvent < ActiveRecord::Base
     create_livetimes
   end
 
-  has_many :live_times, dependent: :destroy
-
+  has_many :live_times, dependent: :delete_all
   private
 
   def create_livetimes

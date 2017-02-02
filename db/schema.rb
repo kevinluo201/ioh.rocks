@@ -11,26 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711235234) do
+ActiveRecord::Schema.define(version: 20170202051458) do
 
   create_table "live_departments", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "group",      limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string  "name",  limit: 255
+    t.integer "group", limit: 4
+  end
+
+  create_table "live_events", force: :cascade do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.date     "signup_end"
+    t.boolean  "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "live_schools", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string "name", limit: 255
   end
 
   create_table "live_times", force: :cascade do |t|
     t.datetime "start"
     t.datetime "end"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "live_event_id", limit: 4
   end
 
   create_table "live_times_lives", force: :cascade do |t|

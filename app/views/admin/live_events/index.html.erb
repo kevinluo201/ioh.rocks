@@ -1,0 +1,24 @@
+<%= link_to '增開活動', new_admin_live_event_path, class: 'btn' %>
+<table class="table" id="events_table">
+  <thead>
+    <tr>
+      <th class="col-xs-3 col-xs-offset-3">活動時間</th>
+      <th class="col-xs-2">報名死線</th>
+      <th class="col-xs-1">舉辦中？</th>
+      <th class="col-xs-1"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @live_events.each do |event| %>
+    <tr id="<%= event['id'] %>">
+      <td><%= "#{event.start_date} ~ #{event.end_date}" %></td>
+      <td><%= event[:signup_end] %></td>
+      <td><%= event[:active] ? 'Yes' : 'No' %></td>
+      <td>
+        <%= link_to '修改', edit_admin_live_event_path(event['id']), class: 'btn' %>
+        <%= link_to '刪除', admin_live_event_path(event['id']), method: :delete, data: {confirm: "確定刪除?"}, class: 'btn btn-danger' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

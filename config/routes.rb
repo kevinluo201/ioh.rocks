@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   post "posters/download/:id" => "posters#download"
 
   namespace :admin do
+    resources :live_events
+
   	get "/live/view" => "lives#index"
     get "/live/calendar" => "lives#agenda"
     get "/live/lh/view" => "lives#lh"

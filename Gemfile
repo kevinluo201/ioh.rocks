@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.2.2'
 
 gem 'devise'
 
@@ -51,6 +51,8 @@ gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 # add rollbar
 gem 'rollbar'
 gem 'oj', '~> 2.12.14'
+
+gem 'simple_form'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

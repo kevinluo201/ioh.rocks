@@ -1,8 +1,9 @@
 class LiveTime < ActiveRecord::Base
   Times = %w(6:00 6:30 7:00 7:30 8:00 12:00 12:30 13:00 13:30 14:00)
   belongs_to :live_event
-  has_and_belongs_to_many :lives
   has_many :streams
+  has_many :live_time_appointments
+  has_many :lives, through: :live_time_appointments
 
   before_save do
     self.end = self.start + 30*60

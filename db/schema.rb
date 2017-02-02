@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202051458) do
+ActiveRecord::Schema.define(version: 20170202102647) do
 
   create_table "live_departments", force: :cascade do |t|
     t.string  "name",  limit: 255
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 20170202051458) do
   create_table "live_schools", force: :cascade do |t|
     t.string "name", limit: 255
   end
+
+  create_table "live_time_appointments", force: :cascade do |t|
+    t.integer  "live_id",        limit: 4
+    t.integer  "live_time_id",   limit: 4
+    t.boolean  "final_decision"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "live_time_appointments", ["live_id"], name: "index_live_time_appointments_on_live_id", using: :btree
+  add_index "live_time_appointments", ["live_time_id"], name: "index_live_time_appointments_on_live_time_id", using: :btree
 
   create_table "live_times", force: :cascade do |t|
     t.datetime "start"

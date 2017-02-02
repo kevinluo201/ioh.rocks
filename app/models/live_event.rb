@@ -3,28 +3,23 @@ class LiveEvent < ActiveRecord::Base
 
   before_create do
     self.active = false
-    create_livetimes
+    true # don't let callbacks return false
   end
+  after_save :create_livetimes
+
 
   has_many :live_times, dependent: :delete_all
+
   private
 
   def create_livetimes
+    # create or edit the live event, if there is no according LiveTime, create them
     (self.start_date..self.end_date).each do |d|
-      d = d.strftime('%m/%d/%Y')
-      times = LiveTime.create([
-      {start: DateTime.strptime("#{d} 6:00", "%m/%d/%Y %H:%M")},
-      {start: DateTime.strptime("#{d} 6:30", "%m/%d/%Y %H:%M")},
-      {start: DateTime.strptime("#{d} 7:00", "%m/%d/%Y %H:%M")},
-      {start: DateTime.strptime("#{d} 7:30", "%m/%d/%Y %H:%M")},
-      {start: DateTime.strptime("#{d} 8:00", "%m/%d/%Y %H:%M")},
-      {start: DateTime.strptime("#{d} 12:00", "%m/%d/%Y %H:%M")},
-      {start: DateTime.strptime("#{d} 12:30", "%m/%d/%Y %H:%M")},
-      {start: DateTime.strptime("#{d} 13:00", "%m/%d/%Y %H:%M")},
-      {start: DateTime.strptime("#{d} 13:30", "%m/%d/%Y %H:%M")},
-      {start: DateTime.strptime("#{d} 14:00", "%m/%d/%Y %H:%M")}])
-
-      times.each { |t| self.live_times << t }
+      if LiveTime.where("date(start) in (?)", d).empty?
+        LiveTime.create_live_times_from_date(d).each do |t|
+          self.live_times << t
+        end
+      end
     end
   end
 end

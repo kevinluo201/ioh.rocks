@@ -1,5 +1,3 @@
-<%= render "live_nav" %>
-
 <% if params[:query].nil? %>
 	<h2><span class="label label-ioh">目前報名人數：<%= @lives.count %></span></h2>
 <% end %>
@@ -30,8 +28,8 @@
 			<tr>
 				<td><%= live.name %></td>
 				<td><%= live.gmail %></td>
-				<td><%= /[\S]+$/.match(live.live_school.name)[0] if live.live_school %></td>
-				<td><%= /[\S]+$/.match(live.live_department.name)[0] %></td>
+				<td><%= live.school %></td>
+				<td><%= live.department %></td>
 				<td><%= live.location %></td>
 				<th>
 					<% if live.fb_url.present? %>
@@ -39,7 +37,7 @@
 					<% end %>
 				</th>
 				<th><%= live.phone %></th>
-				<td><%= live.time_count %></td>
+				<td><%= live.live_times.count %></td>
 				<td>
 					<a href="<%= "/admin/live/#{live.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>

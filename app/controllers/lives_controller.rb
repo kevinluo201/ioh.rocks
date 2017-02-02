@@ -2,9 +2,13 @@ class LivesController < ApplicationController
 	layout "form"
 
 	def new
-		@live = Live.new
-
-		render :over
+		@live_event = LiveEvent.where(active: true).first
+		if @live_event && @live_event.signup_end > Time.now
+			@live_times = @live_event.live_times
+			@live = Live.new
+		else
+			render :over
+		end
 	end
 
 	def create

@@ -28,6 +28,9 @@ class Admin::LiveEventsController < ApplicationController
   def update
     @live_event = LiveEvent.find(params[:id])
 
+    # force there is only one active event
+    LiveEvent.update_all active: false if strong_params[:active] == '1'
+
     if @live_event.update strong_params
       flash[:success] = '修改成功'
       redirect_to admin_live_events_path

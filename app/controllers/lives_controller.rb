@@ -17,9 +17,10 @@ class LivesController < ApplicationController
 		@live.live_times = LiveTime.where(id: live_params['live_time_ids'])
 
 		if @live.save
+			flash[:success] = '報名成功！'
 			redirect_to lives_success_path
 		else
-			flash.now[:alert] = @live.errors.full_messages.first
+			flash[:alert] = @live.errors.full_messages.first
       redirect_to live_path
 		end
 	end

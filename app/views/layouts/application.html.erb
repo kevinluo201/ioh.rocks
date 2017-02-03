@@ -61,9 +61,7 @@
                 </div>
                 <!-- /.container-fluid -->
             </nav>
-            <% flash.each do |name, msg| %>
-            <%= content_tag :div, msg, id: "flash_#{name}" %>
-            <% end %>
+            <%= flash_messages %>
             <%= render "admin/lives/live_nav" %>
             <%= yield %>
         </div>

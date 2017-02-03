@@ -3,7 +3,7 @@ class LiveTime < ActiveRecord::Base
   belongs_to :live_event
   has_many :streams
   has_many :live_time_appointments
-  has_many :lives, through: :live_time_appointments
+  has_many :lives, through: :live_time_appointments, source: :live
 
   before_save do
     self.end = self.start + 30*60

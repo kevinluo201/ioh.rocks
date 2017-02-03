@@ -6,64 +6,326 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+%w(中山大學
+中央大學
+中正大學
+交通大學
+成功大學
+政治大學
+高雄大學
+高雄師範大學
+清華大學
+臺中教育大學
+臺北大學
+臺北教育大學
+臺灣大學
+臺灣海洋大學
+臺灣藝術大學
+暨南國際大學
+彰化師範大學
+臺灣師範大學
+中興大學
+陽明大學
+東華大學
+金門大學
+聯合大學
+宜蘭大學
+臺北市立大學
+嘉義大學
+臺東大學
+大葉大學
+中山醫學大學
+中原大學
+中國文化大學
+中華大學
+元智大學
+世新大學
+長庚大學
+東吳大學
+東海大學
+淡江大學
+逢甲大學
+實踐大學
+臺北醫學大學
+輔仁大學
+高雄醫學大學
+長榮大學
+大同大學
+銘傳大學
+靜宜大學
+華梵大學
+慈濟大學
+真理大學
+馬偕醫學院
+中國醫藥大學
+義守大學
+明道大學
+玄奘大學
+佛光大學
+亞洲大學
+公立科技大學
+臺北護理健康大學
+臺中科技大學
+臺北科技大學
+臺北商業大學
+臺灣科技大學
+高雄第一科大
+屏東科技大學
+虎尾科技大學
+私立科技大學
+崑山科技大學
+朝陽科技大學
+中國科技大學
+南臺科技大學
+樹德科技大學
+文藻外語大學
+輔英科技大學
+醒吾科技大學
+嶺東科技大學
+德明財經科技大學
+長庚科技大學
+警察專科學校
+臺灣戲曲學院
+臺北海洋技術學院).each do |school|
+  LiveSchool.create(name: school)
+end
 
-# schools = LiveSchool.create([
-#   { name: "德明科技大學" }
-# ])
+%w(工業設計學系
+空間設計學系
+建築學系
+造型藝術學系
+媒體設計學系
+媒體設計科技學系
+視覺傳達學系
+數位內容設計學系
+服裝設計學系
+商業設計學系
+景觀建築學系
+人文社會學系
+人類學系
+心理學系
+社會工作學系
+社會學系
+社會政策與社會工作學系
+健康心理學系
+應用哲學系
+醫學社會學與社會工作學系
+諮商與臨床心理學系
+社會福利與社會工作學系
+口語傳播學系
+大眾傳播學系
+生物產業傳播暨發展學系
+傳播藝術學系
+廣播電視學系
+資訊傳播工程學系
+傳播學系
+新聞傳播學系
+日本語文學系
+外國語文學系
+西班牙語文學系
+阿拉伯語文學系
+俄國語文學系
+英文學系
+德國文化學系
+歐洲語文學系
+翻譯學系
+應用日語學系
+應用外語學系
+應用英語學系
+歐洲文化與旅遊學士學位學程
+英語教學系
+中國文學系
+台灣文學系
+文化創意產業經營學系
+圖書資訊學系
+哲學系
+生物產業傳播暨發展學系
+應用哲學系
+歷史學系
+社會與區域發展學系
+教育政策與行政學系
+國際文教與比較教育學系
+教育科技學系
+教育經營與管理學系
+英語教學系
+公共行政學系
+外交學系
+不動產與城鄉環境學系
+政治經濟學系
+法律學系
+政治學系
+農業經濟學系
+科技工程與管理學系
+外交與國際關係學系全英語學士班
+人文社會學系
+土地管理與開發學系
+人力資源暨公共關係學系
+公共行政學系
+工業工程與管理學系
+工業與資訊管理學系
+企業管理學系
+行銷學系
+生物產業傳播暨發展學系
+資訊管理學系
+科技管理學位學程
+科技管理學院學士班
+航運管理學系
+國際企業學系
+科技工程與管理學系
+運動競技學系
+餐旅管理學系
+醫務管理暨醫療資訊學系
+醫務管理學系
+觀光旅遊學系
+觀光休閒與餐旅管理學系
+觀光與餐飲管理學系
+交通管理科學系
+營建管理學系
+運輸科技與物流管理學系
+休閒遊憩規劃與管理學系
+國際觀光管理學系
+經營管理學系
+美術學系
+音樂學系
+書畫藝術學系
+造型藝術學系
+戲劇學系
+美術與文創學系
+財務金融學系
+財政學系
+計量財務金融學系
+國際企業學系
+會計資訊學系
+統計學系
+會計學系
+經濟學系
+農業經濟學系
+財務工程與精算數學系).each do |depart|
+  LiveDepartment.create(name: depart, dep_class: 1)
+end
 
-# departments = LiveDepartment.create([
-# 	{ name: "美術與文創學系" },
-# 	{ name: "教育經營與管理學系" }
-# ])
+%w(
+媒體設計學系
+媒體設計科技學系
+數位內容設計學系
+資訊工程學系
+資訊管理學系
+科技工程與管理學系
+圖書資訊學系
+生物產業機電工程學系
+資訊傳播工程學系
+教育科技學系
+生物資訊學系
+土木工程學系
+工業工程與管理學系
+工業與資訊管理學系
+化學工程學系
+生物工程學系
+生物產業機電工程學系
+生醫工程學系
+生醫工程與環境科學系
+應用材料與光電工程學系
+空間設計學系
+光電工程學系
+材料科學與工程學系
+建築學系
+科技管理學系
+科技工程與管理學系
+航運管理學系
+電機工程學系
+測量與空間資訊學系
+機械工程學系
+機械與自動化工程學系
+機械與機電工程學系
+交通管理科學系 資源工程學系
+光機電與材料學士學位學程
+電子工程學系
+能源工程學系
+營建管理學系
+運輸科技與物流管理學系
+生化科技學系
+化學系
+醫藥暨應用化學系
+農業化學系
+應用化學系
+物理系
+統計系
+數學系
+巨量資料管理學系
+地理學系
+地質科學系
+地球科學系
+海洋科學系
+大氣科學系
+生物工程學系
+資源工程學系
+口腔衛生學系
+公共衛生學系
+職業安全與衛生學系
+呼吸治療學系
+物理治療學系
+職能治療學系
+醫務管理學系
+醫學影像暨放射科學系
+醫務管理暨醫療資訊學系
+醫學系
+牙醫學系
+藥學系
+護理學系
+運動醫學系
+保健營養學系
+香粧品學系
+獸醫學系
+醫學檢驗暨生物技術學系
+物理治療暨輔助科技
+牙體技術學系
+高齡健康管理學系
+醫學影像暨放射科學系
+語言治療與聽力學系
+中醫學系
+營養學系
+水產養殖學系
+昆蟲學系
+生物產業傳播暨發展學系
+海洋科學系 農業經濟學系
+動物科學技術學系
+農藝學系
+森林環境暨資源學系
+園藝暨景觀學系
+獸醫學系
+植物病理與微生物學系
+食品暨應用生物科技學系
+食品科學系
+生命科學系 生化科技學系
+生物工程學系
+生物科技學系
+生物產業科技學系
+生物產業傳播暨發展學系
+生物資源學系
+生物產業機電工程學系
+生物醫學暨環境生物學系
+生醫工程學系
+醫藥暨應用化學系
+生醫工程與環境科學系
+微生物學系
+農業化學系
+植物病理與微生物學系
+昆蟲學系
+生物資訊學系
+運動競技學系
+餐旅管理學系
+健康產業發展學士學位學程
+觀光旅遊學系
+觀光與餐飲管理學系
+觀光休閒與餐旅管理學系
+觀光與會展學系
+休閒遊憩規劃與管理學系
+休閒產業與健康促進學系
+國際觀光管理學系).each do |depart|
+  LiveDepartment.create(name: depart, dep_class: 2)
+end
 
+Role.create({name: "Regular", description: "Can read items"})
+Role.create({name: "Editor", description: "Can read and create items. Can update and destroy own items"})
+Role.create({name: "Admin", description: "Can perform any CRUD operation on any resource"})
 
-# r1 = Role.create({name: "Regular", description: "Can read items"})
-# r2 = Role.create({name: "Editor", description: "Can read and create items. Can update and destroy own items"})
-# r3 = Role.create({name: "Admin", description: "Can perform any CRUD operation on any resource"})
-
-# times = LiveTime.create([
-# 		{start: DateTime.strptime("07/18/2016 6:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/18/2016 6:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/18/2016 7:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/18/2016 7:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/18/2016 8:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/18/2016 12:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/18/2016 12:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/18/2016 13:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/18/2016 13:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/18/2016 14:00", "%m/%d/%Y %H:%M")},
-
-# 		{start: DateTime.strptime("07/19/2016 6:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/19/2016 6:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/19/2016 7:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/19/2016 7:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/19/2016 8:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/19/2016 12:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/19/2016 12:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/19/2016 13:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/19/2016 13:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/19/2016 14:00", "%m/%d/%Y %H:%M")},
-
-# 		{start: DateTime.strptime("07/20/2016 6:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/20/2016 6:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/20/2016 7:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/20/2016 7:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/20/2016 8:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/20/2016 12:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/20/2016 12:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/20/2016 13:00", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/20/2016 13:30", "%m/%d/%Y %H:%M")},
-# 		{start: DateTime.strptime("07/20/2016 14:00", "%m/%d/%Y %H:%M")},
-# ])
-
-=begin
-u1 = User.create({account_name: "Sally", email: "sally@example.com", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r1.id})
-u2 = User.create({account_name: "Sue", email: "sue@example.com", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r2.id})
-u3 = User.create({account_name: "Kev", email: "kev@example.com", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r2.id})
-u4 = User.create({account_name: "Jack", email: "jack@example.com", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r3.id})
-
-i1 = Poster.create({name: "Rayban Sunglasses", description: "Stylish shades", user_id: u2.id})
-i2 = Poster.create({name: "Gucci watch", description: "Expensive timepiece", user_id: u2.id})
-i3 = Poster.create({name: "Henri Lloyd Pullover", description: "Classy knitwear", user_id: u3.id})
-i4 = Poster.create({name: "Porsche socks", description: "Cosy footwear", user_id: u3.id})
-=end

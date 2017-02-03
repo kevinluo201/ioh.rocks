@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202102647) do
+ActiveRecord::Schema.define(version: 20170203090539) do
 
   create_table "live_departments", force: :cascade do |t|
-    t.string  "name",  limit: 255
-    t.integer "group", limit: 4
+    t.string  "name",      limit: 255
+    t.integer "group",     limit: 4
+    t.integer "dep_class", limit: 4
   end
 
   create_table "live_events", force: :cascade do |t|

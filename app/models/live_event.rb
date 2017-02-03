@@ -3,12 +3,13 @@ class LiveEvent < ActiveRecord::Base
 
   before_create do
     active = false
-    true # don't let callbacks return false
+    end_date = start_date + 2.days
   end
   after_save :create_livetimes
 
   has_many :live_times, dependent: :delete_all
 
+  # find the only one active_event and eager load other information
   def self.active_event
     includes(live_times: [:lives]).where(active: true).first
   end

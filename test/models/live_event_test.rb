@@ -19,4 +19,16 @@ class LiveEventTest < ActiveSupport::TestCase
 
     assert 10, sum
   end
+
+  test "find active event" do
+    event1 = LiveEvent.create(start_date: Date.today,
+                             end_date: Date.today + 2.days,
+                             signup_end: Date.today,
+                             active: true)
+    event2 = LiveEvent.create(start_date: Date.today,
+                             end_date: Date.today + 2.days,
+                             signup_end: Date.today,
+                             active: false)
+    assert_equal event1, LiveEvent.active_event
+  end
 end

@@ -12,14 +12,15 @@ class LivesController < ApplicationController
 	end
 
 	def create
-		@live = Live.new(live_params)
+		@live = Live.find_or_initialize_by(gmail: live_params['gmail'])
+		@live.assign_attributes(live_params) if @live.new_record?
 		@live.live_times = LiveTime.where(id: live_params['live_time_ids'])
 
 		if @live.save
 			redirect_to lives_success_path
 		else
 			flash.now[:alert] = @live.errors.full_messages.first
-      render :new
+      redirect_to live_path
 		end
 	end
 
@@ -31,6 +32,7 @@ class LivesController < ApplicationController
 	end
 
 	private
+
 	def live_params
 		params.require(:live).permit(:name, :gmail, :fb_url, :feedback, :school, :department,
 																 :phone, :stream_201602, :location, { live_time_ids: [] })

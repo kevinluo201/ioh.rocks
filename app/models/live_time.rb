@@ -1,5 +1,5 @@
 class LiveTime < ActiveRecord::Base
-  Times = %w(6:00 6:30 7:00 7:30 8:00 12:00 12:30 13:00 13:30 14:00)
+  Times = %w(14:00 14:30 15:00 15:30 16:00 20:00 20:30 21:00 21:30 22:00)
   belongs_to :live_event
   has_many :streams
   has_many :live_time_appointments

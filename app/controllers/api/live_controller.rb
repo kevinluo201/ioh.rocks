@@ -164,20 +164,20 @@ class Api::LiveController < ApplicationController
 		# 				   					 live_times.end as end")
 		# 				    .order("start, school")
 
-		lives = Stream.joins(:live_time, :live)
+		streams = Stream.joins(:live_time, :live)
 		              .select("streams.name,
 		              				 streams.live_id,
 		              				 live_times.start as start")
 		              .order("start")
 
-		lives.each do |live|
+		streams.each do |stream|
 			data_item = {}
 
-			data_item[:name] = live.name
-			data_item[:school] = /[\S]+$/.match(live.live.live_school.name)[0]
-			data_item[:department] = /[\S]+$/.match(live.live.live_department.name)[0]
-			data_item[:start] = live.start
-			data_item[:link] = live.live.ioh_url
+			data_item[:name] = stream.name
+			data_item[:school] = stream.live.school
+			data_item[:department] = stream.live.department
+			data_item[:start] = stream.start
+			data_item[:link] = stream.live.ioh_url
 
 			data.push data_item
 		end
@@ -191,38 +191,21 @@ class Api::LiveController < ApplicationController
 		data = { school: [], department_one: [], department_two: [], time: [] }
 
 		# get school
-		lives = Live.all.select(:live_school_id).includes(:live_school)
-
-		lives.each do |live|
-			data[:school].push /[\S]+$/.match(live.live_school.name)[0]
-		end
-
-		data[:school].uniq!
+    LiveSchool.order(:name).each do |school|
+      data[:school] << school.name
+    end
 
 		#get department 1
-		lives = Live.all.select(:live_department_id).includes(:live_department)
-
-		lives.each do |live|
-			if live.live_department.group == 1
-				data[:department_one].push /[\S]+$/.match(live.live_department.name)[0]
-			end
-		end
-
-		data[:department_one].uniq!
+		LiveDepartment.where(dep_class: 1).order(:name).each do |dep|
+      data[:department_one] << dep.name
+    end
 
 		#get department 2
-		lives = Live.all.select(:live_department_id).includes(:live_department)
-
-		lives.each do |live|
-			if live.live_department.group != 1
-				data[:department_two].push /[\S]+$/.match(live.live_department.name)[0]
-			end
-		end
-
-		data[:department_two].uniq!
-
+		LiveDepartment.where(dep_class: 2).order(:name).each do |dep|
+      data[:department_one] << dep.name
+    end
 		#get time
-		times = LiveTime.all.select("start, end").order(:start)
+		times = LiveEvent.active_event.live_times.order(:start)
 
 		times.each do |time|
 			item = {}

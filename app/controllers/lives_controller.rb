@@ -2,7 +2,9 @@ class LivesController < ApplicationController
 	layout "form"
 
 	def new
-		@live_event = LiveEvent.where(active: true).first
+		@schools = LiveSchool.order(:name)
+		@departments = LiveDepartment.order(:name)
+		@live_event = LiveEvent.active_event
 		if @live_event && @live_event.signup_end > Time.now
 			@live_times = @live_event.live_times
 			@live = Live.new

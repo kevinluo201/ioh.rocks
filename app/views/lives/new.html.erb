@@ -66,8 +66,8 @@
                G-mail 帳號（必須是 G-mail 帳號才能直播） : <%= f.text_field :gmail, class: "form-control form-live-reg", type: "email", required: "required", id: "gmail_input", placeholder: "G-mail Account" %><br />
                臉書帳號連結（方便 IOH 夥伴用臉書與您聯絡，請由網址列複製再貼上於此）： <%= f.text_field :fb_url, class: "form-control form-live-reg", required: "required", id: "fb_url_input", placeholder: "Your Facebook URL" %><br />
                電話（方便我們聯絡您，協調直播事宜）: <%= f.text_field :phone, class: "form-control form-live-reg", type: "tel", required: "required", id: "phone_input", placeholder: "Your Mobile Phone" %><br />
-               學校 : <%= f.text_field :school, class: "form-control form-live-reg", required: "required", placeholder: "School" %><br />
-               科系 : <%= f.text_field :department, class: "form-control form-live-reg", required: "required", placeholder: "Department" %><br />
+               學校 : <%= f.collection_select :school, @schools,:name,:name, {}, class: "form-control form-live-reg" %><br />
+               科系 : <%= f.collection_select :department, @departments,:name,:name, {}, class: "form-control form-live-reg" %><br />
                直播所在國家 : <%= f.text_field :location, class: "form-control form-live-reg", required: "required", placeholder: "Country", value: "台灣" %><br />
                <div class="field">
                  是否參與過之前的學測直播線上諮詢會?

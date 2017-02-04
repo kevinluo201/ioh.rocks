@@ -241,42 +241,22 @@
 			renderHtml_2 += '<tr>';
 			renderHtml_2 += '<td class="empty_td"></td>';
 
-			for (var z = 0; z < 5; z++) {
-				if(z == 4) {
-					if(time_idObj[mon_data][fiveJ + z])
-						renderHtml_2 += '<td class="mon_td_event all_td_event" draggable="true" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '" style="border-right: 2px solid;""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[mon_data][fiveJ + z].user_name + '">' + time_idObj[mon_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
-					else
-						renderHtml_2 += '<td class="mon_td_event" style="border-right: 2px solid;"> <div class="mon_div"></div> </td>';
+			$.each([[mon_data, "mon_td_event"], [tue_data, "tue_data"], [wed_data, "wed_data"]], function(index, data){
+				for (var z = 0; z < 5; z++) {
+					if(z == 4) {
+						if(time_idObj[data[0]][fiveJ + z])
+							renderHtml_2 += '<td class="' + data[1] + ' all_td_event" draggable="true" data="' + time_idObj[data[0]][fiveJ + z].id + '" user_id="' + time_idObj[data[0]][fiveJ + z].user_id + '" time_id="' + data[0] + '" style="border-right: 2px solid;""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[data[0]][fiveJ + z].user_name + '">' + time_idObj[data[0]][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+						else
+							renderHtml_2 += '<td class="' + data[1] + '" style="border-right: 2px solid;"> <div class="mon_div"></div> </td>';
+					}
+					else {
+						if(time_idObj[data[0]][fiveJ + z])
+							renderHtml_2 += '<td class="' + data[1] + ' all_td_event" draggable="true" data="' + time_idObj[data[0]][fiveJ + z].id + '" user_id="' + time_idObj[data[0]][fiveJ + z].user_id + '" time_id="' + data[0] + '""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[data[0]][fiveJ + z].user_name + '">' + time_idObj[data[0]][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
+						else
+							renderHtml_2 += '<td class="' + data[1] + '"> <div class="mon_div"></div> </td>';
+					};
 				}
-				else {
-					if(time_idObj[mon_data][fiveJ + z])
-						renderHtml_2 += '<td class="mon_td_event all_td_event" draggable="true" data="' + time_idObj[mon_data][fiveJ + z].id + '" user_id="' + time_idObj[mon_data][fiveJ + z].user_id + '""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[mon_data][fiveJ + z].user_name + '">' + time_idObj[mon_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
-					else
-						renderHtml_2 += '<td class="mon_td_event"> <div class="mon_div"></div> </td>';
-				}
-			}
-
-			for (var z = 0; z < 5; z++) {
-				if(z == 4) {
-					if(time_idObj[tue_data][fiveJ + z])
-						renderHtml_2 += '<td class="tue_td_event all_td_event" draggable="true" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '" style="border-right: 2px solid;""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[tue_data][fiveJ + z].user_name + '">' + time_idObj[tue_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
-					else
-						renderHtml_2 += '<td class="tue_td_event" style="border-right: 2px solid;"> <div class="tue_div"></div> </td>';
-				}
-				else {
-					if(time_idObj[tue_data][fiveJ + z])
-						renderHtml_2 += '<td class="tue_td_event all_td_event" draggable="true" data="' + time_idObj[tue_data][fiveJ + z].id + '" user_id="' + time_idObj[tue_data][fiveJ + z].user_id + '""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[tue_data][fiveJ + z].user_name + '">' + time_idObj[tue_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
-					else
-						renderHtml_2 += '<td class="tue_td_event"> <div class="tue_div"></div> </td>';
-				}
-			}
-
-			for (var z = 0; z < 5; z++) {
-				if(time_idObj[wed_data][fiveJ + z])
-					renderHtml_2 += '<td class="wed_td_event all_td_event" draggable="true" data="' + time_idObj[wed_data][fiveJ + z].id + '" user_id="' + time_idObj[wed_data][fiveJ + z].user_id + '""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[wed_data][fiveJ + z].user_name + '">' + time_idObj[wed_data][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
-				else
-					renderHtml_2 += '<td class="wed_td_event"> <div class="wed_div"></div> </td>';
-			}
+			});
 
 			renderHtml_2 += '</tr>';
 		}
@@ -370,6 +350,10 @@
 	}
 
 	function handleDrop(e) {
+		// event can only be placed to their own live_time's slots
+		if($(this).attr("time_id") != $(dragSrcEl).attr("time_id"))
+			return false;
+
 
 		if(!($(this).hasClass('yellow_background')))
 			$(this).addClass('yellow_background');
@@ -403,7 +387,6 @@
 		var user_id = $(dragSrcEl).attr("user_id");
 		$(".all_td_event[user_id=" + user_id + "]").addClass("finalized");
 
-		dragSrcEl = null;
 	  return false;
 	}
 
@@ -414,6 +397,8 @@
 	  $('.all_td_final').each(function(){
 	    $(this).removeClass('over');
 	  });
+
+		dragSrcEl = null;
 	}
 
 	$('.all_td_event').each(function(){

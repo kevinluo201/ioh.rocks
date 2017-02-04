@@ -13,12 +13,12 @@ class Api::LiveController < ApplicationController
   	data = []
   	streams.each do |stream|
   		item = {}
-
   		item['name'] = stream.name
   		item['channel'] = stream.channel
   		item['time_id'] = stream.time_id
   		item['school'] = stream.live.school if stream.live
   		item['department'] = stream.live.department if stream.live
+      item['user_id'] = stream.live.id if stream.live
 
   		data.push item
   	end

@@ -359,7 +359,7 @@
 	  }
 
 		if (dragSrcEl != this) {
-	    this.innerHTML = dragSrcEl.innerHTML;
+	    $(this).html($(dragSrcEl).html() + "<b>" + $(this).attr('channel') + "</b>");
 	  }
 
 		$(this).children('.closon').hide();
@@ -472,7 +472,10 @@
 			var selector = 'td.all_td_final[time_id="' + getData[key].time_id + '"][channel="' + getData[key].channel + '"]';
 			var textStr = '<div><b user_name="' + getData[key].name + '">' + getData[key].name + '<br>' + getData[key].school + '<br>' + getData[key].department + '<b></div>';
 			$(selector).addClass('yellow_background');
-			$(selector).html(textStr);
+			$(selector).attr('user_id', getData[key].user_id);
+			// lock the user
+			$(".all_td_event[user_id=" + getData[key].user_id + "]").addClass("finalized");
+			$(selector).html(textStr +　"<b>" + $(selector).attr('channel') + "</b>");
 		}
   }
 </script>

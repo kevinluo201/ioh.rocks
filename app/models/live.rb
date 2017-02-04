@@ -17,4 +17,9 @@ class Live < ActiveRecord::Base
 		self.title = self.name
 		self.time_count = self.live_times.count
 	end
+
+	def self.active_lives
+		LiveEvent.active_event.live_times.inject([]) { |ary, t| ary << t.lives }.
+							flatten.uniq.sort { |a, b| a.name <=> b.name }
+	end
 end

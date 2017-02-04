@@ -72,15 +72,12 @@
 
 <h2>時間</h2>
 <div class="form-group">
-	<% count = 0 %>
-	<% LiveTime.all.each do |time| %>
-		<% count += 1 %>
-		<% if count % 10 == 1 %>
-			<h3>7/<%= 18 + count / 10 %></h3>
-		<% end %>
-		<%= label_tag "live[live_time_ids][#{time.id}]", "#{time.start.strftime("%m/%d %H:%M")} - #{time.end.strftime("%H:%M")}" %>	
+  <% (@live_event.start_date..@live_event.end_date).each do |day| %>
+			<h3><%= day.strftime('%m/%d') %></h3>
+    <% @live_event.live_times.order(:start).select { |t| t.start.to_date == day }.each do |time| %>
+		<%= label_tag "live[live_time_ids][#{time.id}]", "#{time.start.strftime("%m/%d %H:%M")} - #{time.end.strftime("%H:%M")}" %>
     <%= check_box_tag "live[live_time_ids][]", time.id, @live.live_time_ids.include?(time.id), id: "live_live_time_ids_#{time.id}" %>
-    <%= "</br></br>".html_safe if count % 10 == 0 %>
+    <% end %>
   <% end %>
 </div>
 

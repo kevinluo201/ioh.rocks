@@ -37,8 +37,7 @@ class Admin::LivesController < ApplicationController
   end
 
   def index
-    @lives = Live.all.includes(:live_school, :live_department)
-    .order(:live_school_id, :created_at)
+    @lives = Live.active_lives
 
     if params[:query]
       @lives = Live.where("name LIKE ?", "%#{params[:query]}%")
@@ -125,6 +124,7 @@ class Admin::LivesController < ApplicationController
 
   def edit
     @live = Live.find params[:id]
+    @live_event = LiveEvent.active_event
   end
 
   # lh stands for live host

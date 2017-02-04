@@ -1,4 +1,5 @@
 class Api::LiveController < ApplicationController
+  URL = "http://ioh.rocks"
 	before_action :authenticate_user!, :except => [:index, :onair, :basic_data, :live, :schedule, :update_stream]
 
 	skip_before_filter :verify_authenticity_token

@@ -71,6 +71,7 @@
 	.yellow_background {
 		background-color: #FEF6AB;
 		color: black;
+		cursor: pointer;
 	}
 
 	.selected {
@@ -354,11 +355,13 @@
 		if($(this).attr("time_id") != $(dragSrcEl).attr("time_id"))
 			return false;
 
-
-		if(!($(this).hasClass('yellow_background')))
+		if($(this).hasClass('yellow_background')) {
+			// cancel the already existing final info
+			cancelFinal($(this).attr("user_id"));
+		}else{
 			$(this).addClass('yellow_background');
-		else if(!fromEvent)
-			$(this).removeClass('yellow_background');
+		}
+		$(this).attr("user_id", $(dragSrcEl).attr("user_id"));
 
 	  if (e.stopPropagation) {
 	    e.stopPropagation();
@@ -413,6 +416,24 @@
 		$(this).on('drop', handleDrop);
 		$(this).on('dragend', handleDragEnd);
 	});
+
+	function cancelFinal(user_id){
+		$('.all_td_event[user_id="' + user_id + '"]').removeClass("finalized");
+	}
+
+	// click and cancel the finalized user
+	$('.all_td_final').click(function(){
+		if(!$(this).hasClass("yellow_background"))
+			return false;
+
+		var user_id = $(this).attr("user_id");
+		var channel = $(this).attr("channel");
+		$(this).html("<b>" + channel + "</b>");
+		cancelFinal(user_id);
+		$(this).removeClass("yellow_background");
+		$(this).removeAttr("user_id");
+	});
+
 
 	$('#save_btn').click(function(){
 		var postData = [];

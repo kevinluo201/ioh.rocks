@@ -193,31 +193,24 @@
 
 	//render出final slot
 	<% @live_times_array.each_with_index do |live_times, i| %>
-		<% i += 1 %>
 		var mon_time_id = <%= live_times[0].id %>,
 				tue_time_id = <%= live_times[1].id %>,
-				wed_time_id = <%= live_times[2].id %>;
+				wed_time_id = <%= live_times[2].id %>,
+				clock = <%= i % 2 == 0 ? 1 : 2 %>;
 
 		renderHtml_1 += '<tr class="final_slot" id="final_slot_' + <%= i %> + '">';
 		renderHtml_1 += '<td class="time_td"><b>' + "<%= live_time_period(live_times[0]) %>" + '</b></td>';
 
-		for (var y = 1; y <= 5; y++) {
-			if(y < 5)
-				renderHtml_1 += '<td class="all_td_final" time_id="' + mon_time_id + '" channel="Mon 頻道' + y + '-' + ((<%= i %>%2)+1) + '"> <div><b>Mon<br>頻道' + y + '-' + ((<%= i %>%2)+1) + '</b></div> </td>';
-			else
-			renderHtml_1 += '<td class="all_td_final" time_id="' + mon_time_id + '" channel="Mon 頻道' + y + '-' + ((<%= i %>%2)+1) + '" style="border-right: 2px solid;"> <div><b>Mon<br>頻道' + y + '-' + ((<%= i %>%2)+1) + '</b></div> </td>';
-		}
-
-		for (var y = 1; y <= 5; y++) {
-			if(y < 5)
-			renderHtml_1 += '<td class="all_td_final" time_id="' + tue_time_id + '" channel="Tue 頻道' + y + '-' + ((<%= i %>%2)+1) + '"> <div><b>Tue<br>頻道' + y + '-' + ((<%= i %>%2)+1) + '</b></div> </td>';
-			else
-				renderHtml_1 += '<td class="all_td_final" time_id="' + tue_time_id + '" channel="Tue 頻道' + y + '-' + ((<%= i %>%2)+1) + '" style="border-right: 2px solid;"> <div><b>Tue<br>頻道' + y + '-' + ((<%= i %>%2)+1) + '</b></div> </td>';
-		}
-
-		for (var y = 1; y <= 5; y++) {
-			renderHtml_1 += '<td class="all_td_final" time_id="' + wed_time_id + '" channel="Wed 頻道' + y + '-' + ((<%= i %>%2)+1) + '"> <div><b>Wed<br>頻道' + y + '-' + ((<%= i %>%2)+1)+ '</b></div> </td>';
-		}
+		$.each([[mon_time_id, "<%= live_times[0].start.strftime('%^a') %>"],
+					  [tue_time_id, "<%= live_times[1].start.strftime('%^a') %>"],
+					  [wed_time_id, "<%= live_times[2].start.strftime('%^a') %>"]], function(index, data){
+			for (var y = 1; y <= 5; y++) {
+				if(y < 5)
+					renderHtml_1 += '<td class="all_td_final" time_id="' + data[0] + '" channel="' + data[1] + ' 頻道' + y + '-' + clock + '"> <div><b>' + data[1] + '<br>頻道' + y + '-' + clock + '</b></div> </td>';
+				else
+				renderHtml_1 += '<td class="all_td_final" time_id="' + data[0] + '" channel="' + data[1] + ' 頻道' + y + '-' + clock + '" style="border-right: 2px solid;"> <div><b>' + data[1] + '<br>頻道' + y + '-' + clock + '</b></div> </td>';
+			}
+		});
 
 		renderHtml_1 += '</tr>';
 
@@ -227,8 +220,6 @@
 
 	//render出講者資訊
 	<% @live_times_array.each_with_index do |live_times, i| %>
-		<% i += 1 %>
-
 		var mon_data = <%= live_times[0].id %>,
 				tue_data = <%= live_times[1].id %>,
 				wed_data = <%= live_times[2].id %>;
@@ -389,6 +380,7 @@
 		// lock all td related to the user_id
 		var user_id = $(dragSrcEl).attr("user_id");
 		$(".all_td_event[user_id=" + user_id + "]").addClass("finalized");
+
 
 	  return false;
 	}

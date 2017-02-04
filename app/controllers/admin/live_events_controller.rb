@@ -16,7 +16,7 @@ class Admin::LiveEventsController < ApplicationController
       flash[:success] = '新增成功'
       redirect_to admin_live_events_path
     else
-      flash[:danger] = '新增失敗'
+      flash[:danger] = '新增失敗' + @live_event.errors.full_messages.first
       render :new
     end
   end

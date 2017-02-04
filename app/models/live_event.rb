@@ -1,9 +1,13 @@
 class LiveEvent < ActiveRecord::Base
   validates :start_date, :end_date, :signup_end, presence: true
 
+  before_validation do
+    self.end_date = start_date + 2.days
+  end
+
   before_create do
     active = false
-    end_date = start_date + 2.days
+    true # prevent return false during callback
   end
   after_save :create_livetimes
 

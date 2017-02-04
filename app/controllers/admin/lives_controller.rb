@@ -205,8 +205,10 @@ class Admin::LivesController < ApplicationController
       # classify the LiveTime by time then sort by date
       # this is for presenting in table's row
       @live_times_array = @live_event.live_times_for_agenda
-      @live_times_array_for_liver = @live_times_array
-	end
+    else
+      flash[:alert] = '目前沒有舉行中的直播活動'
+      redirect_to admin_live_events_path
+	  end
   end
 
   private

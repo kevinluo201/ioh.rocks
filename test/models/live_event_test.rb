@@ -9,6 +9,12 @@ class LiveEventTest < ActiveSupport::TestCase
     assert !event.active?
   end
 
+  test "event end date is always 2days after start date" do
+    event = LiveEvent.create(start_date: Date.today, signup_end: Date.today)
+
+    assert_equal Date.today + 2.days, event.end_date
+  end
+
   test "live_event should have according livetimes" do
     event = LiveEvent.create(start_date: Date.today,
                              end_date: Date.today + 2.days,

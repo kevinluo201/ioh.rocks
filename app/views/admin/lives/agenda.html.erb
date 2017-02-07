@@ -26,10 +26,6 @@
 		border-bottom: 0px;
 	}
 
-	.thaed_css {
-		width: 31.666%;
-	}
-
 	.final_slot {
 		background-color: white;
 		border-top: 2px solid black;
@@ -124,6 +120,10 @@
 	.finalized {
 		background-color: darkgray;
 	}
+
+	.right_thick {
+		border-right: 2px solid black;
+	}
 </style>
 
 
@@ -140,7 +140,7 @@
 <br>
 
 
-<table class="table text-center table-condensed">
+<table class="table text-center table-condensed" id="agenda">
 	<thead>
 		<tr>
 			<th style="width: 5%;"></th>
@@ -174,12 +174,10 @@
 				else
 					user_idObj[data['user_id']] += 1;
 
-				data['id'] = index;
 				data['user_name'] = data['title'];
 				data['title'] += ('<br>' + data['school'] + '<br>' + data['department']);
 
 				time_idObj[data['time_id']].push({
-					id: data['id'],
 					user_id: data['user_id'],
 					user_name: data['user_name'],
 					title: data['title']
@@ -188,72 +186,64 @@
 		}
 	});
 
-
-	var renderHtml_1 = '', renderHtml_2 = '';
-
 	//render出final slot
 	<% @live_times_array.each_with_index do |live_times, i| %>
-		var mon_time_id = <%= live_times[0].id %>,
-				tue_time_id = <%= live_times[1].id %>,
-				wed_time_id = <%= live_times[2].id %>,
-				clock = <%= i % 2 == 0 ? 1 : 2 %>;
+		var clock = <%= i % 2 == 0 ? 1 : 2 %>;
+		var tr = $('<tr class="final_slot" id="final_slot_<%= i %>"></tr>');
+		tr.append($('<td class="time_td"><b>' + "<%= live_time_period(live_times[0]) %>" + '</b></td>'));
 
-		renderHtml_1 += '<tr class="final_slot" id="final_slot_' + <%= i %> + '">';
-		renderHtml_1 += '<td class="time_td"><b>' + "<%= live_time_period(live_times[0]) %>" + '</b></td>';
-
-		$.each([[mon_time_id, "<%= live_times[0].start.strftime('%^a') %>"],
-					  [tue_time_id, "<%= live_times[1].start.strftime('%^a') %>"],
-					  [wed_time_id, "<%= live_times[2].start.strftime('%^a') %>"]], function(index, data){
+		$.each(<%= raw live_times.map { |t| [t.id, t.start.strftime('%^a')] } %>, function(index, data){
 			for (var y = 1; y <= 5; y++) {
-				if(y < 5)
-					renderHtml_1 += '<td class="all_td_final" time_id="' + data[0] + '" channel="' + data[1] + ' 頻道' + y + '-' + clock + '"> <div><b>' + data[1] + '<br>頻道' + y + '-' + clock + '</b></div> </td>';
-				else
-				renderHtml_1 += '<td class="all_td_final" time_id="' + data[0] + '" channel="' + data[1] + ' 頻道' + y + '-' + clock + '" style="border-right: 2px solid;"> <div><b>' + data[1] + '<br>頻道' + y + '-' + clock + '</b></div> </td>';
+					var td = $('<td class="all_td_final"></td>');
+					if(y == 5)
+						td.addClass('right_thick');
+					td.attr('time_id', data[0]);
+					var channel = data[1] + ' 頻道' + y + '-' + clock;
+					td.attr("channel", channel);
+					td.append('<b>'+ data[1] + '<br>頻道' + y + '-' + clock + '</b>');
+					tr.append(td);
 			}
 		});
 
-		renderHtml_1 += '</tr>';
+	$('tbody').append(tr);
 
 	<% end %>
 
-	$('tbody').append(renderHtml_1);
 
 	//render出講者資訊
 	<% @live_times_array.each_with_index do |live_times, i| %>
-		var mon_data = <%= live_times[0].id %>,
-				tue_data = <%= live_times[1].id %>,
-				wed_data = <%= live_times[2].id %>;
+		// decide how many rows to render
+		var rowNum = <%= live_times.map { |t| t.live_time_appointments.count / 5.0 }.max.ceil %>
 
-		var rowNum = Math.max(time_idObj[mon_data].length / 5, time_idObj[tue_data].length / 5, time_idObj[wed_data].length / 5);
-		rowNum = Math.ceil(rowNum);
-		renderHtml_2 = '';
-
+		var trArray = [];
 		for (var j = 0; j < rowNum; j++) {
-			var fiveJ = j * 5;
-			renderHtml_2 += '<tr>';
-			renderHtml_2 += '<td class="empty_td"></td>';
+			var tr = $('<tr></tr>');
+			tr.append('<td class="empty_td"></td>');
+			$.each(<%= live_times.map(&:id) %>, function(index, data){
+				for (var z = 1; z <= 5; z++) {
+					var td = $('<td></td>');
+					if(z == 5)
+						td.addClass("right_thick");
 
-			$.each([[mon_data, "mon_td_event"], [tue_data, "tue_data"], [wed_data, "wed_data"]], function(index, data){
-				for (var z = 0; z < 5; z++) {
-					if(z == 4) {
-						if(time_idObj[data[0]][fiveJ + z])
-							renderHtml_2 += '<td class="' + data[1] + ' all_td_event" draggable="true" data="' + time_idObj[data[0]][fiveJ + z].id + '" user_id="' + time_idObj[data[0]][fiveJ + z].user_id + '" time_id="' + data[0] + '" style="border-right: 2px solid;""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[data[0]][fiveJ + z].user_name + '">' + time_idObj[data[0]][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
-						else
-							renderHtml_2 += '<td class="' + data[1] + '" style="border-right: 2px solid;"> <div class="mon_div"></div> </td>';
+					// if there is a appointment
+					var appointment = time_idObj[data].shift();
+					if(appointment){
+						td.addClass("all_td_event");
+						td.attr("draggable", "true");
+						td.attr("user_id", appointment.user_id);
+						td.attr("time_id", data);
+						td.append('<div class="overlay">還原</div>');
+						td.append('<div><b user_name="' + appointment.user_name + '">' + appointment.title + '</b></div>');
+						td.append('<div class="closon">隱藏</div>');
 					}
-					else {
-						if(time_idObj[data[0]][fiveJ + z])
-							renderHtml_2 += '<td class="' + data[1] + ' all_td_event" draggable="true" data="' + time_idObj[data[0]][fiveJ + z].id + '" user_id="' + time_idObj[data[0]][fiveJ + z].user_id + '" time_id="' + data[0] + '""> <div class="overlay">還原</div> <div><b user_name="' + time_idObj[data[0]][fiveJ + z].user_name + '">' + time_idObj[data[0]][fiveJ + z].title + '</b></div> <div class="closon">隱藏</div> </td>';
-						else
-							renderHtml_2 += '<td class="' + data[1] + '"> <div class="mon_div"></div> </td>';
-					};
+
+					tr.append(td);
 				}
 			});
-
-			renderHtml_2 += '</tr>';
+			trArray.push(tr);
 		}
-		var selector = 'tr#final_slot_' + "<%= i %>" + '.final_slot';
-		$(selector).after(renderHtml_2);
+		var selector = 'tr#final_slot_<%= i %>';
+		$(selector).after(trArray);
 	<% end %>
 
 	//上背景色

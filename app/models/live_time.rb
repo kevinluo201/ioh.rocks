@@ -12,13 +12,10 @@ class LiveTime < ActiveRecord::Base
   def self.create_live_times_from_date(date)
     date = date.strftime('%m/%d/%Y')
 
-    times = []
-    Times.each do |t|
+    Times.map do |t|
       # prevent strptime create Time from +0000
-      time = LiveTime.create(start: DateTime.strptime("#{date} #{t} +0800", "%m/%d/%Y %H:%M %Z"))
-      times << time
+      LiveTime.create(start: DateTime.strptime("#{date} #{t} +0800", "%m/%d/%Y %H:%M %Z"))
     end
 
-    times
   end
 end

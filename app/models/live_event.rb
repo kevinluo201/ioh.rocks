@@ -14,9 +14,8 @@ class LiveEvent < ActiveRecord::Base
 
   before_create do
     active = false
-    true # prevent return false during callback
+    create_livetimes
   end
-  after_save :create_livetimes
 
   has_many :live_times, dependent: :delete_all
 
@@ -34,15 +33,21 @@ class LiveEvent < ActiveRecord::Base
     end
   end
 
+  def period
+    start_date..end_date
+  end
+
+  def length
+    period.count
+  end
+
   private
 
   def create_livetimes
     # create or edit the live event, if there is no according LiveTime, create them
     (start_date..end_date).each do |d|
-      if LiveTime.where("date(start) in (?)", d).empty?
-        LiveTime.create_live_times_from_date(d).each do |t|
-          live_times << t
-        end
+      LiveTime.create_live_times_from_date(d).each do |t|
+        live_times << t
       end
     end
   end

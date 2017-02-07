@@ -18,3 +18,10 @@ Live.blueprint do
   phone { Faker::PhoneNumber.cell_phone }
   location { Faker::GameOfThrones.city }
 end
+
+LiveEvent.blueprint do
+  start_date { Date.today}
+  end_date { Date.today + 2.days }
+  signup_end { Date.today }
+  channels { 5 }
+end

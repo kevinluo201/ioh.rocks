@@ -1,16 +1,7 @@
 class LiveEvent < ActiveRecord::Base
-  validates :start_date, :end_date, :signup_end, presence: true
+  validates :start_date, :end_date, :signup_end, :channels, presence: true
   validate :end_date_cannot_smaller_than_start_neither_does_signup_date
-
-  def end_date_cannot_smaller_than_start_neither_does_signup_date
-    if end_date < start_date
-      errors.add(:end_date, 'end date cannot smaller than start date, please check')
-    end
-
-    if signup_end > start_date
-      errors.add(:signup_end, 'signup_end cannot greater than start date, please check')
-    end
-  end
+  validate :channel_should_larger_than_0
 
   before_create do
     active = false
@@ -49,6 +40,23 @@ class LiveEvent < ActiveRecord::Base
       LiveTime.create_live_times_from_date(d).each do |t|
         live_times << t
       end
+    end
+  end
+
+  # for validation
+  def end_date_cannot_smaller_than_start_neither_does_signup_date
+    if end_date < start_date
+      errors.add(:end_date, 'end date cannot smaller than start date, please check')
+    end
+
+    if signup_end > start_date
+      errors.add(:signup_end, 'signup_end cannot greater than start date, please check')
+    end
+  end
+
+  def channel_should_larger_than_0
+    if channels < 1
+      errors.add(:channels, 'There needs at least 1 channel')
     end
   end
 end

@@ -3,7 +3,7 @@
 	<div class="row">
 		<%= link_to "直播活動", admin_live_events_path, class: "btn btn-default" %>
 		<%= link_to "資訊總表", admin_live_view_path, class: "btn btn-default" %>
-		<%= link_to "前往時刻表", admin_live_calendar_path, class: "btn btn-default" %>
+		<%= link_to "前往時刻表", admin_live_calendar_path, class: "btn btn-default", data: { no_turbolink: true }  %>
 		<%= link_to "Live Host", admin_live_lh_view_path, class: "btn btn-default" %>
 		<%= link_to "Content Master", admin_live_cm_view_path, class: "btn btn-default" %>
 		<%= link_to "後續追蹤", admin_live_follow_up_path, class: "btn btn-default" %>

@@ -55,6 +55,6 @@ class Admin::LiveEventsController < ApplicationController
   end
 
   def strong_params
-    params.require(:live_event).permit(:start_date, :end_date, :signup_end, :active)
+    params.require(:live_event).permit(:start_date, :end_date, :signup_end, :active, :channels)
   end
 end

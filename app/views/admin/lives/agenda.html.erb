@@ -145,7 +145,7 @@
 		<tr>
 			<th style="width: 5%;"></th>
 			<% (@live_event.start_date..@live_event.end_date).each do |date| %>
-				<th class="text-center thaed_css" colspan="5"><%= date.strftime('%m/%d') %></th>
+				<th class="text-center thaed_css" colspan="<%= @live_event.channels %>"><%= date.strftime('%m/%d') %></th>
 			<% end %>
 		</tr>
 	</thead>
@@ -157,6 +157,7 @@
 			time_idObj = {<%= @live_event.live_times.map { |t| "#{t.id}:[]"}.join(', ') %>},
 			time_startArr = [],
 			time_endArr = [];
+	const channels = <%= @live_event.channels %>;
 
 	$.ajax({
 		'async': false,
@@ -193,9 +194,9 @@
 		tr.append($('<td class="time_td"><b>' + "<%= live_time_period(live_times[0]) %>" + '</b></td>'));
 
 		$.each(<%= raw live_times.map { |t| [t.id, t.start.strftime('%^a')] } %>, function(index, data){
-			for (var y = 1; y <= 5; y++) {
+			for (var y = 1; y <= channels; y++) {
 					var td = $('<td class="all_td_final"></td>');
-					if(y == 5)
+					if(y == channels)
 						td.addClass('right_thick');
 					td.attr('time_id', data[0]);
 					var channel = data[1] + ' 頻道' + y + '-' + clock;
@@ -213,16 +214,16 @@
 	//render出講者資訊
 	<% @live_times_array.each_with_index do |live_times, i| %>
 		// decide how many rows to render
-		var rowNum = <%= live_times.map { |t| t.live_time_appointments.count / 5.0 }.max.ceil %>
+		var rowNum = <%= row_number_for_apps(live_times, @live_event) %>
 
 		var trArray = [];
 		for (var j = 0; j < rowNum; j++) {
 			var tr = $('<tr></tr>');
 			tr.append('<td class="empty_td"></td>');
 			$.each(<%= live_times.map(&:id) %>, function(index, data){
-				for (var z = 1; z <= 5; z++) {
+				for (var z = 1; z <= channels; z++) {
 					var td = $('<td></td>');
-					if(z == 5)
+					if(z == channels)
 						td.addClass("right_thick");
 
 					// if there is a appointment

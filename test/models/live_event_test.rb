@@ -31,4 +31,14 @@ class LiveEventTest < ActiveSupport::TestCase
     event2 = LiveEvent.make! active: false
     assert_equal event1, LiveEvent.active_event
   end
+
+  test "channels cannot less than 1" do
+    assert_raises(ActiveRecord::RecordInvalid) do
+      LiveEvent.make!(channels: 0)
+    end
+
+    assert_nothing_raised do
+      LiveEvent.make!(channels: 1)
+    end
+  end
 end

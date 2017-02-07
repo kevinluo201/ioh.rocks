@@ -1,6 +1,7 @@
 class Admin::LivesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_admin
+  before_action :active_event, only: [:lh, :cm, :follow_up, :agenda]
 
   def new_school
   end
@@ -199,8 +200,6 @@ class Admin::LivesController < ApplicationController
   end
 
   def agenda
-    @live_event = LiveEvent.active_event
-
     if @live_event
       # classify the LiveTime by time then sort by date
       # this is for presenting in table's row
@@ -234,5 +233,9 @@ class Admin::LivesController < ApplicationController
                                    :embed_link_status, :no_show, :in_studio, :video_download,
                                    :speaker_screenshot, :youtube_naming, :save_to_hard_drive,
                                    :paste_survey_link)
+  end
+
+  def active_event
+    @live_event = LiveEvent.active_event
   end
 end

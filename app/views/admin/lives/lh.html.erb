@@ -1,12 +1,6 @@
-
-
-<%= form_tag(admin_live_lh_view_path, :method => "GET") do %>
-
-	<%= label_tag :day, "選擇日期" %>
-	<%= select_tag :day, options_for_select([["全部", 0], ["7/18", 1], ["7/19", 2], ["7/20", 3]], params[:day]) %>
-
-	<%= submit_tag "Go!", class: "btn btn-success" %>
-<% end %>
+<%= render 'date_selecter', local: { path: admin_live_lh_view_path,
+																		 dates: @live_event.start_date..@live_event.end_date }
+%>
 
 <table class="table table-hover">
 	<thead>

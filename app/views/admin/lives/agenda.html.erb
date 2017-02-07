@@ -303,12 +303,15 @@
 	// drag and drop
 	var dragSrcEl = null;
 	var fromEvent = false;
+	var dragging = false;
 
 	function handleDragStart(e) {
 		// stop dragging if the live is finalized
 		if($(this).hasClass("finalized")){
 			return false;
 		}
+
+		dragging = true;
 
 		var _this = $(this);
 		if($(this).children().hasClass('closon'))
@@ -394,6 +397,7 @@
 	  });
 
 		dragSrcEl = null;
+		dragging = false;
 	}
 
 	$('.all_td_event').each(function(){
@@ -447,6 +451,14 @@
 			}
 		});
 	});
+
+	// scroll up the window when dragging to the top of the window
+	$(document).mousemove(function(e){
+		if(dragging && (e.pageY < $(document).scrollTop()+30)){
+			var pos = $(document).scrollTop();
+			$(window).scrollTop(pos-30);
+		}
+	})
 
 	// Get所有final的資訊
 	var getData = function () {

@@ -1,8 +1,15 @@
 class LiveEvent < ActiveRecord::Base
   validates :start_date, :end_date, :signup_end, presence: true
+  validate :end_date_cannot_smaller_than_start_neither_does_signup_date
 
-  before_validation do
-    self.end_date = start_date + 2.days
+  def end_date_cannot_smaller_than_start_neither_does_signup_date
+    if end_date < start_date
+      errors.add(:end_date, 'end date cannot smaller than start date, please check')
+    end
+
+    if signup_end > start_date
+      errors.add(:signup_end, 'signup_end cannot greater than start date, please check')
+    end
   end
 
   before_create do

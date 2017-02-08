@@ -12,4 +12,18 @@ class LiveTimeAppointmentTest < ActiveSupport::TestCase
       assert_equal event1.live_times.first, app.live_time
     end
   end
+
+  test "each appointment has one stream" do
+    LiveEvent.make!(active: true)
+    20.times { Live.make! }
+    sum_of_stream = 0
+    Live.all.each do |live|
+      live.live_time_appointments.each do |app|
+        sum_of_stream += 1
+        assert Stream.where(live_time_appointment: app).first
+      end
+    end
+
+    assert_equal Stream.count, sum_of_stream
+  end
 end

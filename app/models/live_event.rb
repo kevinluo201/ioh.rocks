@@ -8,7 +8,7 @@ class LiveEvent < ActiveRecord::Base
     create_livetimes
   end
 
-  has_many :live_times, dependent: :delete_all
+  has_many :live_times, dependent: :destroy
 
   # find the only one active_event and eager load other information
   def self.active_event

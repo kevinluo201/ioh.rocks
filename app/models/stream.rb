@@ -1,4 +1,3 @@
 class Stream < ActiveRecord::Base
-	belongs_to :live
-	belongs_to :live_time
+  belongs_to :live_time_appointment
 end

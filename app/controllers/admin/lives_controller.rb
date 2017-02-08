@@ -1,7 +1,7 @@
 class Admin::LivesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_admin
-  before_action :active_event, only: [:lh, :cm, :follow_up, :agenda]
+  before_action :active_event, only: [:index, :new, :lh, :cm, :follow_up, :agenda]
 
   def new_school
   end
@@ -65,47 +65,29 @@ class Admin::LivesController < ApplicationController
   end
 
   def lh
-    day = params[:day]
-    day ||= '0'
+    day = params[:day] || '0'
 
-    if day == '0'
-      @lives = Stream.where("streams.name IS NOT NULL")
-      .joins(:live, :live_time)
-      .order("streams.live_host, live_times.start")
-    else
-      last_day = (17 + day.to_i).to_s
-      day = (17 + day.to_i + 1).to_s
+    @appointments = active_appointments
 
-      date = Time.zone.parse("2016-07-" + day)
-      last_date = Time.zone.parse("2016-07-" + last_day)
-
-      @lives = Stream.where("streams.name IS NOT NULL")
-      .joins(:live, :live_time)
-      .where("live_times.start < ? AND live_times.start > ?", date, last_date)
-      .order("streams.live_host, live_times.start")
+    if day != '0'
+      date = LiveEvent.active_event.period.map {|x| x }[day.to_i - 1]
+      @appointments.select! { |x| x.live_time.start.to_date == date }
     end
+
+    @streams = @appointments.map { |a| a.stream }
   end
 
   def cm
-    day = params[:day]
-    day ||= '0'
+    day = params[:day] || '0'
 
-    if day == '0'
-      @lives = Stream.where("streams.name IS NOT NULL")
-      .joins(:live, :live_time)
-      .order("streams.live_host, live_times.start")
-    else
-      last_day = (17 + day.to_i).to_s
-      day = (17 + day.to_i + 1).to_s
+    @appointments = active_appointments
 
-      date = Time.zone.parse("2016-07-" + day)
-      last_date = Time.zone.parse("2016-07-" + last_day)
-
-      @lives = Stream.where("streams.name IS NOT NULL")
-      .joins(:live, :live_time)
-      .where("live_times.start < ? AND live_times.start > ?", date, last_date)
-      .order("streams.live_host, live_times.start")
+    if day != '0'
+      date = LiveEvent.active_event.period.map {|x| x }[day.to_i - 1]
+      @appointments.select! { |x| x.live_time.start.to_date == date }
     end
+
+    @streams = @appointments.map { |a| a.stream }
   end
 
   def cm_edit
@@ -145,25 +127,16 @@ class Admin::LivesController < ApplicationController
   end
 
   def follow_up
-    day = params[:day]
-    day ||= '0'
+    day = params[:day] || '0'
 
-    if day == '0'
-      @lives = Stream.where("streams.name IS NOT NULL")
-      .joins(:live, :live_time)
-      .order("streams.live_host, live_times.start")
-    else
-      last_day = (17 + day.to_i).to_s
-      day = (17 + day.to_i + 1).to_s
+    @appointments = active_appointments
 
-      date = Time.zone.parse("2016-07-" + day)
-      last_date = Time.zone.parse("2016-07-" + last_day)
-
-      @lives = Stream.where("streams.name IS NOT NULL")
-      .joins(:live, :live_time)
-      .where("live_times.start < ? AND live_times.start > ?", date, last_date)
-      .order("streams.live_host, live_times.start")
+    if day != '0'
+      date = LiveEvent.active_event.period.map {|x| x }[day.to_i - 1]
+      @appointments.select! { |x| x.live_time.start.to_date == date }
     end
+
+    @streams = @appointments.map { |a| a.stream }
   end
 
   def follow_up_edit
@@ -200,14 +173,9 @@ class Admin::LivesController < ApplicationController
   end
 
   def agenda
-    if @live_event
       # classify the LiveTime by time then sort by date
       # this is for presenting in table's row
       @live_times_array = @live_event.live_times_for_agenda
-    else
-      flash[:alert] = '目前沒有舉行中的直播活動'
-      redirect_to admin_live_events_path
-	  end
   end
 
   private
@@ -225,7 +193,7 @@ class Admin::LivesController < ApplicationController
   end
 
   def stream_params
-    params.require(:stream).permit(:live_host, :chennal,
+    params.require(:stream).permit(:live_host,
                                    :audio_agree, :qa_link,
                                    :doc_naming, :stream_naming, :youtube_url,
                                    :test_record, :phone_contact,
@@ -237,5 +205,17 @@ class Admin::LivesController < ApplicationController
 
   def active_event
     @live_event = LiveEvent.active_event
+    if @live_event
+      @live_event
+    else
+      flash[:alert] = '目前沒有舉行中的直播活動'
+      redirect_to admin_live_events_path
+    end
+  end
+
+  def active_appointments
+    LiveTimeAppointment.appointments_of_active_event.joins(:stream)
+                       .order('streams.live_host, live_times.start')
+                       .select(&:final_decision)
   end
 end

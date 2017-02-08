@@ -22,63 +22,63 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @lives.each do |live| %>
+		<% @streams.each do |stream| %>
 			<tr>
-				<td><%= live.name %></td>
-				<td><%= (live.live_time.start).strftime("%a %H:%M") %></td>
-				<td><%= live.chennal %></td>
-				<td><%= live.live_host %></td>
+				<td><%= stream.live_time_appointment.live.name %></td>
+				<td><%= (stream.live_time_appointment.live_time.start).strftime("%a %H:%M") %></td>
+				<td><%= stream.live_time_appointment.channel %></td>
+				<td><%= stream.live_host %></td>
 				<td>
-					<% if live.live.fb_url.present? %>
-					<a href="#!" class="copy-link" data-clipboard-text="<%= live.live.fb_url %>">Copy</a>
+					<% if stream.live_time_appointment.live.fb_url.present? %>
+					<a href="#!" class="copy-link" data-clipboard-text="<%= stream.live_time_appointment.live.fb_url %>">Copy</a>
 					<% end %>
 				</td>
-				<td><%= live.live.location %></td>
+				<td><%= stream.live_time_appointment.live.location %></td>
 				<td>
-					<% if live.youtube_url.present? %>
-					<a href="#!" class="copy-link" data-clipboard-text="<%= live.youtube_url %>">Copy</a>
+					<% if stream.youtube_url.present? %>
+					<a href="#!" class="copy-link" data-clipboard-text="<%= stream.youtube_url %>">Copy</a>
 					<% end %>
 				</td>
 				<td>
-					<% if live.audio_agree %>
+					<% if stream.audio_agree %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<% if live.qa_link.present? %>
-					<a href="<%= live.qa_link %>" target="_blank">
+					<% if stream.qa_link.present? %>
+					<a href="<%= stream.qa_link %>" target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
 					</a>
 					<% end %>
 				</td>
 				<td>
-					<% if live.doc_naming.present? %>
-					<a href="#!" class="copy-link" data-clipboard-text="<%= live.doc_naming %>">Copy</a>
+					<% if stream.doc_naming.present? %>
+					<a href="#!" class="copy-link" data-clipboard-text="<%= stream.doc_naming %>">Copy</a>
 					<% end %>
 				</td>
 				<td>
-					<% if live.stream_naming.present? %>
-					<a href="#!" class="copy-link" data-clipboard-text="<%= live.stream_naming %>">Copy</a>
+					<% if stream.stream_naming.present? %>
+					<a href="#!" class="copy-link" data-clipboard-text="<%= stream.stream_naming %>">Copy</a>
 					<% end %>
 				</td>
 				<td>
-					<% if live.in_studio %>
+					<% if stream.in_studio %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<% if live.no_show %>
+					<% if stream.no_show %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<a href="<%= "/admin/live/lh/#{live.id}/edit" %>">
+					<a href="<%= "/admin/live/lh/#{stream.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 				</td>

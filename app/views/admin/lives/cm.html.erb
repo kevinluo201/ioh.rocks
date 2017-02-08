@@ -20,43 +20,43 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @lives.each do |live| %>
+		<% @streams.each do |stream| %>
 			<tr>
-				<td><%= live.name %></td>
-				<td><%= (live.live_time.start).strftime("%a %H:%M") %></td>
-				<td><%= live.chennal %></td>
-				<td><%= live.live_host %></td>
-				<td><%= live.live.location %></td>
+				<td><%= stream.live_time_appointment.live.name %></td>
+				<td><%= (stream.live_time_appointment.live_time.start).strftime("%a %H:%M") %></td>
+				<td><%= stream.live_time_appointment.channel %></td>
+				<td><%= stream.live_host %></td>
+				<td><%= stream.live_time_appointment.live.location %></td>
 				<td>
-					<% if live.youtube_url.present? %>
-					<a href="#!" class="copy-link" data-clipboard-text="<%= live.youtube_url %>">Copy</a>
+					<% if stream.youtube_url.present? %>
+					<a href="#!" class="copy-link" data-clipboard-text="<%= stream.youtube_url %>">Copy</a>
 					<% end %>
 				</td>
 				<td>
-				<% if live.live.ioh_url.present? %>
-					<a href="<%= live.live.ioh_url %>" target="_blank">
+				<% if stream.live_time_appointment.live.ioh_url.present? %>
+					<a href="<%= stream.live_time_appointment.live.ioh_url %>" target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
 					</a>
 				<% end %>
 				</td>
 				<td>
-					<% if live.move_to_part_3 %>
+					<% if stream.move_to_part_3 %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
-				<td><%= live.banner_status %></td>
-				<th><%= live.embed_link_status %></th>
+				<td><%= stream.banner_status %></td>
+				<th><%= stream.embed_link_status %></th>
 				<td>
-					<% if live.paste_survey_link %>
+					<% if stream.paste_survey_link %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<a href="<%= "/admin/live/cm/#{live.id}/edit" %>">
+					<a href="<%= "/admin/live/cm/#{stream.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 				</td>

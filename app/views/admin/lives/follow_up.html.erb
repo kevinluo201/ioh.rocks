@@ -18,41 +18,41 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @lives.each do |live| %>
+		<% @streams.each do |stream| %>
 			<tr>
-				<td><%= live.name %></td>
-				<td><%= (live.live_time.start).strftime("%a %H:%M") %></td>
-				<td><%= live.chennal %></td>
-				<td><%= live.live_host %></td>
-				<td><%= live.live.location %></td>
+				<td><%= stream.live_time_appointment.live.name %></td>
+				<td><%= (stream.live_time_appointment.live_time.start).strftime("%a %H:%M") %></td>
+				<td><%= stream.live_time_appointment.channel %></td>
+				<td><%= stream.live_host %></td>
+				<td><%= stream.live_time_appointment.live.location %></td>
 				<td>
-					<% if live.speaker_screenshot %>
+					<% if stream.speaker_screenshot %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<% if live.video_download %>
+					<% if stream.video_download %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<% if live.youtube_naming.present? %>
-					<a href="#!" class="copy-link" data-clipboard-text="<%= live.youtube_naming %>">Copy</a>
+					<% if stream.youtube_naming.present? %>
+					<a href="#!" class="copy-link" data-clipboard-text="<%= stream.youtube_naming %>">Copy</a>
 					<% end %>
 				</td>
 				<td>
-					<% if live.save_to_hard_drive %>
+					<% if stream.save_to_hard_drive %>
 						<span class="glyphicon glyphicon-ok" style="color: green;"></span>
 					<% else %>
 						<span class="glyphicon glyphicon-remove" style="color: red;"></span>
 					<% end %>
 				</td>
 				<td>
-					<a href="<%= "/admin/live/follow_up/#{live.id}/edit" %>">
+					<a href="<%= "/admin/live/follow_up/#{stream.id}/edit" %>">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 				</td>

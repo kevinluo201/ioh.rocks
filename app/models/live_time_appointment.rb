@@ -6,7 +6,7 @@ class LiveTimeAppointment < ActiveRecord::Base
   after_create :make_a_stream
 
   def self.appointments_of_active_event
-    joins(:live_time).where('live_times.live_event_id' => LiveEvent.active_event.id)
+    includes(:live_time, :live).joins(:live_time).where('live_times.live_event_id' => LiveEvent.active_event.id)
   end
 
   private

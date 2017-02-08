@@ -4,7 +4,7 @@ class CreateLiveTimeAppointments < ActiveRecord::Migration
       t.belongs_to :live, index: true
       t.belongs_to :live_time, index: true
       t.boolean :final_decision
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

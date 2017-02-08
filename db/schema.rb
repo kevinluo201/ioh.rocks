@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207062654) do
+ActiveRecord::Schema.define(version: 20170208022643) do
 
   create_table "live_departments", force: :cascade do |t|
     t.string  "name",      limit: 255
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20170207062654) do
     t.boolean  "final_decision"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "channel",        limit: 255
   end
 
   add_index "live_time_appointments", ["live_id"], name: "index_live_time_appointments_on_live_id", using: :btree

@@ -7,21 +7,17 @@ class Api::LiveController < ApplicationController
   after_filter :cors_set_access_control_headers
 
   def schedule
-  	streams = Stream.all.select("name, chennal as channel, live_time_id as time_id, live_id")
-  									.order("time_id")
-
-  	data = []
-  	streams.each do |stream|
-  		item = {}
-  		item['name'] = stream.name
-  		item['channel'] = stream.channel
-  		item['time_id'] = stream.time_id
-  		item['school'] = stream.live.school if stream.live
-  		item['department'] = stream.live.department if stream.live
-      item['user_id'] = stream.live.id if stream.live
-
-  		data.push item
-  	end
+    appointments = LiveTimeAppointment.appointments_of_active_event.select(&:final_decision)
+    data = appointments.map do |app|
+              {
+                name: app.live.name,
+                channel: app.channel,
+                time_id: app.live_time.id,
+                school: app.live.school,
+                department: app.live.department,
+                user_id: app.live.id
+              }
+            end
 
   	render :json => data
   end
@@ -29,43 +25,19 @@ class Api::LiveController < ApplicationController
   def update_stream
   	data = params[:postData]
 
-  	# delete all data
-  	Stream.delete_all
+    # cancel all final_decision appointments
+    LiveTimeAppointment.appointments_of_active_event.update_all(final_decision: false)
 
-  	# Stream.connection.execute('ALTER TABLE `streams` AUTO_INCREMENT = 1;')
-  	data.each_value do |item|
-  		stream = Stream.new
-
-  		stream.name = item['name'] if item['name']
-  		stream.chennal = item['channel']
-  		stream.live_time = LiveTime.find(item['time_id'].to_i)
-  		stream.live = Live.find_by_name(stream.name)
-
-  		stream.save
-  	end
-
-  	# if Stream.first.nil?
-	  # 	data.each_value do |item|
-	  # 		stream = Stream.new
-
-	  # 		stream.name = item['name'] if item['name']
-	  # 		stream.chennal = item['channel']
-	  # 		stream.live_time = LiveTime.find(item['time_id'].to_i)
-	  # 		stream.live = Live.find_by_name(stream.name)
-
-	  # 		stream.save
-	  # 	end
-  	# else
-  	# 	data.each_value do |item|
-	  # 		stream = Stream.where("chennal = ? AND live_time_id = ?", item['channel'], item['time_id'].to_i).first
-
-	  # 		stream.name = item['name']
-	  # 		stream.live = Live.find_by_name(stream.name)
-
-	  # 		stream.save
-	  # 	end
-  	# end
-
+    data.each_value do |item|
+      if item['name']
+        live_id = Live.where(name: item['name']).first.id
+        app = LiveTimeAppointment.where(live_time_id: item['time_id'].to_i,
+                                        live_id: live_id).first
+        app.channel = item['channel']
+        app.final_decision = true
+        app.save
+      end
+    end
 
   	render :json => { status: "success" }
   end
@@ -111,22 +83,6 @@ class Api::LiveController < ApplicationController
 			end
 		end
 
-		# data = []
-
-		# lives.each do |live|
-		# 	data_item = {}
-
-		# 	data_item[:title] = live.title
-		# 	data_item[:school] = /[\S]+$/.match(live.school)[0]
-		# 	data_item[:department] = /[\S]+$/.match(live.department)[0]
-		# 	data_item[:start] = live.start
-		# 	data_item[:end] = live.end
-		# 	data_item[:user_id] = live.user_id
-		# 	data_item[:time_id] = live.time_id
-
-		# 	data.push data_item
-		# end
-
 		respond_to do |format|
 			format.json { render json: data }
 		end
@@ -155,33 +111,19 @@ class Api::LiveController < ApplicationController
 	def live
 
 		order = params[:order]
-		data = []
-
-		# lives = Live.joins(:live_department, :live_school, :live_times)
-		# 				    .select("lives.name, lives.ioh_url,
-		# 				   					 live_departments.name as department,
-		# 				   					 live_schools.name as school,
-		# 				   					 live_times.start as start,
-		# 				   					 live_times.end as end")
-		# 				    .order("start, school")
-
-		streams = Stream.joins(:live_time, :live)
-		              .select("streams.name,
-		              				 streams.live_id,
-		              				 live_times.start as start")
-		              .order("start")
-
-		streams.each do |stream|
-			data_item = {}
-
-			data_item[:name] = stream.name
-			data_item[:school] = stream.live.school
-			data_item[:department] = stream.live.department
-			data_item[:start] = stream.start
-			data_item[:link] = stream.live.ioh_url
-
-			data.push data_item
-		end
+    appointments = LiveTimeAppointment.appointments_of_active_event
+                                      .select(&:final_decision)
+                                      .sort { |a, b| a.live_time.start <=> b.live_time.start }
+    data = appointments.map do |app|
+              {
+                name: app.live.name,
+                channel: app.channel,
+                school: app.live.school,
+                department: app.live.department,
+                start: app.live_time.start,
+                link: app.live.ioh_url
+              }
+            end
 
 		respond_to do |format|
 			format.json { render json: data }

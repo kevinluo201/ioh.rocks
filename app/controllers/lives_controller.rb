@@ -31,13 +31,14 @@ class LivesController < ApplicationController
 	end
 
 	def success
-		@live_event = LiveEvent.where(active: true).first
+		@live_event = LiveEvent.active_event
 	end
 
 	private
 
 	def live_params
 		params.require(:live).permit(:name, :gmail, :fb_url, :feedback, :school, :department,
-																 :phone, :stream_201602, :location, { live_time_ids: [] })
+																 :phone, :stream_201602, :location, :was_on_ioh,
+																 { live_time_ids: [] })
 	end
 end

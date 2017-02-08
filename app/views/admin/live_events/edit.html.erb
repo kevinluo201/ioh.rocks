@@ -1,4 +1,5 @@
 <%= simple_form_for @live_event, url: admin_live_event_path do |f| %>
+  <%= f.input :signup_end, label: 'Signup deadline' %>
   <%= f.input :active, label: '舉辦中？' %>
   <%= f.button :submit %>
 <% end %>

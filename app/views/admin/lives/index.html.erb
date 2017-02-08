@@ -16,6 +16,7 @@
 				<th>gmail</th>
 				<th>學校</th>
 				<th>科系</th>
+				<th>ioh講者?</th>
 				<th>直播地點</th>
 				<th>FB</th>
 				<th>電話</th>
@@ -30,13 +31,14 @@
 				<td><%= live.gmail %></td>
 				<td><%= live.school %></td>
 				<td><%= live.department %></td>
+				<td><%= live.was_on_ioh ? 'Yes' : 'No' %></td>
 				<td><%= live.location %></td>
-				<th>
+				<td>
 					<% if live.fb_url.present? %>
 					<a href="#" class="copy-link" data-clipboard-text="<%= live.fb_url %>">Copy</a>
 					<% end %>
-				</th>
-				<th><%= live.phone %></th>
+				</td>
+				<td><%= live.phone %></td>
 				<td><%= live.live_times.count %></td>
 				<td>
 					<a href="<%= "/admin/live/#{live.id}/edit" %>">

@@ -17,6 +17,7 @@ Live.blueprint do
   fb_url { Faker::Name.name }
   phone { Faker::PhoneNumber.cell_phone }
   location { Faker::GameOfThrones.city }
+  was_on_ioh { true }
 end
 
 LiveEvent.blueprint do

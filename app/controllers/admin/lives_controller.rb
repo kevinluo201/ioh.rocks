@@ -1,7 +1,7 @@
 class Admin::LivesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_admin
-  before_action :active_event, only: [:index, :new, :lh, :cm, :follow_up, :agenda]
+  before_action :active_event, only: [:index, :new, :lh, :cm, :follow_up, :agenda, :create]
 
   def new_school
   end
@@ -52,15 +52,15 @@ class Admin::LivesController < ApplicationController
   end
 
   def create
-    @live = Live.new(live_params)
+    @live = Live.find_or_initialize_by(live_params)
 
     if @live.save
       @live.time_count = @live.live_times.count
       @live.save
       redirect_to admin_live_view_path
     else
-      render :new
       flash.now[:alert] = @live.errors.full_messages
+      render :new
     end
   end
 

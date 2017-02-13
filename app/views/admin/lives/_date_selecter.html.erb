@@ -2,7 +2,7 @@
 
 <% dates_with_index = local[:dates].zip((1..local[:dates].count)) %>
   <%= label_tag :day, "選擇日期" %>
-  <%= select_tag :day, options_for_select([["全部", 0]] + dates_with_index, params[:day]) %>
+  <%= select_tag :day, options_for_select([["全部", 0]] + dates_with_index, @day) %>
 
 
   <%= submit_tag "Go!", class: "btn btn-success" %>

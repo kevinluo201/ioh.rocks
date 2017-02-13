@@ -2,6 +2,7 @@ class Admin::LivesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_admin
   before_action :active_event, only: [:index, :new, :lh, :cm, :follow_up, :agenda]
+  before_action :select_streams, only: [:lh, :cm, :follow_up]
 
   def new_school
   end
@@ -65,29 +66,11 @@ class Admin::LivesController < ApplicationController
   end
 
   def lh
-    day = params[:day] || '0'
 
-    @appointments = active_appointments
-
-    if day != '0'
-      date = LiveEvent.active_event.period.map {|x| x }[day.to_i - 1]
-      @appointments.select! { |x| x.live_time.start.to_date == date }
-    end
-
-    @streams = @appointments.map { |a| a.stream }
   end
 
   def cm
-    day = params[:day] || '0'
 
-    @appointments = active_appointments
-
-    if day != '0'
-      date = LiveEvent.active_event.period.map {|x| x }[day.to_i - 1]
-      @appointments.select! { |x| x.live_time.start.to_date == date }
-    end
-
-    @streams = @appointments.map { |a| a.stream }
   end
 
   def cm_edit
@@ -127,16 +110,7 @@ class Admin::LivesController < ApplicationController
   end
 
   def follow_up
-    day = params[:day] || '0'
 
-    @appointments = active_appointments
-
-    if day != '0'
-      date = LiveEvent.active_event.period.map {|x| x }[day.to_i - 1]
-      @appointments.select! { |x| x.live_time.start.to_date == date }
-    end
-
-    @streams = @appointments.map { |a| a.stream }
   end
 
   def follow_up_edit
@@ -217,5 +191,19 @@ class Admin::LivesController < ApplicationController
     LiveTimeAppointment.appointments_of_active_event.joins(:stream)
                        .order('streams.live_host, live_times.start')
                        .select(&:final_decision)
+  end
+
+  def select_streams
+    @day = params[:day] || session[:day] || '0'
+    session[:day] = @day
+
+    @appointments = active_appointments
+
+    if @day != '0'
+      date = LiveEvent.active_event.period.map {|x| x }[@day.to_i - 1]
+      @appointments.select! { |x| x.live_time.start.to_date == date }
+    end
+
+    @streams = @appointments.map { |a| a.stream }
   end
 end

@@ -109,7 +109,6 @@ class Api::LiveController < ApplicationController
 	end
 
 	def live
-
 		order = params[:order]
     appointments = LiveTimeAppointment.appointments_of_active_event
                                       .select(&:final_decision)
@@ -145,7 +144,7 @@ class Api::LiveController < ApplicationController
 
 		#get department 2
 		LiveDepartment.where(dep_class: 2).order(:name).each do |dep|
-      data[:department_one] << dep.name
+      data[:department_two] << dep.name
     end
 		#get time
 		times = LiveEvent.active_event.live_times.order(:start)

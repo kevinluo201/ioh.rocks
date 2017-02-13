@@ -38,7 +38,7 @@ class Admin::LivesController < ApplicationController
   end
 
   def index
-    @lives = Live.active_lives
+    @lives = Live.active_lives.sort {|a, b| b.created_at <=> a.created_at}
 
     if params[:query]
       @lives = Live.where("name LIKE ?", "%#{params[:query]}%")

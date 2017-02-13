@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170208161750) do
+ActiveRecord::Schema.define(version: 20170213024836) do
 
   create_table "live_departments", force: :cascade do |t|
     t.string  "name",      limit: 255
@@ -84,6 +84,14 @@ ActiveRecord::Schema.define(version: 20170208161750) do
 
   add_index "lives", ["live_department_id"], name: "index_lives_on_live_department_id", using: :btree
   add_index "lives", ["live_school_id"], name: "index_lives_on_live_school_id", using: :btree
+
+  create_table "lives_live_events", force: :cascade do |t|
+    t.integer "live_id",       limit: 4
+    t.integer "live_event_id", limit: 4
+  end
+
+  add_index "lives_live_events", ["live_event_id"], name: "index_lives_live_events_on_live_event_id", using: :btree
+  add_index "lives_live_events", ["live_id"], name: "index_lives_live_events_on_live_id", using: :btree
 
   create_table "posters", force: :cascade do |t|
     t.integer  "user_id",             limit: 4

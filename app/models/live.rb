@@ -3,6 +3,7 @@ class Live < ActiveRecord::Base
 	belongs_to :live_department
 	has_many :live_time_appointments, dependent: :destroy
 	has_many :live_times, through: :live_time_appointments
+	has_and_belongs_to_many :live_events
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :gmail, presence: true, length: { maximum: 255 },

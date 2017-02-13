@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170208161750) do
+ActiveRecord::Schema.define(version: 20170213042439) do
+
+  create_table "ioh_urls", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "school",     limit: 255
+    t.string   "ioh_url",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "live_departments", force: :cascade do |t|
     t.string  "name",      limit: 255
@@ -28,6 +36,14 @@ ActiveRecord::Schema.define(version: 20170208161750) do
     t.datetime "updated_at",           null: false
     t.integer  "channels",   limit: 4
   end
+
+  create_table "live_events_lives", force: :cascade do |t|
+    t.integer "live_id",       limit: 4
+    t.integer "live_event_id", limit: 4
+  end
+
+  add_index "live_events_lives", ["live_event_id"], name: "index_live_events_lives_on_live_event_id", using: :btree
+  add_index "live_events_lives", ["live_id"], name: "index_live_events_lives_on_live_id", using: :btree
 
   create_table "live_schools", force: :cascade do |t|
     t.string "name", limit: 255

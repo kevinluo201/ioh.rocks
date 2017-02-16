@@ -120,7 +120,9 @@ class Api::LiveController < ApplicationController
                 school: app.live.school,
                 department: app.live.department,
                 start: app.live_time.start,
-                link: app.live.ioh_url
+                link: app.live.ioh_url,
+                # time_id is for sorting in ioh.tw/live
+                time_id: app.live_time.id
               }
             end
 

@@ -132,20 +132,21 @@ class Api::LiveController < ApplicationController
 	def basic_data
 		data = { school: [], department_one: [], department_two: [], time: [] }
 
-		# get school
-    LiveSchool.order(:name).each do |school|
-      data[:school] << school.name
+    Live.active_lives.each do |live|
+      data[:school] << live.school
+      department = LiveDepartment.where(name: live.department).first
+      if department && department.dep_class == 2
+        data[:department_two] << department.name
+      else
+        data[:department_one] << live.department
+      end
     end
 
-		#get department 1
-		LiveDepartment.where(dep_class: 1).order(:name).each do |dep|
-      data[:department_one] << dep.name
+    [:school, :department_one, :department_two].each do |t|
+      data[t].uniq!
+      data[t].sort!
     end
 
-		#get department 2
-		LiveDepartment.where(dep_class: 2).order(:name).each do |dep|
-      data[:department_two] << dep.name
-    end
 		#get time
 		times = LiveEvent.active_event.live_times.order(:start)
 

@@ -25,4 +25,5 @@ LiveEvent.blueprint do
   end_date { Date.today + 2.days }
   signup_end { Date.today }
   channels { 5 }
+  active { false }
 end

@@ -22,4 +22,11 @@ class Live < ActiveRecord::Base
 		LiveEvent.active_event.live_times.inject([]) { |ary, t| ary << t.lives }.
 							flatten.uniq.sort { |a, b| a.name <=> b.name }
 	end
+
+	# select past lives
+	def self.inactive_lives
+		lives = []
+		LiveEvent.where(active: false).each { |e| lives << e.lives }
+		lives.flatten.uniq
+	end
 end

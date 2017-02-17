@@ -3,7 +3,7 @@ class Admin::LiveEventsController < ApplicationController
   before_action :check_admin
 
   def index
-    @live_events = LiveEvent.all
+    @live_events = LiveEvent.order(:start_date)
   end
 
   def new

@@ -710,12 +710,19 @@ https://ioh.tw/talks/%E6%9D%B1%E5%90%B3%E5%A4%A7%E5%AD%B8%E4%B8%AD%E6%96%87%E7%B
 https://ioh.tw/talks/%E4%B8%AD%E8%8F%AF%E5%A4%A7%E5%AD%B8%E7%87%9F%E5%BB%BA%E7%AE%A1%E7%90%86%E5%AD%B8%E7%B3%BB-%E8%8E%8A%E6%86%B6-chuang-yi-tw-study-chu-bde/)
 ).each do |live|
   live.flatten!
-  Live.create(
-    name: live[0],
-    school: live[1],
-    department: live[2],
-    phone: live[3],
-    gmail: live[4],
-    ioh_url: live[5],
-    live_events: [event])
+
+  lv = Live.where(name: live[0]).first
+  if lv
+    lv.live_events << event
+    lv.save
+  else
+    Live.create(
+      name: live[0],
+      school: live[1],
+      department: live[2],
+      phone: live[3],
+      gmail: live[4],
+      ioh_url: live[5],
+      live_events: [event])
+  end
 end

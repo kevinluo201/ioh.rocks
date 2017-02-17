@@ -122,6 +122,7 @@ class Api::LiveController < ApplicationController
                 start: app.live_time.start,
                 link: app.live.ioh_url,
                 # time_id is for sorting in ioh.tw/live
+                # it's a tricky way that live_time.id may not being ordered by time
                 time_id: app.live_time.id
               }
             end
@@ -134,7 +135,10 @@ class Api::LiveController < ApplicationController
 	def basic_data
 		data = { school: [], department_one: [], department_two: [], time: [] }
 
-    Live.active_lives.each do |live|
+    # params['past'] indicates that to get all lives in the past events
+    lives = params['past'] ? Live.inactive_lives : Live.active_lives
+
+    lives.each do |live|
       data[:school] << live.school
       department = LiveDepartment.where(name: live.department).first
       if department && department.dep_class == 2

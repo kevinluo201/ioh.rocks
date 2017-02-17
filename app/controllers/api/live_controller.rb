@@ -153,16 +153,19 @@ class Api::LiveController < ApplicationController
       data[t].sort!
     end
 
-		#get time
-		times = LiveEvent.active_event.live_times.order(:start)
+    #only lives in active event need the time info
+    if !params['past']
+  		#get time
+  		times = LiveEvent.active_event.live_times.order(:start)
 
-		times.each do |time|
-			item = {}
+  		times.each do |time|
+  			item = {}
 
-			item[:time] = time.start
-			item[:over] = Time.now > time.end
-			data[:time].push item
-		end
+  			item[:time] = time.start
+  			item[:over] = Time.now > time.end
+  			data[:time].push item
+  		end
+    end
 
 		respond_to do |format|
 			format.json { render json: data }

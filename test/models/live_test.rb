@@ -7,8 +7,7 @@ class LiveTest < ActiveSupport::TestCase
     event3 = LiveEvent.make!
 
     [event1, event2, event3].each do |e|
-      3.times { e.lives << Live.make! }
-      e.save
+      3.times { Live.make!(live_times: [e.live_times.first]) }
     end
 
     assert_equal 6, Live.inactive_lives.count

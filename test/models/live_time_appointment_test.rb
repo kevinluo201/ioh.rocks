@@ -26,4 +26,11 @@ class LiveTimeAppointmentTest < ActiveSupport::TestCase
 
     assert_equal Stream.count, sum_of_stream
   end
+
+  test "connect live and event directly" do
+    event = LiveEvent.make!
+
+    5.times { |t| Live.make!(live_times: [event.live_times[t]]) }
+    assert_equal 5, event.lives.count
+  end
 end

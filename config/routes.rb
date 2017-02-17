@@ -82,6 +82,9 @@ Rails.application.routes.draw do
 		# ioh 時刻表
 		patch "/live/" => "live#update_stream"
 		get "/live/schedule" => "live#schedule"
+
+    # past lives
+    get "past_lives" => "live#past_lives"
   end
 
   get "/lives/success" => "lives#success"

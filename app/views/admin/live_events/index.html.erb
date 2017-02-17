@@ -16,7 +16,6 @@
       <td><%= event[:active] ? 'Yes' : 'No' %></td>
       <td>
         <%= link_to '修改', edit_admin_live_event_path(event['id']), class: 'btn' %>
-        <%= link_to '刪除', admin_live_event_path(event['id']), method: :delete, data: {confirm: "確定刪除?"}, class: 'btn btn-danger' %>
       </td>
     </tr>
   <% end %>

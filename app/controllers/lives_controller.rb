@@ -15,7 +15,7 @@ class LivesController < ApplicationController
 
 	def create
 		@live = Live.find_or_initialize_by(gmail: live_params['gmail'])
-		@live.assign_attributes(live_params) if @live.new_record?
+		@live.assign_attributes(live_params)
 		@live.live_times = LiveTime.where(id: live_params['live_time_ids'])
 
 		if @live.save

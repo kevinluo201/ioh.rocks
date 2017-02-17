@@ -9,6 +9,7 @@ class LiveEvent < ActiveRecord::Base
   end
 
   has_many :live_times, dependent: :destroy
+  has_and_belongs_to_many :lives, class_name: "Live"
 
   # find the only one active_event and eager load other information
   def self.active_event

@@ -3,14 +3,15 @@ class Live < ActiveRecord::Base
 	belongs_to :live_department
 	has_many :live_time_appointments, dependent: :destroy
 	has_many :live_times, through: :live_time_appointments
+	has_and_belongs_to_many :live_events
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :gmail, presence: true, length: { maximum: 255 },
 										format: { with: VALID_EMAIL_REGEX },
 										uniqueness: { case_sensitive: false }
 
-	validates :name, presence: true, uniqueness: { case_sensitive: false }
-	validates :fb_url, :phone, :location, :school, :department, presence: true
+	validates :name, presence: true
+	validates :phone, :school, :department, presence: true
 
 	before_save do
 		self.title = self.name
@@ -20,5 +21,12 @@ class Live < ActiveRecord::Base
 	def self.active_lives
 		LiveEvent.active_event.live_times.inject([]) { |ary, t| ary << t.lives }.
 							flatten.uniq.sort { |a, b| a.name <=> b.name }
+	end
+
+	# select past lives
+	def self.inactive_lives
+		lives = []
+		LiveEvent.where(active: false).each { |e| lives << e.lives }
+		lives.flatten.uniq
 	end
 end

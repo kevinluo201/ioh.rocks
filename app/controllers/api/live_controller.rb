@@ -165,6 +165,22 @@ class Api::LiveController < ApplicationController
 		end
 	end
 
+  def past_lives
+    lives = Live.inactive_lives.sort { |a, b| a.name <=> b.name }
+    data = lives.map do |live|
+              {
+                name: live.name,
+                school: live.school,
+                department: live.department,
+                link: live.ioh_url
+              }
+            end
+
+    respond_to do |format|
+      format.json { render json: data }
+    end
+  end
+
 	def test
 		@lives = Talk.all
 
